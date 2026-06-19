@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hospital-ERP-Backend.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc857b3a130370dbf2c74ad50828e08686d7be2c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c675f616eee9431a60acc58ff3d7d525181bf6c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hospital-ERP-Backend.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hospital-ERP-Backend.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
