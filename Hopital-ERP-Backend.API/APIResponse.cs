@@ -1,4 +1,4 @@
-﻿namespace Hopital_ERP_Backend.API
+﻿namespace Hospital_ERP_Backend.API
 {
     public class ApiResponse<T>
     {

@@ -29,4 +29,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hospital-ERP-Backend.Application\Hospital-ERP-Backend.Application.csproj" />
+  </ItemGroup>
+
 </Project>
