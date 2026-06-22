@@ -2,7 +2,7 @@
 using System.Security.Authentication;
 using System.Text.Json;
 
-namespace Hopital_ERP_Backend.API.Middleware
+namespace Hospital_ERP_Backend.API.Middleware
 {
     public class GlobalExceptionMiddleware
     {
