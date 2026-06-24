@@ -1,10 +1,10 @@
 ﻿
 namespace Hospital_ERP_Backend.Domain.Interfaces.Base
 {
-    public interface IBaseCommandRepository<Entity, DTOCreate, DTOUpdate>
+    public interface IBaseCommandRepository<Entity>
     {
-        Task<Entity> CreateAsync(DTOCreate entity);
-        Task<Entity> UpdateAsync(DTOUpdate entity);
+        Task<Entity?> CreateAsync(Entity entity);
+        Task<Entity?> UpdateAsync(Entity entity);
         Task<bool> DeleteAsync(int id);
     }
 }
