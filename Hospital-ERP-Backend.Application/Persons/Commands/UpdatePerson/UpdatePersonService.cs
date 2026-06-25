@@ -37,7 +37,7 @@ namespace Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson
             existingPerson.Gender = request.Gender;
             existingPerson.Phone = request.Phone;
             existingPerson.Address = request.Address;
-
+            existingPerson.UpdatedAt = DateTime.Now;
 
             Person result = (await _iPerson.UpdateAsync(existingPerson))!;
             return new UpdatePersonResponse
@@ -50,5 +50,5 @@ namespace Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson
                 Address = result.Address
             };
         }
-}
+    }
 }

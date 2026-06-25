@@ -1,4 +1,5 @@
 using Hopital_ERP_Backend.API.Extensions.Configuration;
+using Hopital_ERP_Backend.API.Filters;
 using Hospital_ERP_Backend.API.Extensions;
 using Hospital_ERP_Backend.API.Middleware;
 
@@ -7,7 +8,10 @@ builder.Services.AddSettingConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<DefaultResponsesOperationFilter>();
+});
 
 builder.Services.AddAPIServiceExtension(builder.Configuration);
 

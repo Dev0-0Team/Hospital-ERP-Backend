@@ -6,7 +6,7 @@ namespace Hospital_ERP_Backend.Application.Persons.Queries.GetAllPersons
         public int Id { get; set; } 
         public string FullName { get; set; } = null!;
 
-        public DateOnly Dob { get; set; }
+        public DateTime Dob { get; set; }
 
         public string Gender { get; set; } = null!;
 

@@ -4,7 +4,7 @@ public partial class Person : BaseEntity
 {
     public string FullName { get; set; } = null!;
 
-    public DateOnly Dob { get; set; }
+    public DateTime Dob { get; set; }
 
     public string Gender { get; set; } = null!;
 
