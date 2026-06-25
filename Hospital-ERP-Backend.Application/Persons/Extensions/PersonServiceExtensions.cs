@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Persons.Commands.CreatePerson;
+using Hospital_ERP_Backend.Application.Persons.Commands.DeletePerson;
+using Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson;
+using Hospital_ERP_Backend.Application.Persons.Queries.GetAllPersons;
+using Hospital_ERP_Backend.Application.Persons.Queries.GetPerson;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Hospital_ERP_Backend.Application.Persons.Extensions
 {
@@ -11,7 +13,17 @@ namespace Hospital_ERP_Backend.Application.Persons.Extensions
     {
         public static IServiceCollection AddPersonServicesExtension(this IServiceCollection Services)
         {
+            Services.AddScoped<IValidator<CreatePersonRequest>, CreatePersonValidator>();
+            Services.AddScoped<IValidator<UpdatePersonRequest>, UpdatePersonValidator>();
+            Services.AddScoped<IValidator<DeletePersonRequest>, DeletePersonValidator>();
+            Services.AddScoped<IValidator<GetPersonRequest>, GetPersonValidator>();
+            Services.AddScoped<IValidator<GetAllPersonsRequest>, GetAllPersonsValidator>();
 
+            Services.AddScoped<CreatePersonService>();
+            Services.AddScoped<UpdatePersonService>();
+            Services.AddScoped<DeletePersonService>();
+            Services.AddScoped<GetPersonService>();
+            Services.AddScoped<GetAllPersonsService>();
             return Services;
         }
     }
