@@ -46,8 +46,9 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             {
                 return false;
             }
-
-            _dbContext.Persons.Remove(person);
+            person.IsDeleted = true;
+            person.DeletedAt = DateTime.Now;
+            await _dbContext.SaveChangesAsync();
 
             return await _dbContext.SaveChangesAsync() > 0;
         }
