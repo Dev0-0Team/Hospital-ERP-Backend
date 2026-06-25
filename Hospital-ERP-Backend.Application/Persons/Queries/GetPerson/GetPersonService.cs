@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Persons.Queries.GetAllPersons;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 
