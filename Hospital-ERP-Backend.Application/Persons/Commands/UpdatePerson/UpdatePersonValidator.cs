@@ -17,7 +17,7 @@ namespace Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson
 
             // Date of Birth
             RuleFor(x => x.Dob)
-                .LessThan(DateOnly.FromDateTime(DateTime.Today))
+                .LessThan(DateTime.Today)
                 .WithMessage("Date of birth must be in the past");
 
             // Gender
