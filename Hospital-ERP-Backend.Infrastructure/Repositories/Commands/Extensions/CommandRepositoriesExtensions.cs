@@ -10,6 +10,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Extensions
         public static IServiceCollection AddCommandRepositoriesExtension(this IServiceCollection Services)
         {
             Services.AddScoped<IBaseCommandRepository<Person>, PersonCommandRepository>();
+            Services.AddScoped<IBaseCommandRepository<Role>, RoleCommandRepository>();
             return Services;
         }
     }

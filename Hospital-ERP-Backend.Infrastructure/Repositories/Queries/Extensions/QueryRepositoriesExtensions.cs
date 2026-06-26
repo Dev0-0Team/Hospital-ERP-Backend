@@ -10,6 +10,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
         public static IServiceCollection AddQueryRepositoriesExtension(this IServiceCollection Services)
         {
             Services.AddScoped<IBaseQueryRepository<Person>, PersonQueryRepository>();
+            Services.AddScoped<IBaseQueryRepository<Role>, RoleQueryRepository>();
             return Services;
         }
     }
