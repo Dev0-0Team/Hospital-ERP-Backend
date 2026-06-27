@@ -31,7 +31,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
             // Address (optional)
             RuleFor(x => x.Address)
                 .MaximumLength(250)
-                .When(x => x.Address != null);
+                .When(x => x.Address != null)
+                .WithMessage("Address must be at most 250 characters long");
         }
 
         private bool BeValidGender(string gender)
