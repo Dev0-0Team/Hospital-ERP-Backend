@@ -20,7 +20,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole
         public async Task<GetRoleResponse> GetRoleAsync(GetRoleRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
@@ -38,4 +38,4 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole
         }
     }
 }
-}
+
