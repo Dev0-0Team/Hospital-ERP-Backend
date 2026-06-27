@@ -19,7 +19,7 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPerson
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             var persons = await _iPerson.GetAllAsync(request.page);
             return persons.Select(p => new GetAllPersonsResponse
