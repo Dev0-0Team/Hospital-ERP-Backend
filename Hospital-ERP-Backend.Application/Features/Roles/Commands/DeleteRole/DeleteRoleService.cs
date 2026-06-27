@@ -34,7 +34,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
             }
             var isDeleted = await _iRole.DeleteAsync(role.Id);
             return isDeleted;
-        }>
+        }
 
     }
 }
