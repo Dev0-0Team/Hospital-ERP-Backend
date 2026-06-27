@@ -17,13 +17,13 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
             _iQueryPerson = iQueryPerson;
         }
 
-        public async Task<CreatePersonResponse> CreateAsync(CreatePersonRequest request)
+        public async Task<CreatePersonResponse> CreatePersonAsync(CreatePersonRequest request)
         {
             // Validate the request
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
             Person createPerson = new Person
@@ -35,7 +35,12 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
                 Address = request.Address
             };
 
-            Person result = (await _iPerson.CreateAsync(createPerson))!;
+            Person? result = await _iPerson.CreateAsync(createPerson);
+            if (result == null)
+            {
+                throw new InvalidOperationException("Failed to create person.");
+            }
+
             return new CreatePersonResponse
             {
                 Id = result.Id,

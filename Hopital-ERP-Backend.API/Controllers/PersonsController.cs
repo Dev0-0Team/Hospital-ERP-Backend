@@ -58,7 +58,7 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreatePersonResponse>>> CreateAsync([FromBody] CreatePersonRequest request)
         {
 
-            var success = await _createPerson.CreateAsync(request);
+            var success = await _createPerson.CreatePersonAsync(request);
             return CreatedAtRoute("GetPersonByID", new { ID = success!.Id }, success);
         }
 
