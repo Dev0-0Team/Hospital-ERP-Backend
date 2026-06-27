@@ -24,7 +24,7 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             // Retrieve the existing person from the database
             Person? existingPerson = await _iQueryPerson.GetAsync(request.Id);
@@ -39,7 +39,13 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
             existingPerson.Address = request.Address;
             existingPerson.UpdatedAt = DateTime.Now;
 
-            Person result = (await _iPerson.UpdateAsync(existingPerson))!;
+            Person? result = await _iPerson.UpdateAsync(existingPerson);
+
+            if (result == null)
+            {
+                throw new KeyNotFoundException($"Person with Id {request.Id} not found.");
+            }
+
             return new UpdatePersonResponse
             {
                 Id = result.Id,
