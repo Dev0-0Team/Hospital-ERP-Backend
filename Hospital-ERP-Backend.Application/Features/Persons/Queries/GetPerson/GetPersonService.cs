@@ -21,13 +21,13 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             var person = await _iPerson.GetAsync(request.Id);
 
             if (person == null)
             {
-                throw new KeyNotFoundException("Not Found!");
+                throw new KeyNotFoundException($"Person with Id {request.Id} not found.");
             }
 
             return new GetPersonResponse
@@ -40,6 +40,5 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson
                 Address = person.Address
             };
         }
-
     }
 }
