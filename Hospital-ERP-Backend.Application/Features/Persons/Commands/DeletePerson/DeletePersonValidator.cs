@@ -7,7 +7,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerso
     {
         public DeletePersonValidator() 
         {
-            RuleFor(x => x.Id).GreaterThanOrEqualTo(1);
+            RuleFor(x => x.Id).GreaterThan(0)
+                .WithMessage("Id must be greater than 0.");
         }
     }
 }
