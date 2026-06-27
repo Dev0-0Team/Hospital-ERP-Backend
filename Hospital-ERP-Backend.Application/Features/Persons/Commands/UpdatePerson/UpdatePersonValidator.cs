@@ -13,7 +13,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
             // Full Name
             RuleFor(x => x.FullName)
                 .NotEmpty()
-                .MaximumLength(255);
+                .MaximumLength(255)
+                .WithMessage("Full name must not exceed 255 characters");
 
             // Date of Birth
             RuleFor(x => x.Dob)
@@ -35,7 +36,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
             // Address (optional)
             RuleFor(x => x.Address)
                 .MaximumLength(250)
-                .When(x => x.Address != null);
+                .When(x => x.Address != null)
+                .WithMessage("Address must not exceed 250 characters");
         }
 
         private bool BeValidGender(string gender)

@@ -9,7 +9,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
             // Full Name
             RuleFor(x => x.FullName)
                 .NotEmpty()
-                .MaximumLength(255);
+                .MaximumLength(255)
+                .WithMessage("Full name must not exceed 255 characters");
 
             // Date of Birth
             RuleFor(x => x.Dob)
