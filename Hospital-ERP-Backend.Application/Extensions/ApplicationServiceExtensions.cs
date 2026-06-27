@@ -1,6 +1,6 @@
 ﻿
 
-using Hospital_ERP_Backend.Application.Persons.Extensions;
+using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital_ERP_Backend.Application.Extensions

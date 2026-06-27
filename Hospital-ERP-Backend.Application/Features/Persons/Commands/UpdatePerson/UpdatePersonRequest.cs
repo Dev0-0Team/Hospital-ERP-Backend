@@ -1,17 +1,12 @@
-﻿
-namespace Hospital_ERP_Backend.Application.Persons.Queries.GetAllPersons
+﻿namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
-    public record GetAllPersonsResponse
+    public record UpdatePersonRequest
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string FullName { get; set; } = null!;
-
         public DateTime Dob { get; set; }
-
         public string Gender { get; set; } = null!;
-
         public string Phone { get; set; } = null!;
-
         public string? Address { get; set; }
     }
 }

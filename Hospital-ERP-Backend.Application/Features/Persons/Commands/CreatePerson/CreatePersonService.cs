@@ -1,11 +1,8 @@
-﻿
-using Azure.Core;
-using FluentValidation;
-using Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson;
+﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 
-namespace Hospital_ERP_Backend.Application.Persons.Commands.CreatePerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
     public class CreatePersonService
     {

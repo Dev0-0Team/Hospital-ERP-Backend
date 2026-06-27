@@ -3,7 +3,7 @@ using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 
-namespace Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
     public class UpdatePersonService
     {

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital_ERP_Backend.Application.Persons.Commands.CreatePerson
+﻿namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
-    public class CreatePersonResponse
+    public record UpdatePersonResponse
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;

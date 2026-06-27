@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hospital_ERP_Backend.Application.Persons.Queries.GetPerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson
 {
     public record GetPersonResponse
     {

@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Persons.Commands.CreatePerson;
-using Hospital_ERP_Backend.Application.Persons.Commands.DeletePerson;
-using Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson;
-using Hospital_ERP_Backend.Application.Persons.Queries.GetAllPersons;
-using Hospital_ERP_Backend.Application.Persons.Queries.GetPerson;
+using Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson;
+using Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerson;
+using Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson;
+using Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPersons;
+using Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace Hospital_ERP_Backend.Application.Persons.Extensions
+namespace Hospital_ERP_Backend.Application.Features.Persons.Extensions
 {
     public static class PersonServiceExtensions
     {
