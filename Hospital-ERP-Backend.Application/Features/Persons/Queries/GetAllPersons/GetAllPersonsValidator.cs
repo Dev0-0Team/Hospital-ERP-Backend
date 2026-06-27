@@ -7,7 +7,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPerson
     {
         public GetAllPersonsValidator()
         {
-            RuleFor(x => x.page).GreaterThanOrEqualTo(1);
+            RuleFor(x => x.page).GreaterThan(0)
+                .WithMessage("Page number must be greater than 0.");)
         }
     }
 }
