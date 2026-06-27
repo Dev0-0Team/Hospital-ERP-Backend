@@ -3,7 +3,7 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 
 
-namespace Hospital_ERP_Backend.Application.Persons.Queries.GetPerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson
 {
     public class GetPersonService
     {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Persons.Commands.UpdatePerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
     public class UpdatePersonValidator : AbstractValidator<UpdatePersonRequest>
     {

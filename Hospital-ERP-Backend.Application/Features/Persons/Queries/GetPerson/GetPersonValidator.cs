@@ -1,7 +1,7 @@
 ﻿
 using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Persons.Queries.GetPerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson
 {
     public class GetPersonValidator : AbstractValidator<GetPersonRequest>
     {

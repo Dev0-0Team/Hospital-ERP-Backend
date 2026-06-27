@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Persons.Commands.CreatePerson
+namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
     public class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
     {

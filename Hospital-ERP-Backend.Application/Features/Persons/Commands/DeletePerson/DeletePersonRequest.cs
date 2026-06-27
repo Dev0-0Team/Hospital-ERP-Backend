@@ -1,6 +1,4 @@
-﻿
-
-namespace Hospital_ERP_Backend.Application.Persons.Commands.DeletePerson
+﻿namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerson
 {
     public record DeletePersonRequest
     {
