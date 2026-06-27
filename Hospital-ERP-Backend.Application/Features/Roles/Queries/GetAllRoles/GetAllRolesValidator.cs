@@ -7,8 +7,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetAllRoles
         public GetAllRolesValidator()
         {
             RuleFor(x => x.Page)
-                .GreaterThanOrEqualTo(1)
-                .WithMessage("Page number must be a positive integer.");
+                .GreaterThan(0).WithMessage("Page number must be greater than 0.");
         }
     }
 }
