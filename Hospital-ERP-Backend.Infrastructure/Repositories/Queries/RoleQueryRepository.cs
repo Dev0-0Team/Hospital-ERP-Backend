@@ -11,8 +11,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
     public class RoleQueryRepository : IBaseQueryRepository<Role>
     {
-        public MySetting _setting;
-        public IDbConnection _connection;
+        private readonly MySetting _setting;
+        private readonly IDbConnection _connection;
 
         public RoleQueryRepository(IOptions<MySetting> setting, HospitalDbContext hospitalDbContext)
         {
