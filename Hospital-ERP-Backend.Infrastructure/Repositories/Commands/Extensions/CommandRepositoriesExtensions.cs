@@ -7,11 +7,12 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Extensions
 {
     public static class CommandRepositoriesExtensions
     {
-        public static IServiceCollection AddCommandRepositoriesExtension(this IServiceCollection Services)
+        public static IServiceCollection AddCommandRepositoriesExtension(this IServiceCollection services)
         {
-            Services.AddScoped<IBaseCommandRepository<Person>, PersonCommandRepository>();
-            Services.AddScoped<IBaseCommandRepository<Role>, RoleCommandRepository>();
-            return Services;
+            services.AddScoped<IBaseCommandRepository<Person>, PersonCommandRepository>();
+            services.AddScoped<IBaseCommandRepository<Role>, RoleCommandRepository>();
+            services.AddScoped<IBaseCommandRepository<Permission>, PermissionCommandRepository>();
+            return services;
         }
     }
 }
