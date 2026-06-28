@@ -33,6 +33,10 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
                 throw new KeyNotFoundException($"Role with Id {request.Id} not found.");
             }
             var isDeleted = await _iRole.DeleteAsync(role.Id);
+            if (!isDeleted)
+            {
+                throw new InvalidOperationException($"Failed to delete role with Id {request.Id}.");
+            }
             return isDeleted;
         }
 
