@@ -26,6 +26,11 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetAllRoles
             }
 
             var roles = await _iRole.GetAllAsync(request.Page);
+            if (roles == null || roles.Count() == 0)
+            {
+                throw new KeyNotFoundException($"No roles found on page {request.Page}.");
+            }
+
             return roles.Select(r => new GetAllRolesResponse
             {
                 Id = r.Id,
