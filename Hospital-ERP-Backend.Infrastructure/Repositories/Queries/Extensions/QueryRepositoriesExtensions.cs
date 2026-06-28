@@ -7,11 +7,12 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
 {
     public static class QueryRepositoriesExtensions
     {
-        public static IServiceCollection AddQueryRepositoriesExtension(this IServiceCollection Services)
+        public static IServiceCollection AddQueryRepositoriesExtension(this IServiceCollection services)
         {
-            Services.AddScoped<IBaseQueryRepository<Person>, PersonQueryRepository>();
-            Services.AddScoped<IBaseQueryRepository<Role>, RoleQueryRepository>();
-            return Services;
+            services.AddScoped<IBaseQueryRepository<Person>, PersonQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<Role>, RoleQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<Permission>, PermissionQueryRepository>();
+            return services;
         }
     }
 }
