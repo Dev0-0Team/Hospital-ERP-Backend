@@ -30,4 +30,9 @@
     <ProjectReference Include="..\Hospital-ERP-Backend.Infrastructure\Hospital-ERP-Backend.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Permissions\Commands\" />
+    <Folder Include="Features\Permissions\Extensions\" />
+  </ItemGroup>
+
 </Project>
