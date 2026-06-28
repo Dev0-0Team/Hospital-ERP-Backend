@@ -1,13 +1,24 @@
-var builder = WebApplication.CreateBuilder(args);
+using Hopital_ERP_Backend.API.Extensions.Configuration;
+using Hopital_ERP_Backend.API.Filters;
+using Hospital_ERP_Backend.API.Extensions;
+using Hospital_ERP_Backend.API.Middleware;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSettingConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<DefaultResponsesOperationFilter>();
+});
+
+builder.Services.AddAPIServiceExtension(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

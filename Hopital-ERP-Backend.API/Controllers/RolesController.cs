@@ -1,0 +1,84 @@
+﻿using Hospital_ERP_Backend.API;
+using Hospital_ERP_Backend.API.Controllers;
+using Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole;
+using Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole;
+using Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole;
+using Hospital_ERP_Backend.Application.Features.Roles.Queries.GetAllRoles;
+using Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Hopital_ERP_Backend.API.Controllers
+{
+    [Route("api/Roles")]
+    [ApiController]
+    public class RolesController : BaseController
+    {
+        private readonly GetAllRolesService _getAllRoles;
+        private readonly GetRoleService _getRole;
+        private readonly CreateRoleService _createRole;
+        private readonly UpdateRoleService _updateRole;
+        private readonly DeleteRoleService _deleteRole;
+
+        public RolesController(GetAllRolesService getAllRoles, GetRoleService getRole,
+            CreateRoleService createRole, UpdateRoleService updateRole, DeleteRoleService deleteRole)
+        {
+            _getAllRoles = getAllRoles;
+            _getRole = getRole;
+            _createRole = createRole;
+            _updateRole = updateRole;
+            _deleteRole = deleteRole;
+        }
+
+        [HttpGet(Name = "GetAllRolesAsync")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRolesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
+        {
+            GetAllRolesRequest getAllRoles = new GetAllRolesRequest
+            {
+                Page = page
+            };
+
+            var list = await _getAllRoles.GetAllRolesAsync(getAllRoles);
+            return CreateResponse<IEnumerable<GetAllRolesResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
+        }
+
+
+        [HttpGet("{ID}", Name = "GetRoleByID")]
+        public async Task<ActionResult<ApiResponse<GetRoleResponse?>>> GetByIDAsync([FromRoute] int ID)
+        {
+            GetRoleRequest getRoleRequest = new GetRoleRequest
+            {
+                Id = ID
+            };
+            var response = await _getRole.GetRoleAsync(getRoleRequest);
+            return CreateResponse<GetRoleResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
+        }
+
+        [HttpPost(Name = "CreateRoleAsync")]
+        public async Task<ActionResult<ApiResponse<CreateRoleResponse>>> CreateAsync([FromBody] CreateRoleRequest request)
+        {
+
+            var success = await _createRole.CreateRoleAsync(request);
+            return CreatedAtRoute("GetRoleByID", new { ID = success!.Id }, success);
+        }
+
+        [HttpPut(Name = "UpdateRoleAsync")]
+        public async Task<ActionResult<ApiResponse<UpdateRoleResponse>>> UpdateAsync([FromBody] UpdateRoleRequest request)
+        {
+            var response = await _updateRole.UpdateRoleAsync(request);
+            return CreateResponse<UpdateRoleResponse>(response, StatusCodes.Status200OK, "Person Updated Successfully!");
+        }
+
+        [HttpDelete("{ID}", Name = "DeleteRoleAsync")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
+        {
+            DeleteRoleRequest deleteRoleRequest = new DeleteRoleRequest
+            {
+                Id = ID
+            };
+            var success = await _deleteRole.DeleteRoleAsync(deleteRoleRequest);
+            return CreateResponse<bool>(success, StatusCodes.Status200OK, "Role Deleted Successfully!");
+        }
+
+
+    }
+}

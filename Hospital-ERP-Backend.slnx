@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="Hopital-ERP-Backend.API/Hopital-ERP-Backend.API.csproj" />
+  <Project Path="Hopital-ERP-Backend.API/Hospital-ERP-Backend.API.csproj" />
   <Project Path="Hospital-ERP-Backend.Application/Hospital-ERP-Backend.Application.csproj" />
   <Project Path="Hospital-ERP-Backend.Domain/Hospital-ERP-Backend.Domain.csproj" />
   <Project Path="Hospital-ERP-Backend.Infrastructure/Hospital-ERP-Backend.Infrastructure.csproj" />
