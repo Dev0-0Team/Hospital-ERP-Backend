@@ -32,6 +32,10 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerso
                 throw new KeyNotFoundException($"Person with Id {request.Id} not found.");
             }
             var isDeleted = await _iPerson.DeleteAsync(person.Id);
+            if (!isDeleted)
+            {
+                throw new InvalidOperationException($"Failed to delete person with Id {request.Id}.");
+            }
             return isDeleted;
         }
     }
