@@ -22,6 +22,11 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPerson
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             var persons = await _iPerson.GetAllAsync(request.page);
+            if (persons == null || persons.Count() == 0)
+            {
+                throw new KeyNotFoundException($"No persons found on page {request.page}.");
+            }
+
             return persons.Select(p => new GetAllPersonsResponse
             {
                 Id = p.Id,
