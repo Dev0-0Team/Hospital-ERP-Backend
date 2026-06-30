@@ -1,7 +1,7 @@
 ﻿
 namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers
 {
-    public class GetAllUsersResponse
+    public record GetAllUsersResponse
     {
         public int Id { get; set; }
 
