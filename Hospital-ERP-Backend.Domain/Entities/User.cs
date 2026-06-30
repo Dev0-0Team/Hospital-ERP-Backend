@@ -15,6 +15,6 @@ public partial class User : BaseEntity
     public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
     public Person Person { get; set; } = null!;
-
+    public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     public ICollection<Role> Roles { get; set; } = new List<Role>();
 }
