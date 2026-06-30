@@ -23,23 +23,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-
-            entity.HasMany(d => d.Permissions).WithMany(p => p.Roles)
-                .UsingEntity<Dictionary<string, object>>(
-                    "RolePermission",
-                    r => r.HasOne<Permission>().WithMany()
-                        .HasForeignKey("PermissionId")
-                        .HasConstraintName("FK_role_permissions_permissions"),
-                    l => l.HasOne<Role>().WithMany()
-                        .HasForeignKey("RoleId")
-                        .HasConstraintName("FK_role_permissions_roles"),
-                    j =>
-                    {
-                        j.HasKey("RoleId", "PermissionId");
-                        j.ToTable("role_permissions");
-                        j.IndexerProperty<int>("RoleId").HasColumnName("role_id");
-                        j.IndexerProperty<int>("PermissionId").HasColumnName("permission_id");
-                    });
         }
     }
 }

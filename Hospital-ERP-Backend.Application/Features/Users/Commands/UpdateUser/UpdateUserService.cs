@@ -34,6 +34,7 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
             existingUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             existingUser.Status = request.Status;
             existingUser.PersonId = request.PersonId;
+            existingUser.UpdatedAt = DateTime.Now;
 
             User? result = await _iUser.UpdateAsync(existingUser);
 

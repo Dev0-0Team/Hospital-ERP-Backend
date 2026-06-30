@@ -4,6 +4,7 @@ using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Infrastructure.Data;
 using Hospital_ERP_Backend.Infrastructure.Setting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Data;
 
 
@@ -14,9 +15,9 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
         private readonly MySetting _setting;
         private readonly IDbConnection _connection;
 
-        public UserQueryRepository(MySetting setting, HospitalDbContext hospitalDbContext)
+        public UserQueryRepository(IOptions<MySetting> setting, HospitalDbContext hospitalDbContext)
         {
-            _setting = setting;
+            _setting = setting.Value;
             _connection = hospitalDbContext.Database.GetDbConnection();
         }
 
