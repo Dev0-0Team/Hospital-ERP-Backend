@@ -1,14 +1,17 @@
 ﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
+namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserRequest>
+    public class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
     {
-        public CreateUserValidator()
+        public UpdateUserValidator()
         {
+            RuleFor(x => x.Id).GreaterThan(0)
+                .WithMessage("Id must be greater than 0.");
+
             RuleFor(x => x.PersonId).GreaterThan(0)
                 .WithMessage("Person Id must be greater than 0.");
-            
+
             RuleFor(x => x.Email)
                 .MaximumLength(255)
                 .When(x => x.Email != null)
@@ -24,10 +27,9 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
                 .Must(BeValidStatus)
                 .WithMessage("Status must be Active or InActive");
         }
-
         private bool BeValidStatus(string Status)
         {
-            var allowed = new[] { "Active", "InActive"};
+            var allowed = new[] { "Active", "InActive" };
             return allowed.Contains(Status);
         }
     }

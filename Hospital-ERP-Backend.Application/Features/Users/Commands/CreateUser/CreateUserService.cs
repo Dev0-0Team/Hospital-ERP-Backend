@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
     {
         private readonly IValidator<CreateUserRequest> _validator;
         private readonly IBaseCommandRepository<User> _iUser;
-        private readonly IBaseQueryRepository<User> _iUserQuery;
 
-        public CreateUserService(IValidator<CreateUserRequest> validator, IBaseCommandRepository<User> iUser, IBaseQueryRepository<User> iUserQuery)
+        public CreateUserService(IValidator<CreateUserRequest> validator, IBaseCommandRepository<User> iUser)
         {
             _validator = validator;
             _iUser = iUser;
-            _iUserQuery = iUserQuery;
         }
 
         public async Task<CreateUserResponse> CreateUserAsync(CreateUserRequest request)
