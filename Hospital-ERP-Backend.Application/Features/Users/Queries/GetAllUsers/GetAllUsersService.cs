@@ -5,7 +5,7 @@ using Hospital_ERP_Backend.Domain.Interfaces.Base;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers
 {
-    internal class GetAllUsersService
+    public class GetAllUsersService
     {
         private readonly IValidator<GetAllUsersRequest> _validator;
         private readonly IBaseQueryRepository<User> _iUser;
