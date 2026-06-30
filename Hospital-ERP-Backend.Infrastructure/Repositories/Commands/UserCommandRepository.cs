@@ -39,7 +39,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             {
                 return false;
             }
-            user.Status = "Deleted";
+            user.Status = "InActive";
             user.IsDeleted = true;
             user.DeletedAt = DateTime.Now;
             return await _dbContext.SaveChangesAsync() > 0;
