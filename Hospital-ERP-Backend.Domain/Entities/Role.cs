@@ -5,7 +5,7 @@ public partial class Role
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
-
+    public ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
     public ICollection<Permission> Permissions { get; set; } = new List<Permission>();
     public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     public ICollection<User> Users { get; set; } = new List<User>();
