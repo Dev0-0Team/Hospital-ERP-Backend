@@ -94,6 +94,10 @@ public partial class HospitalDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
 
+    public DbSet<UserRole> UserRoles { get; set; }
+
+    public DbSet<RolePermission> RolePermissions { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(HospitalDbContext).Assembly);
