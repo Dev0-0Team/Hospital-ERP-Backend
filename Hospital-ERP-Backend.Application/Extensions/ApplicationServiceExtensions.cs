@@ -3,6 +3,7 @@
 using Hospital_ERP_Backend.Application.Features.Permissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
+using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddRoleServicesExtension();
             services.AddPermissionServicesExtension();
             services.AddUserServicesExtension();
+            services.AddUserRoleServicesExtension();
             return services;
         }
     }
