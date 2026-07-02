@@ -25,7 +25,7 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUser
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             var userRoles = await _iUserRole.GetAllAsync(request.Page);
             if (userRoles == null || userRoles.Count() == 0)
