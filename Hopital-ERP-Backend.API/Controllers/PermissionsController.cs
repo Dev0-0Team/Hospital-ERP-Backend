@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hopital_ERP_Backend.API.Controllers
 {
-    [Route("api/Permission")]
+    [Route("api/Permissions")]
     [ApiController]
-    public class PermissionController : BaseController
+    public class PermissionsController : BaseController
     {
         private readonly GetAllPermissionsService _getAllPermissions;
         private readonly GetPermissionService _getPermission;
@@ -19,7 +19,7 @@ namespace Hopital_ERP_Backend.API.Controllers
         private readonly UpdatePermissionService _updatePermission;
         private readonly DeletePermissionService _deletePermission;
 
-        public PermissionController(GetAllPermissionsService getAllPermissions, GetPermissionService getPermission,
+        public PermissionsController(GetAllPermissionsService getAllPermissions, GetPermissionService getPermission,
             CreatePermissionService createPermission, UpdatePermissionService updatePermission, DeletePermissionService deletePermission)
         {
             _getAllPermissions = getAllPermissions;

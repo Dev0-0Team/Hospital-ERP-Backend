@@ -19,7 +19,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
         {
             Role role = entity;
 
-            await _dbContext.AddAsync(role);
+            await _dbContext.Roles.AddAsync(role);
             await _dbContext.SaveChangesAsync();
             return role;
         }

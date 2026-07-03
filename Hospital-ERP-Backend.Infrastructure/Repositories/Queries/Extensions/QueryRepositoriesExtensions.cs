@@ -12,6 +12,9 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Person>, PersonQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Role>, RoleQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Permission>, PermissionQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<User>, UserQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<UserRole>, UserRoleQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RolePermission>, RolePermissionQueryRepository>();
             return services;
         }
     }

@@ -18,7 +18,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
         {
             Person person = entity;
 
-            await _dbContext.AddAsync(person);
+            await _dbContext.Persons.AddAsync(person);
             await _dbContext.SaveChangesAsync();
 
             return person;
@@ -48,7 +48,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             }
             person.IsDeleted = true;
             person.DeletedAt = DateTime.Now;
-            await _dbContext.SaveChangesAsync();
 
             return await _dbContext.SaveChangesAsync() > 0;
         }
