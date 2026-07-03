@@ -39,8 +39,8 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdateP
             }
             return new UpdatePermissionResponse 
             { 
-                Id = permission.Id,
-                Name = permission.Name
+                Id = result.Id,
+                Name = result.Name
             };
         }
     }

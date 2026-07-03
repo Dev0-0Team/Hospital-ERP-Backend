@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
-    public class CreatePersonResponse
+    public record CreatePersonResponse
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;

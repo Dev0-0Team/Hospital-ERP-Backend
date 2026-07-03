@@ -11,7 +11,7 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions
 {
     public static class RolePermissionServiceExtensions
     {
-        public static IServiceCollection AddRolePermmissionServicesExtension(this IServiceCollection services)
+        public static IServiceCollection AddRolePermissionServicesExtension(this IServiceCollection services)
         {
             services.AddScoped<IValidator<GetAllRolePermissionsRequest>, GetAllRolePermissionsValidator>();
             services.AddScoped<IValidator<GetRolePermissionRequest>, GetRolePermissionsValidator>();
