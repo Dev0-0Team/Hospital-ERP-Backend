@@ -1,9 +1,7 @@
 ﻿
 namespace Hospital_ERP_Backend.Domain.Entities;
-public partial class Allergy
+public partial class Allergy : BaseEntity
 {
-    public int Id { get; set; }
-
     public int PatientId { get; set; }
 
     public string AllergyName { get; set; } = null!;

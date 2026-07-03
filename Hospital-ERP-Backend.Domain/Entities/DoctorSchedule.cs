@@ -1,10 +1,8 @@
 ﻿
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class DoctorSchedule
+public partial class DoctorSchedule : BaseEntity
 {
-    public int Id { get; set; }
-
     public int DoctorId { get; set; }
 
     public string DayOfWeek { get; set; } = null!;

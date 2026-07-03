@@ -2,10 +2,8 @@
 
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class LabTest
+public partial class LabTest : BaseEntity
 {
-    public int Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string NormalRange { get; set; } = null!;

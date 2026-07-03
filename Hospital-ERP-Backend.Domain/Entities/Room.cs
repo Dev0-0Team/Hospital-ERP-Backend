@@ -1,9 +1,7 @@
 ﻿namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class Room
+public partial class Room : BaseEntity
 {
-    public int Id { get; set; }
-
     public int DepartmentId { get; set; }
 
     public int RoomTypeId { get; set; }
