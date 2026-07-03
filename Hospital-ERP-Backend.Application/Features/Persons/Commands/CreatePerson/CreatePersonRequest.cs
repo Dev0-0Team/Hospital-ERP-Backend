@@ -1,6 +1,8 @@
-﻿namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
+﻿using MediatR;
+
+namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
-    public record CreatePersonRequest
+    public record CreatePersonRequest : IRequest<CreatePersonResponse>
     {
         public string FullName { get; set; } = null!;
         public DateTime Dob { get; set; }

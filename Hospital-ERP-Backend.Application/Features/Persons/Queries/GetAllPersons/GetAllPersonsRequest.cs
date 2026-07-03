@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPersons
 {
-    public record GetAllPersonsRequest
+    public record GetAllPersonsRequest : IRequest<IEnumerable<GetAllPersonsResponse>>
     {
         public int page {  get; set; }
     }

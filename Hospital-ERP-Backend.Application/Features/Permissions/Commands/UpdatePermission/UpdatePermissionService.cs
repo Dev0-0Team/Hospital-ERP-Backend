@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission
 {
-    public class UpdatePermissionService
+    public class UpdatePermissionService : IRequestHandler<UpdatePermissionRequest, UpdatePermissionResponse>
     {
         private readonly IValidator<UpdatePermissionRequest> _validator;
         private readonly IBaseCommandRepository<Permission> _iPermission;
@@ -17,7 +18,12 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdateP
             _iQueryPermission = iQueryPermission;
         }
 
-        public async Task<UpdatePermissionResponse> UpdatePermissionAsync(UpdatePermissionRequest request)
+        public async Task<UpdatePermissionResponse> Handle(UpdatePermissionRequest request, CancellationToken cancellationToken)
+        {
+            return await UpdatePermissionAsync(request);
+        }
+
+        private async Task<UpdatePermissionResponse> UpdatePermissionAsync(UpdatePermissionRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

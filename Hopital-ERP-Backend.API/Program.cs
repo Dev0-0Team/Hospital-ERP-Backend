@@ -5,6 +5,7 @@ using Hospital_ERP_Backend.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSettingConfiguration(builder.Configuration);
+builder.Services.AddMediatorConfigurationExtension();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

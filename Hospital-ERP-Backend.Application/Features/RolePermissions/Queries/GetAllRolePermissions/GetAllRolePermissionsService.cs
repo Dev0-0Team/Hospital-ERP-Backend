@@ -3,10 +3,11 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetAllRolePermissions
 {
-    public class GetAllRolePermissionsService
+    public class GetAllRolePermissionsService : IRequestHandler<GetAllRolePermissionsRequest, IEnumerable<GetAllRolePermissionsResponse>>
     {
         private readonly IBaseQueryRepository<RolePermission> _iRolePermission;
         private readonly IValidator<GetAllRolePermissionsRequest> _validator;
@@ -17,7 +18,12 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetAll
             _iRolePermission = iRolePermission;
         }
 
-        public async Task<IEnumerable<GetAllRolePermissionsResponse>> GetAllRolePermissionsAsync(GetAllRolePermissionsRequest request)
+        public async Task<IEnumerable<GetAllRolePermissionsResponse>> Handle(GetAllRolePermissionsRequest request, CancellationToken cancellationToken)
+        {
+            return await GetAllRolePermissionsAsync(request);
+        }
+
+        private async Task<IEnumerable<GetAllRolePermissionsResponse>> GetAllRolePermissionsAsync(GetAllRolePermissionsRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

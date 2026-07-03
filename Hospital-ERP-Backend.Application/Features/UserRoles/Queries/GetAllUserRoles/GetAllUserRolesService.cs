@@ -1,15 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUserRoles
 {
-    public class GetAllUserRolesService
+    public class GetAllUserRolesService : IRequestHandler<GetAllUserRolesRequest, IEnumerable<GetAllUserRolesResponse>>
     {
         private readonly IValidator<GetAllUserRolesRequest> _validator;
         private readonly IBaseQueryRepository<UserRole> _iUserRole;
@@ -20,7 +16,12 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUser
             _iUserRole = iUserRole;
         }
 
-        public async Task<IEnumerable<GetAllUserRolesResponse>> GetAllUserRolesAsync(GetAllUserRolesRequest request)
+        public async Task<IEnumerable<GetAllUserRolesResponse>> Handle(GetAllUserRolesRequest request, CancellationToken cancellationToken)
+        {
+            return await GetAllUserRolesAsync(request);
+        }
+
+        private async Task<IEnumerable<GetAllUserRolesResponse>> GetAllUserRolesAsync(GetAllUserRolesRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermission
 {
-    public class GetPermissionService
+    public class GetPermissionService : IRequestHandler<GetPermissionRequest, GetPermissionResponse>
     {
         private readonly IBaseQueryRepository<Permission> _iPermission;
         private readonly IValidator<GetPermissionRequest> _validator;
@@ -15,7 +16,12 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermi
             _validator = validator;
         }
 
-        public async Task<GetPermissionResponse> GetPermissionAsync(GetPermissionRequest request)
+        public async Task<GetPermissionResponse> Handle(GetPermissionRequest request, CancellationToken cancellationToken)
+        {
+            return await GetPermissionAsync(request);
+        }
+
+        private async Task<GetPermissionResponse> GetPermissionAsync(GetPermissionRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
