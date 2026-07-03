@@ -51,6 +51,7 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Upda
             }
             rolePermission.RoleId = request.RoleId;
             rolePermission.PermissionId = request.PermissionId;
+            rolePermission.UpdatedAt = DateTime.Now;
 
             RolePermission? result = await _iRolePermission.UpdateAsync(rolePermission);
             if (result == null)

@@ -54,6 +54,7 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUse
             } 
             userRole.UserId = request.UserId;
             userRole.RoleId = request.RoleId;
+            userRole.UpdatedAt = DateTime.Now;
 
             UserRole? result = await _iUserRole.UpdateAsync(userRole);
             if (result == null)

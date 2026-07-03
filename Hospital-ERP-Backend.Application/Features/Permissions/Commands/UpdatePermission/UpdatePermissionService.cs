@@ -32,6 +32,8 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdateP
             }
 
             permission.Name = request.Name;
+            permission.UpdatedAt = DateTime.Now;
+
             Permission? result = await _iPermission.UpdateAsync(permission);
             if (result == null)
             {
