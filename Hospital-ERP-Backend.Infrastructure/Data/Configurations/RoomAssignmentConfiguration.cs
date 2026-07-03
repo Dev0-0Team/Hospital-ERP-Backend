@@ -22,12 +22,18 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
                 .HasDefaultValueSql("(sysutcdatetime())")
                 .HasColumnName("admitted_at");
             entity.Property(e => e.BedId).HasColumnName("bed_id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
             entity.Property(e => e.DischargedAt).HasColumnName("discharged_at");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.Bed).WithMany(p => p.RoomAssignments)
                 .HasForeignKey(d => d.BedId)

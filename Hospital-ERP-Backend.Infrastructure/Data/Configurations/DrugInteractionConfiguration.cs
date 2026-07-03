@@ -25,6 +25,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
                 .HasColumnName("severity");
             entity.Property(e => e.Warning).HasColumnName("warning");
 
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
+
             entity.HasOne(d => d.Medication1).WithMany(p => p.DrugInteractionMedication1s)
                 .HasForeignKey(d => d.Medication1Id)
                 .OnDelete(DeleteBehavior.ClientSetNull)

@@ -24,6 +24,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
                 .HasDefaultValue("Available")
                 .HasColumnName("status");
 
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
+
             entity.HasOne(d => d.Room).WithMany(p => p.Beds)
                 .HasForeignKey(d => d.RoomId)
                 .HasConstraintName("FK_beds_rooms");

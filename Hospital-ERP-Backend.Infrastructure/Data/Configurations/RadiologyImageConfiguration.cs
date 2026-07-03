@@ -18,13 +18,20 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.ToTable("radiology_images");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
             entity.Property(e => e.ImageUrl)
                 .HasMaxLength(2083)
                 .HasColumnName("image_url");
             entity.Property(e => e.RadiologyOrderId).HasColumnName("radiology_order_id");
+
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.RadiologyOrder).WithMany(p => p.RadiologyImages)
                 .HasForeignKey(d => d.RadiologyOrderId)

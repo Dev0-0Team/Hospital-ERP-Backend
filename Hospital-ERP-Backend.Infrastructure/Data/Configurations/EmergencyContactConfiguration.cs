@@ -29,6 +29,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
                 .HasMaxLength(50)
                 .HasColumnName("relationship");
 
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
+
             entity.HasOne(d => d.Patient).WithMany(p => p.EmergencyContacts)
                 .HasForeignKey(d => d.PatientId)
                 .HasConstraintName("FK_emergency_contacts_patients");

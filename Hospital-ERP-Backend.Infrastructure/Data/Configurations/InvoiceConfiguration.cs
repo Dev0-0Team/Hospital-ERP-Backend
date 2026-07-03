@@ -20,12 +20,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.HasIndex(e => new { e.PatientId, e.Status }, "IX_invoices_patient_status").HasFilter("([is_deleted]=(0))");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
@@ -34,7 +28,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.TotalAmount)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("total_amount");
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.Patient).WithMany(p => p.Invoices)
                 .HasForeignKey(d => d.PatientId)

@@ -23,19 +23,24 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.HasIndex(e => e.LicenseNumber, "UQ__doctors__D482A003B03D2585").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
+
             entity.Property(e => e.DepartmentId).HasColumnName("department_id");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
             entity.Property(e => e.LicenseNumber)
                 .HasMaxLength(100)
                 .HasColumnName("license_number");
             entity.Property(e => e.PersonId).HasColumnName("person_id");
             entity.Property(e => e.SpecializationId).HasColumnName("specialization_id");
+
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.Department).WithMany(p => p.Doctors)
                 .HasForeignKey(d => d.DepartmentId)

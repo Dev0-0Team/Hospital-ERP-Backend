@@ -1,6 +1,7 @@
 ﻿using Hospital_ERP_Backend.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static Dapper.SqlMapper;
 
 namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
 {
@@ -22,6 +23,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
 
             builder.Property(x => x.RoleId)
                 .IsRequired();
+
+            builder.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            builder.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            builder.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            builder.HasQueryFilter(e => e.IsDeleted != true);
 
             // Relationships
             builder.HasOne(x => x.User)
