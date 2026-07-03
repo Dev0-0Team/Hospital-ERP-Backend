@@ -37,13 +37,15 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var role = await _dbContext.Roles.FindAsync(id);
+            Role? role = await _dbContext.Roles.FindAsync(id);
             if (role == null)
             {
                 return false;
             }
 
-            _dbContext.Remove(role);
+            role.IsDeleted = true;
+            role.DeletedAt = DateTime.Now;
+
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }
