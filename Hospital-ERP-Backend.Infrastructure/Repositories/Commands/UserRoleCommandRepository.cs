@@ -42,7 +42,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
                 return false;
             }
 
-            _dbContext.UserRoles.Remove(userRole);
+            userRole.DeletedAt = DateTime.Now;
+            userRole.IsDeleted = true;
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }

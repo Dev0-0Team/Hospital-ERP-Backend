@@ -33,6 +33,8 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
             }
 
             existingRole.Name = request.Name;
+            existingRole.UpdatedAt = DateTime.Now;
+
             Role? result = await _iRole.UpdateAsync(existingRole);
             if (result == null)
             {
