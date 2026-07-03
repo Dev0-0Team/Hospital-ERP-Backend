@@ -15,9 +15,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.ToTable("lab_test_results");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
             entity.Property(e => e.LabOrderId).HasColumnName("lab_order_id");
             entity.Property(e => e.LabTestId).HasColumnName("lab_test_id");
             entity.Property(e => e.Result).HasColumnName("result");
@@ -25,6 +22,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.HasOne(d => d.LabOrder).WithMany(p => p.LabTestResults)
                 .HasForeignKey(d => d.LabOrderId)
                 .HasConstraintName("FK_lab_results_orders");
+
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.LabTest).WithMany(p => p.LabTestResults)
                 .HasForeignKey(d => d.LabTestId)

@@ -2,10 +2,8 @@
 
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class EmergencyContact
+public partial class EmergencyContact : BaseEntity
 {
-    public int Id { get; set; }
-
     public int PatientId { get; set; }
 
     public string Name { get; set; } = null!;

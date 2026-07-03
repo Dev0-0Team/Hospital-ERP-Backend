@@ -1,10 +1,8 @@
 ﻿
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class AppointmentQueue
+public partial class AppointmentQueue :BaseEntity
 {
-    public int Id { get; set; }
-
     public int AppointmentId { get; set; }
 
     public int QueueNumber { get; set; }

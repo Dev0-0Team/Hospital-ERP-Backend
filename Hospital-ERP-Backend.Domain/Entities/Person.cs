@@ -12,8 +12,6 @@ public partial class Person : BaseEntity
 
     public string? Address { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
-
     public AdministrativeStaff? AdministrativeStaff { get; set; }
 
     public Doctor? Doctor { get; set; }
