@@ -1,8 +1,10 @@
 ﻿
 
+using MediatR;
+
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
 {
-    public record CreateUserRequest
+    public record CreateUserRequest : IRequest<CreateUserResponse>
     {
         public int PersonId { get; set; }
 
