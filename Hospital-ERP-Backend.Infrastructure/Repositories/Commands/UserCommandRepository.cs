@@ -16,7 +16,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
         public async Task<User?> CreateAsync(User entity)
         {
             User user = entity;
-            await _dbContext.AddAsync(user);
+            await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
             return user;
         }
