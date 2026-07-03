@@ -3,10 +3,11 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
 {
-    public class DeleteRoleService
+    public class DeleteRoleService : IRequestHandler<DeleteRoleRequest, bool>
     {
         private readonly IValidator<DeleteRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;
@@ -19,7 +20,12 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
             _iRoleQuery = iRoleQuery;
         }
 
-        public async Task<bool> DeleteRoleAsync(DeleteRoleRequest request)
+        public async Task<bool> Handle(DeleteRoleRequest request, CancellationToken cancellationToken)
+        {
+            return await DeleteRoleAsync(request);
+        }
+
+        private async Task<bool> DeleteRoleAsync(DeleteRoleRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

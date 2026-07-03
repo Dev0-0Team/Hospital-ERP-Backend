@@ -3,10 +3,11 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole
 {
-    public class GetRoleService
+    public class GetRoleService : IRequestHandler<GetRoleRequest, GetRoleResponse>
     {
         private readonly IValidator<GetRoleRequest> _validator;
         private readonly IBaseQueryRepository<Role> _iRole;
@@ -16,8 +17,12 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole
             _iRole = iRole;
         }
 
+        public async Task<GetRoleResponse> Handle(GetRoleRequest request, CancellationToken cancellationToken)
+        {
+            return await GetRoleAsync(request);
+        }
 
-        public async Task<GetRoleResponse> GetRoleAsync(GetRoleRequest request)
+        private async Task<GetRoleResponse> GetRoleAsync(GetRoleRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
