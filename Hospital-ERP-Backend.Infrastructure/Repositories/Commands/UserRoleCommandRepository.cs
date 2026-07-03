@@ -16,7 +16,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
         public async Task<UserRole?> CreateAsync(UserRole entity)
         {
             UserRole userRole = entity;
-            await _dbContext.AddAsync(userRole);
+            await _dbContext.UserRoles.AddAsync(userRole);
             await _dbContext.SaveChangesAsync();
             return userRole;
         }

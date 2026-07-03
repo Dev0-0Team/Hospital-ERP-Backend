@@ -18,7 +18,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
         {
             Permission permission = entity;
 
-            await _dbContext.AddAsync(permission);
+            await _dbContext.Permissions.AddAsync(permission);
             await _dbContext.SaveChangesAsync();
             return permission;
         }
