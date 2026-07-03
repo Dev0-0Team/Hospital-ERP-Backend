@@ -3,10 +3,11 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.DeleteRolePermission
 {
-    public class DeleteRolePermissionService
+    public class DeleteRolePermissionService : IRequestHandler<DeleteRolePermissionRequest, bool>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
         private readonly IBaseQueryRepository<RolePermission> _iRolePermissionQuery;
@@ -19,7 +20,12 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Dele
             _iValidator = iValidator;
         }
 
-        public async Task<bool> DeleteRolePermissionAsync(DeleteRolePermissionRequest request)
+        public async Task<bool> Handle(DeleteRolePermissionRequest request, CancellationToken cancellationToken)
+        {
+            return await DeleteRolePermissionAsync(request);
+        }
+
+        private async Task<bool> DeleteRolePermissionAsync(DeleteRolePermissionRequest request)
         {
             var validationResult = await _iValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
