@@ -1,4 +1,6 @@
-﻿namespace Hopital_ERP_Backend.API.Extensions.Configuration
+﻿using Hospital_ERP_Backend.Application.Extensions;
+
+namespace Hopital_ERP_Backend.API.Extensions.Configuration
 {
     public static class MediatorConfigurationExtension
     {
@@ -6,7 +8,7 @@
         {
             services.AddMediatR(cfg =>
             {
-                cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(ApplicationServiceExtensions).Assembly);
             });
             return services;
         }
