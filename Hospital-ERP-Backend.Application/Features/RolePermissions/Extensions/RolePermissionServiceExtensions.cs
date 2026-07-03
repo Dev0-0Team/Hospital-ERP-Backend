@@ -14,13 +14,13 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions
         public static IServiceCollection AddRolePermmissionServicesExtension(this IServiceCollection services)
         {
             services.AddScoped<IValidator<GetAllRolePermissionsRequest>, GetAllRolePermissionsValidator>();
-            services.AddScoped<IValidator<GetRolePermissionsRequest>, GetRolePermissionsValidator>();
+            services.AddScoped<IValidator<GetRolePermissionRequest>, GetRolePermissionsValidator>();
             services.AddScoped<IValidator<DeleteRolePermissionRequest>, DeleteRolePermissionValidator>();
             services.AddScoped<IValidator<UpdateRolePermissionRequest>, UpdateRolePermissionValidator>();
             services.AddScoped<IValidator<CreateRolePermissionRequest>, CreateRolePermissionValidator>();
 
             services.AddScoped<GetAllRolePermissionsService>();
-            services.AddScoped<GetRolePermissionsService>();
+            services.AddScoped<GetRolePermissionService>();
             services.AddScoped<DeleteRolePermissionService>();
             services.AddScoped<UpdateRolePermissionService>();
             services.AddScoped<CreateRolePermissionService>();

@@ -3,7 +3,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRolePermissions
 {
-    public class GetRolePermissionsValidator : AbstractValidator<GetRolePermissionsRequest>
+    public class GetRolePermissionsValidator : AbstractValidator<GetRolePermissionRequest>
     {
         public GetRolePermissionsValidator()
         {

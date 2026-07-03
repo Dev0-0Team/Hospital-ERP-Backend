@@ -6,18 +6,18 @@ using Hospital_ERP_Backend.Domain.Interfaces.Base;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRolePermissions
 {
-    public class GetRolePermissionsService
+    public class GetRolePermissionService
     {
         private readonly IBaseQueryRepository<RolePermission> _iRolePermission;
-        private readonly IValidator<GetRolePermissionsRequest> _iValidator;
+        private readonly IValidator<GetRolePermissionRequest> _iValidator;
 
-        public GetRolePermissionsService(IBaseQueryRepository<RolePermission> iRolePermission, IValidator<GetRolePermissionsRequest> iValidator)
+        public GetRolePermissionService(IBaseQueryRepository<RolePermission> iRolePermission, IValidator<GetRolePermissionRequest> iValidator)
         {
             _iRolePermission = iRolePermission;
             _iValidator = iValidator;
         }
 
-        public async Task<GetRolePermissionsResponse> GetRolePermissionAsync(GetRolePermissionsRequest request)
+        public async Task<GetRolePermissionResponse> GetRolePermissionAsync(GetRolePermissionRequest request)
         {
             var validationResult = await _iValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -29,7 +29,7 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRol
             {
                 throw new KeyNotFoundException($"Role Permission with Id {request.Id} not found.");
             }
-            return new GetRolePermissionsResponse
+            return new GetRolePermissionResponse
             {
                 Id = rolePermission.Id,
                 RoleId = rolePermission.RoleId,
