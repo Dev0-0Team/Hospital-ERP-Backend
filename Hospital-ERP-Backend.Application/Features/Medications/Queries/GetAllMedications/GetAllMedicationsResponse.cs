@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMedications
+﻿namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMedications
 {
-    internal class GetAllMedicationsResponse
+    public class GetAllMedicationsResponse
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = string.Empty;
+
+        public string DosageForm { get; set; } = string.Empty;
+
+        public string Manufacturer { get; set; } = string.Empty;
     }
 }
