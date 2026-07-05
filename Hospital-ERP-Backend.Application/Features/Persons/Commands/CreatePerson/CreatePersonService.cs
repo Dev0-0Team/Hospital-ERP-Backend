@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
-    public class CreatePersonService
+    public class CreatePersonService : IRequestHandler<CreatePersonRequest, CreatePersonResponse>
     {
         private readonly IValidator<CreatePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
@@ -17,7 +18,12 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
             _iQueryPerson = iQueryPerson;
         }
 
-        public async Task<CreatePersonResponse> CreatePersonAsync(CreatePersonRequest request)
+        public async Task<CreatePersonResponse> Handle(CreatePersonRequest request, CancellationToken cancellationToken)
+        {
+            return await CreatePersonAsync(request);
+        }
+
+        private async Task<CreatePersonResponse> CreatePersonAsync(CreatePersonRequest request)
         {
             // Validate the request
             var validationResult = await _validator.ValidateAsync(request);

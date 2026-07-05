@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSettingConfiguration(builder.Configuration);
+builder.Services.AddMediatorConfigurationExtension();
 
 builder.Services.AddDbContext<HospitalDbContext>(options =>
     options.UseSqlServer(

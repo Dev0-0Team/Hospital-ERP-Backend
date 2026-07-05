@@ -5,6 +5,7 @@ using Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUserRol
 using Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUserRole;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUserRoles;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetUserRoles;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hopital_ERP_Backend.API.Controllers
@@ -13,21 +14,12 @@ namespace Hopital_ERP_Backend.API.Controllers
     [ApiController]
     public class UserRolesController : BaseController
     {
-        private readonly GetAllUserRolesService _getAllUserRoles;
-        private readonly GetUserRoleService _getUserRole;
-        private readonly CreateUserRoleService _createUserRole;
-        private readonly UpdateUserRoleService _updateUserRole;
-        private readonly DeleteUserRoleService _deleteUserRole;
+        private readonly ISender _sender;
 
         public UserRolesController
-            (GetAllUserRolesService getAllUserRoles, GetUserRoleService getUserRole, CreateUserRoleService createUserRole,
-            UpdateUserRoleService updateUserRole, DeleteUserRoleService deleteUserRole)
+            (ISender sender)
         {
-            _getAllUserRoles = getAllUserRoles;
-            _getUserRole = getUserRole;
-            _createUserRole = createUserRole;
-            _updateUserRole = updateUserRole;
-            _deleteUserRole = deleteUserRole;
+            _sender = sender;
         }
 
         [HttpGet(Name = "GetAllUserRolesAsync")]
@@ -38,7 +30,7 @@ namespace Hopital_ERP_Backend.API.Controllers
                 Page = page
             };
 
-            var list = await _getAllUserRoles.GetAllUserRolesAsync(getAllUserRoles);
+            var list = await _sender.Send(getAllUserRoles);
             return CreateResponse<IEnumerable<GetAllUserRolesResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
@@ -50,7 +42,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var response = await _getUserRole.GetUserRoleAsync(getUserRoleRequest);
+            var response = await _sender.Send(getUserRoleRequest);
             return CreateResponse<GetUserRoleResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
@@ -58,14 +50,14 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateUserRoleResponse>>> CreateAsync([FromBody] CreateUserRoleRequest request)
         {
 
-            var success = await _createUserRole.CreateUserRoleAsync(request);
+            var success = await _sender.Send(request);
             return CreatedAtRoute("GetUserRoleByID", new { ID = success!.Id }, success);
         }
 
         [HttpPut(Name = "UpdateUserRoleAsync")]
         public async Task<ActionResult<ApiResponse<UpdateUserRoleResponse>>> UpdateAsync([FromBody] UpdateUserRoleRequest request)
         {
-            var response = await _updateUserRole.UpdateUserRoleAsync(request);
+            var response = await _sender.Send(request);
             return CreateResponse<UpdateUserRoleResponse>(response, StatusCodes.Status200OK, "User Role Updated Successfully!");
         }
 
@@ -76,7 +68,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var success = await _deleteUserRole.DeleteUserRoleAsync(deleteUserRoleRequest);
+            var success = await _sender.Send(deleteUserRoleRequest);
             return CreateResponse<bool>(success, StatusCodes.Status200OK, "User Role Deleted Successfully!");
         }
 

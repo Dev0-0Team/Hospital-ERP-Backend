@@ -3,10 +3,11 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
 {
-    public class DeleteUserService
+    public class DeleteUserService : IRequestHandler<DeleteUserRequest, bool>
     {
         private readonly IValidator<DeleteUserRequest> _validator;
         private readonly IBaseCommandRepository<User> _iUser;
@@ -19,7 +20,12 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
             _iUserQuery = iUserQuery;
         }
 
-        public async Task<bool> DeleteUserAsync(DeleteUserRequest request)
+        public async Task<bool> Handle(DeleteUserRequest request, CancellationToken cancellationToken)
+        {
+            return await DeleteUserAsync(request);
+        }
+
+        private async Task<bool> DeleteUserAsync(DeleteUserRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

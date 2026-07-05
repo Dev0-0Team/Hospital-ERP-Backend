@@ -1,7 +1,9 @@
 ﻿
+using MediatR;
+
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
 {
-    public record UpdateUserRequest
+    public record UpdateUserRequest : IRequest<UpdateUserResponse>
     {
         public int Id { get; set; }
         public int PersonId { get; set; }
