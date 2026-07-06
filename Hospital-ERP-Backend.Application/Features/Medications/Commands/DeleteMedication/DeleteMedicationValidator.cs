@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.DeleteMedication
 {
-    internal class DeleteMedicationValidator
+    public class DeleteMedicationValidator : AbstractValidator<DeleteMedicationRequest>
     {
+        public DeleteMedicationValidator()
+        {
+            RuleFor(x => x.Id)
+                .GreaterThan(0).WithMessage("Medication Id must be greater than 0.");
+        }
     }
 }
