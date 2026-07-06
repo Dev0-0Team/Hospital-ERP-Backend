@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMedications
 {
-    public class GetAllMedicationsService : IRequestHandler<GetAllMedicationsRequest, List<GetAllMedicationsResponse>>
+    public class GetAllMedicationsService : IRequestHandler<GetAllMedicationsRequest, IEnumerable<GetAllMedicationsResponse>>
     {
         private readonly IBaseQueryRepository<Medication> _medicationQueryRepository;
 
@@ -17,12 +17,12 @@ namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMe
             _validator = validator;
         }
 
-        public async Task<List<GetAllMedicationsResponse>> Handle(GetAllMedicationsRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetAllMedicationsResponse>> Handle(GetAllMedicationsRequest request, CancellationToken cancellationToken)
         {
             return await GetAllMedicationsAsync(request);
         }
 
-        private async Task<List<GetAllMedicationsResponse>> GetAllMedicationsAsync(GetAllMedicationsRequest request)
+        private async Task<IEnumerable<GetAllMedicationsResponse>> GetAllMedicationsAsync(GetAllMedicationsRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
 
@@ -33,6 +33,11 @@ namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMe
 
             IEnumerable<Medication> medications = await _medicationQueryRepository.GetAllAsync(request.Page);
 
+            if (medications == null || medications.Count() == 0)
+            {
+                throw new KeyNotFoundException($"No medications found on page {request.Page}.");
+            }
+
             return medications
                 .Select(x => new GetAllMedicationsResponse
                 {
@@ -40,8 +45,7 @@ namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMe
                     Name = x.Name,
                     DosageForm = x.DosageForm,
                     Manufacturer = x.Manufacturer ?? string.Empty
-                })
-                .ToList();
+                });
         }
     }
 }
