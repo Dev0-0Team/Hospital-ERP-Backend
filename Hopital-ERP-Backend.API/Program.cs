@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSettingConfiguration(builder.Configuration);
 builder.Services.AddMediatorConfigurationExtension();
 
-
+//test negga.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
