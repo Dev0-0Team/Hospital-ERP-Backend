@@ -18,7 +18,7 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.DeleteRoo
             _iRoomTypeQuery = iRoomTypeQuery;
         }
 
-        public async Task<bool> DeleteRoomTypeAsync(DeleteRoomTypeRequest request)
+        private async Task<bool> DeleteRoomTypeAsync(DeleteRoomTypeRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

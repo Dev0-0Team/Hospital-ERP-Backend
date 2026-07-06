@@ -23,7 +23,7 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoo
            return await UpdateRoomTypeAsync(request);
         }
 
-        public async Task<UpdateRoomTypeResponse> UpdateRoomTypeAsync(UpdateRoomTypeRequest request)
+        private async Task<UpdateRoomTypeResponse> UpdateRoomTypeAsync(UpdateRoomTypeRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
