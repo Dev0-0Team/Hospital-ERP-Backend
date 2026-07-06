@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication
 {
-    internal class CreateMedicationValidator
+    public class CreateMedicationValidator : AbstractValidator<CreateMedicationRequest>
     {
+        public CreateMedicationValidator()
+        {
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage("Medication name is required.")
+                .MaximumLength(100);
+
+            RuleFor(x => x.DosageForm)
+                .NotEmpty().WithMessage("Dosage form is required.")
+                .MaximumLength(50);
+
+            RuleFor(x => x.Manufacturer)
+                .MaximumLength(150).WithMessage("Manufacturer name is too long.");
+        }
     }
 }

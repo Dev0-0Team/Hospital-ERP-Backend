@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication
 {
-    internal class CreateMedicationRequest
+    public class CreateMedicationRequest : IRequest<CreateMedicationResponse>
     {
+        public string Name { get; set; } = string.Empty;
+
+        public string DosageForm { get; set; } = string.Empty;
+
+        public string? Manufacturer { get; set; }
     }
 }
