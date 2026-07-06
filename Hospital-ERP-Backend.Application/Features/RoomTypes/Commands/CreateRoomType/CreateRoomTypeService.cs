@@ -16,7 +16,7 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoo
             _iRoomType = iRoomType;
         }
 
-        public async Task<CreateRoomTypeResponse> CreateRoomTypeAsync(CreateRoomTypeRequest request)
+        private async Task<CreateRoomTypeResponse> CreateRoomTypeAsync(CreateRoomTypeRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
