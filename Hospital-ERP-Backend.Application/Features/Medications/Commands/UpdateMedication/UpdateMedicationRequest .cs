@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.UpdateMedication
 {
-    public class UpdateMedicationRequest : IRequest<UpdateMedicationResponse>
+    public record UpdateMedicationRequest : IRequest<UpdateMedicationResponse>
     {
         public int Id { get; set; }
 
