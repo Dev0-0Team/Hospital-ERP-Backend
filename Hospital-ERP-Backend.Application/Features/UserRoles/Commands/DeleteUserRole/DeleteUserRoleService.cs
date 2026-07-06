@@ -3,10 +3,12 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
+using Microsoft.Identity.Client;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUserRole
 {
-    public class DeleteUserRoleService
+    public class DeleteUserRoleService : IRequestHandler<DeleteUserRoleRequest, bool>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
         private readonly IBaseQueryRepository<UserRole> _iUserRoleQuery;
@@ -19,7 +21,12 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUse
             _validator = validator;
         }
 
-        public async Task<bool> DeleteUserRoleAsync(DeleteUserRoleRequest request)
+        public async Task<bool> Handle(DeleteUserRoleRequest request, CancellationToken cancellationToken)
+        {
+            return await DeleteUserRoleAsync(request);
+        }
+
+        private async Task<bool> DeleteUserRoleAsync(DeleteUserRoleRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

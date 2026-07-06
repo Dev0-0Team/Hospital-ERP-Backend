@@ -2,17 +2,13 @@
 
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class Medication
+public partial class Medication : BaseEntity
 {
-    public int Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string DosageForm { get; set; } = null!;
 
     public string? Manufacturer { get; set; }
-
-    public bool? IsDeleted { get; set; }
 
     public ICollection<DrugInteraction> DrugInteractionMedication1s { get; set; } = new List<DrugInteraction>();
 

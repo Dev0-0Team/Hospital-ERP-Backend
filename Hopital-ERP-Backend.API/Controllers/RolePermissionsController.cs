@@ -5,6 +5,7 @@ using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.DeleteRo
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRolePermission;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetAllRolePermissions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRolePermissions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hopital_ERP_Backend.API.Controllers
@@ -13,21 +14,12 @@ namespace Hopital_ERP_Backend.API.Controllers
     [ApiController]
     public class RolePermissionsController : BaseController
     {
-        private readonly GetAllRolePermissionsService _getAllRolePermissions;
-        private readonly GetRolePermissionService _getRolePermission;
-        private readonly CreateRolePermissionService _createRolePermission;
-        private readonly UpdateRolePermissionService _updateRolePermission;
-        private readonly DeleteRolePermissionService _deleteRolePermission;
+        private readonly ISender _sender;
 
         public RolePermissionsController
-            (GetAllRolePermissionsService getAllRolePermissions, GetRolePermissionService getRolePermission, CreateRolePermissionService createRolePermission,
-            UpdateRolePermissionService updateRolePermission, DeleteRolePermissionService deleteRolePermission)
+            (ISender sender)
         {
-            _getAllRolePermissions = getAllRolePermissions;
-            _getRolePermission = getRolePermission;
-            _createRolePermission = createRolePermission;
-            _updateRolePermission = updateRolePermission;
-            _deleteRolePermission = deleteRolePermission;
+            _sender = sender;
         }
 
 
@@ -39,7 +31,7 @@ namespace Hopital_ERP_Backend.API.Controllers
                 Page = page
             };
 
-            var list = await _getAllRolePermissions.GetAllRolePermissionsAsync(getAllRolePermissions);
+            var list = await _sender.Send(getAllRolePermissions);
             return CreateResponse<IEnumerable<GetAllRolePermissionsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
@@ -51,7 +43,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var response = await _getRolePermission.GetRolePermissionAsync(getRolePermissionRequest);
+            var response = await _sender.Send(getRolePermissionRequest);
             return CreateResponse<GetRolePermissionResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
@@ -59,14 +51,14 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateRolePermissionResponse>>> CreateAsync([FromBody] CreateRolePermissionRequest request)
         {
 
-            var success = await _createRolePermission.CreateRolePermissionAsync(request);
+            var success = await _sender.Send(request);
             return CreatedAtRoute("GetRolePermissionByID", new { ID = success!.Id }, success);
         }
 
         [HttpPut(Name = "UpdateRolePermissionAsync")]
         public async Task<ActionResult<ApiResponse<UpdateRolePermissionResponse>>> UpdateAsync([FromBody] UpdateRolePermissionRequest request)
         {
-            var response = await _updateRolePermission.UpdateRolePermissionAsync(request);
+            var response = await _sender.Send(request);
             return CreateResponse<UpdateRolePermissionResponse>(response, StatusCodes.Status200OK, "Role Permission Updated Successfully!");
         }
 
@@ -78,7 +70,7 @@ namespace Hopital_ERP_Backend.API.Controllers
                 Id = ID
             };
 
-            var success = await _deleteRolePermission.DeleteRolePermissionAsync(deleteRolePermissionRequest);
+            var success = await _sender.Send(deleteRolePermissionRequest);
             return CreateResponse<bool>(success, StatusCodes.Status200OK, "Role Permission Deleted Successfully!");
         }
 

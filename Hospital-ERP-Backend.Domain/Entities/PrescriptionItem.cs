@@ -1,9 +1,7 @@
 ﻿namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class PrescriptionItem
+public partial class PrescriptionItem : BaseEntity
 {
-    public int Id { get; set; }
-
     public int PrescriptionId { get; set; }
 
     public int MedicationId { get; set; }

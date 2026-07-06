@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPersons;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers
 {
-    public class GetAllUsersService
+    public class GetAllUsersService : IRequestHandler<GetAllUsersRequest, IEnumerable<GetAllUsersResponse>>
     {
         private readonly IValidator<GetAllUsersRequest> _validator;
         private readonly IBaseQueryRepository<User> _iUser;
@@ -16,7 +16,12 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers
             _iUser = iUser;
         }
 
-        public async Task<IEnumerable<GetAllUsersResponse>> GetAllUsersAsync(GetAllUsersRequest request)
+        public async Task<IEnumerable<GetAllUsersResponse>> Handle(GetAllUsersRequest request, CancellationToken cancellationToken)
+        {
+            return await GetAllUsersAsync(request);
+        }
+
+        private async Task<IEnumerable<GetAllUsersResponse>> GetAllUsersAsync(GetAllUsersRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

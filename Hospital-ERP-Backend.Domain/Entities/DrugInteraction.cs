@@ -2,10 +2,8 @@
 
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class DrugInteraction
+public partial class DrugInteraction : BaseEntity
 {
-    public int Id { get; set; }
-
     public int Medication1Id { get; set; }
 
     public int Medication2Id { get; set; }

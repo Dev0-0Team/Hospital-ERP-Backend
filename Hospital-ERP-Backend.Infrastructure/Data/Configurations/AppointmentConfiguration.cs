@@ -20,13 +20,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AppointmentDate).HasColumnName("appointment_date");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
             entity.Property(e => e.PriorityId).HasColumnName("priority_id");
             entity.Property(e => e.Status)
@@ -36,7 +30,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.Type)
                 .HasMaxLength(20)
                 .HasColumnName("type");
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.DoctorId)

@@ -30,7 +30,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
             var query = "persons.SP_GetPersonById";
             return await _connection.QueryFirstOrDefaultAsync<Person>(
                 query,
-                parameters
+                parameters,
+                commandType: CommandType.StoredProcedure
             );
         }
 

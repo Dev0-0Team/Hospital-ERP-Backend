@@ -2,10 +2,11 @@
 using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
 {
-    public class UpdateRoleService
+    public class UpdateRoleService : IRequestHandler<UpdateRoleRequest, UpdateRoleResponse>
     {
         private readonly IValidator<UpdateRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;
@@ -17,8 +18,13 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
             _iRole = iRole;
             _iQueryRole = iQueryRole;
         }
+        
+        public async Task<UpdateRoleResponse> Handle(UpdateRoleRequest request, CancellationToken cancellationToken)
+        {
+            return await UpdateRoleAsync(request);
+        }
 
-        public async Task<UpdateRoleResponse> UpdateRoleAsync(UpdateRoleRequest request)
+        private async Task<UpdateRoleResponse> UpdateRoleAsync(UpdateRoleRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -33,6 +39,8 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
             }
 
             existingRole.Name = request.Name;
+            existingRole.UpdatedAt = DateTime.Now;
+
             Role? result = await _iRole.UpdateAsync(existingRole);
             if (result == null)
             {

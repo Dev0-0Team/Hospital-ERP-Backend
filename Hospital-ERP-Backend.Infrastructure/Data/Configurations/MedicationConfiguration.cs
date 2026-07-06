@@ -23,15 +23,22 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.DosageForm)
                 .HasMaxLength(50)
                 .HasColumnName("dosage_form");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
             entity.Property(e => e.Manufacturer)
                 .HasMaxLength(150)
                 .HasColumnName("manufacturer");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
+
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
         }
     }
 }

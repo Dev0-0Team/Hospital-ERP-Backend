@@ -5,6 +5,7 @@ using Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermi
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetAllPermissions;
 using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermission;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hopital_ERP_Backend.API.Controllers
@@ -13,20 +14,11 @@ namespace Hopital_ERP_Backend.API.Controllers
     [ApiController]
     public class PermissionsController : BaseController
     {
-        private readonly GetAllPermissionsService _getAllPermissions;
-        private readonly GetPermissionService _getPermission;
-        private readonly CreatePermissionService _createPermission;
-        private readonly UpdatePermissionService _updatePermission;
-        private readonly DeletePermissionService _deletePermission;
+        private readonly ISender _sender;
 
-        public PermissionsController(GetAllPermissionsService getAllPermissions, GetPermissionService getPermission,
-            CreatePermissionService createPermission, UpdatePermissionService updatePermission, DeletePermissionService deletePermission)
+        public PermissionsController(ISender sender)
         {
-            _getAllPermissions = getAllPermissions;
-            _getPermission = getPermission;
-            _createPermission = createPermission;
-            _updatePermission = updatePermission;
-            _deletePermission = deletePermission;
+            _sender = sender;
         }
 
         [HttpGet(Name = "GetAllPermissionsAsync")]
@@ -37,7 +29,7 @@ namespace Hopital_ERP_Backend.API.Controllers
                 Page = page
             };
 
-            var list = await _getAllPermissions.GetAllPermissionsAsync(getAllPermissions);
+            var list = await _sender.Send(getAllPermissions);
             return CreateResponse<IEnumerable<GetAllPermissionsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
@@ -49,7 +41,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var response = await _getPermission.GetPermissionAsync(getPermissionRequest);
+            var response = await _sender.Send(getPermissionRequest);
             return CreateResponse<GetPermissionResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
@@ -57,14 +49,14 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreatePermissionResponse>>> CreateAsync([FromBody] CreatePermissionRequest request)
         {
 
-            var success = await _createPermission.CreatePermissionAsync(request);
+            var success = await _sender.Send(request);
             return CreatedAtRoute("GetPermissionByID", new { ID = success!.Id }, success);
         }
 
         [HttpPut(Name = "UpdatePermissionAsync")]
         public async Task<ActionResult<ApiResponse<UpdatePermissionResponse>>> UpdateAsync([FromBody] UpdatePermissionRequest request)
         {
-            var response = await _updatePermission.UpdatePermissionAsync(request);
+            var response = await _sender.Send(request);
             return CreateResponse<UpdatePermissionResponse>(response, StatusCodes.Status200OK, "Permission Updated Successfully!");
         }
 
@@ -75,7 +67,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var success = await _deletePermission.DeletePermissionAsync(deletePermissionRequest);
+            var success = await _sender.Send(deletePermissionRequest);
             return CreateResponse<bool>(success, StatusCodes.Status200OK, "Permission Deleted Successfully!");
         }
     }

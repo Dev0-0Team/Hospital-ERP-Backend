@@ -7,8 +7,6 @@ public partial class Patient : BaseEntity
 
     public string? BloodType { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
-
     public ICollection<Allergy> Allergies { get; set; } = new List<Allergy>();
 
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

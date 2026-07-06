@@ -1,10 +1,8 @@
 ﻿
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class InvoiceItem
+public partial class InvoiceItem : BaseEntity
 {
-    public int Id { get; set; }
-
     public int InvoiceId { get; set; }
 
     public string ItemName { get; set; } = null!;

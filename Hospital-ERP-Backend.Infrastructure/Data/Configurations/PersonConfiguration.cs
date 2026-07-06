@@ -23,10 +23,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address).HasColumnName("address");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Dob).HasColumnName("dob");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
@@ -34,13 +30,19 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.Gender)
                 .HasMaxLength(10)
                 .HasColumnName("gender");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
                 .HasColumnName("phone");
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
         }
     }
 }

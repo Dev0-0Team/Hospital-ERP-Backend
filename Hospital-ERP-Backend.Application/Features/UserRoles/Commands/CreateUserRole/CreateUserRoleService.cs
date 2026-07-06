@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.CreateUserRole
 {
-    public class CreateUserRoleService
+    public class CreateUserRoleService : IRequestHandler<CreateUserRoleRequest, CreateUserRoleResponse>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
         private readonly IBaseQueryRepository<User> _iUserQuery;
@@ -23,7 +24,13 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.CreateUse
             _iRoleQuery = iRoleQuery;
             _validator = validator;
         }
-        public async Task<CreateUserRoleResponse> CreateUserRoleAsync(CreateUserRoleRequest request)
+
+        public async Task<CreateUserRoleResponse> Handle(CreateUserRoleRequest request, CancellationToken cancellationToken)
+        {
+            return await CreateUserRoleAsync(request);
+        }
+
+        private async Task<CreateUserRoleResponse> CreateUserRoleAsync(CreateUserRoleRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

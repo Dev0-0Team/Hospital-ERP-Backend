@@ -1,0 +1,50 @@
+﻿using FluentValidation;
+using Hospital_ERP_Backend.Domain.Entities;
+using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
+
+namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.DeleteMedication
+{
+    public class DeleteMedicationService : IRequestHandler<DeleteMedicationRequest, bool>
+    {
+        private readonly IValidator<DeleteMedicationRequest> _validator;
+        private readonly IBaseCommandRepository<Medication> _medicationRepository;
+        private readonly IBaseQueryRepository<Medication> _medicationQueryRepository;
+        public DeleteMedicationService(IValidator<DeleteMedicationRequest> validator, IBaseCommandRepository<Medication> medicationRepository, IBaseQueryRepository<Medication> medicationQueryRepository)
+        {
+            _validator = validator;
+            _medicationRepository = medicationRepository;
+            _medicationQueryRepository = medicationQueryRepository;
+        }
+
+        public async Task<bool> Handle(DeleteMedicationRequest request, CancellationToken cancellationToken)
+        {
+            return await DeleteMedicationAsync(request);
+        }
+
+        private async Task<bool> DeleteMedicationAsync(DeleteMedicationRequest request)
+        {
+            var validationResult = await _validator.ValidateAsync(request);
+
+            if (!validationResult.IsValid)
+            {
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
+            }
+
+            var medication = await _medicationQueryRepository.GetAsync(request.Id);
+
+            if (medication == null)
+            {
+                throw new KeyNotFoundException($"Medication with Id {request.Id} not found.");
+            }
+
+            var isDeleted = await _medicationRepository.DeleteAsync(medication.Id);
+            if (!isDeleted)
+            {
+                throw new InvalidOperationException($"Failed to delete medication with Id {request.Id}.");
+            }
+
+            return isDeleted;
+        }
+    }
+}

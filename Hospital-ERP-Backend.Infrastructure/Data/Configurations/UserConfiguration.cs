@@ -22,23 +22,25 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.HasIndex(e => e.Email, "UQ__users__AB6E6164C8C70CC0").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
             entity.Property(e => e.PasswordHash).HasColumnName("password_hash");
             entity.Property(e => e.PersonId).HasColumnName("person_id");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasDefaultValue("Active")
                 .HasColumnName("status");
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.Person).WithOne(p => p.User)
                 .HasForeignKey<User>(d => d.PersonId)

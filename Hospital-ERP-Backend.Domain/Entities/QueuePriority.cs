@@ -1,9 +1,7 @@
 ﻿namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class QueuePriority
+public partial class QueuePriority : BaseEntity
 {
-    public int Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public int Level { get; set; }

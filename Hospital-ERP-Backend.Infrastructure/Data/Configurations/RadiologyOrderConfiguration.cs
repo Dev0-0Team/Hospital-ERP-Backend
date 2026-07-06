@@ -20,9 +20,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.HasIndex(e => e.PatientId, "IX_radiology_orders_patient");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysutcdatetime())")
-                .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
             entity.Property(e => e.OrderedAt)
                 .HasDefaultValueSql("(sysutcdatetime())")
@@ -35,7 +32,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.Type)
                 .HasMaxLength(100)
                 .HasColumnName("type");
+
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.CreatedAt)
+                            .HasDefaultValueSql("(sysutcdatetime())")
+                            .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.IsDeleted)
+                            .HasDefaultValue(false)
+                            .HasColumnName("is_deleted");
+            entity.HasQueryFilter(e => e.IsDeleted != true);
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.RadiologyOrders)
                 .HasForeignKey(d => d.DoctorId)

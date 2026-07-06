@@ -1,7 +1,7 @@
-﻿
-
+﻿using Hospital_ERP_Backend.Application.Features.Medications.Extensions;
 using Hospital_ERP_Backend.Application.Features.Permissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
+using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
@@ -20,6 +20,8 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddUserServicesExtension();
             services.AddUserRoleServicesExtension();
             services.AddRoomTypeServicesExtension();
+            services.AddRolePermissionServicesExtension();
+            services.AddMedicationServicesExtension();
             return services;
         }
     }

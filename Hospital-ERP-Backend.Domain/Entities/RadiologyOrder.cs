@@ -1,9 +1,7 @@
 ﻿namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class RadiologyOrder
+public partial class RadiologyOrder : BaseEntity
 {
-    public int Id { get; set; }
-
     public int PatientId { get; set; }
 
     public int DoctorId { get; set; }
@@ -13,10 +11,6 @@ public partial class RadiologyOrder
     public string Status { get; set; } = null!;
 
     public DateTime OrderedAt { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
 
     public Doctor Doctor { get; set; } = null!;
 

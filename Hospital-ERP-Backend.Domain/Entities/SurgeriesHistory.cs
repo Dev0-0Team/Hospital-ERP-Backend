@@ -1,9 +1,7 @@
 ﻿namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class SurgeriesHistory
+public partial class SurgeriesHistory : BaseEntity
 {
-    public int Id { get; set; }
-
     public int PatientId { get; set; }
 
     public string SurgeryName { get; set; } = null!;

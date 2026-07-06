@@ -40,7 +40,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             RolePermission? entity = await _dbContext.RolePermissions.FindAsync(id);
             if (entity == null) return false;
 
-            _dbContext.RolePermissions.Remove(entity);
+            entity.DeletedAt = DateTime.Now;
+            entity.IsDeleted = true;
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }

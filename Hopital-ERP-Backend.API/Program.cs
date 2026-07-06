@@ -2,9 +2,13 @@ using Hopital_ERP_Backend.API.Extensions.Configuration;
 using Hopital_ERP_Backend.API.Filters;
 using Hospital_ERP_Backend.API.Extensions;
 using Hospital_ERP_Backend.API.Middleware;
+using Hospital_ERP_Backend.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSettingConfiguration(builder.Configuration);
+builder.Services.AddMediatorConfigurationExtension();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

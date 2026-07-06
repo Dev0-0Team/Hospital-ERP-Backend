@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPersons
 {
-    public class GetAllPersonsService
+    public class GetAllPersonsService : IRequestHandler<GetAllPersonsRequest, IEnumerable<GetAllPersonsResponse>>
     {
         private readonly IValidator<GetAllPersonsRequest> _validator;
         private readonly IBaseQueryRepository<Person> _iPerson;
@@ -14,7 +15,12 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPerson
             _iPerson = iPerson;
         }
 
-        public async Task<IEnumerable<GetAllPersonsResponse>> GetAllPersonsAsync(GetAllPersonsRequest request)
+        public async Task<IEnumerable<GetAllPersonsResponse>> Handle(GetAllPersonsRequest request, CancellationToken cancellationToken)
+        {
+            return await GetAllPersonsAsync(request);
+        }
+
+        private async Task<IEnumerable<GetAllPersonsResponse>> GetAllPersonsAsync(GetAllPersonsRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -37,7 +43,5 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPerson
                 Address = p.Address
             });
         }
-        
-
     }
 }

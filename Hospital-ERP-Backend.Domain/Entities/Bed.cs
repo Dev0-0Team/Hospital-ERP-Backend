@@ -1,10 +1,8 @@
 ﻿
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class Bed
+public partial class Bed : BaseEntity
 {
-    public int Id { get; set; }
-
     public int RoomId { get; set; }
 
     public string BedNumber { get; set; } = null!;

@@ -42,7 +42,9 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
                 return false;
             }
 
-            _dbContext.Remove(permission);
+            permission.IsDeleted = true;
+            permission.DeletedAt = DateTime.Now;
+
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }

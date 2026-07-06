@@ -5,6 +5,7 @@ using Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser;
 using Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser;
 using Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers;
 using Hospital_ERP_Backend.Application.Features.Users.Queries.GetUser;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hopital_ERP_Backend.API.Controllers
@@ -13,21 +14,12 @@ namespace Hopital_ERP_Backend.API.Controllers
     [ApiController]
     public class UsersController : BaseController
     {
-        private readonly GetAllUsersService _getAllUser;
-        private readonly GetUserService _getUser;
-        private readonly CreateUserService _createUser;
-        private readonly UpdateUserService _updateUser;
-        private readonly DeleteUserService _deleteUser;
+        private readonly ISender _sender;
 
         public UsersController
-            (GetAllUsersService getAllUser, GetUserService getUser, CreateUserService createUser,
-            UpdateUserService updateUser, DeleteUserService deleteUser)
+            (ISender sender)
         {
-            _getAllUser = getAllUser;
-            _getUser = getUser;
-            _createUser = createUser;
-            _updateUser = updateUser;
-            _deleteUser = deleteUser;
+            _sender = sender;
         }
 
         [HttpGet(Name = "GetAllUsersAsync")]
@@ -38,7 +30,7 @@ namespace Hopital_ERP_Backend.API.Controllers
                 Page = page
             };
 
-            var list = await _getAllUser.GetAllUsersAsync(getAllUsers);
+            var list = await _sender.Send(getAllUsers);
             return CreateResponse<IEnumerable<GetAllUsersResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
@@ -50,7 +42,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var response = await _getUser.GetUserAsync(getUserRequest);
+            var response = await _sender.Send(getUserRequest);
             return CreateResponse<GetUserResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
@@ -58,14 +50,14 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateUserResponse>>> CreateAsync([FromBody] CreateUserRequest request)
         {
 
-            var success = await _createUser.CreateUserAsync(request);
+            var success = await _sender.Send(request);
             return CreatedAtRoute("GetUserByID", new { ID = success!.Id }, success);
         }
 
         [HttpPut(Name = "UpdateUserAsync")]
         public async Task<ActionResult<ApiResponse<UpdateUserResponse>>> UpdateAsync([FromBody] UpdateUserRequest request)
         {
-            var response = await _updateUser.UpdateUserAsync(request);
+            var response = await _sender.Send(request);
             return CreateResponse<UpdateUserResponse>(response, StatusCodes.Status200OK, "User Updated Successfully!");
         }
 
@@ -76,7 +68,7 @@ namespace Hopital_ERP_Backend.API.Controllers
             {
                 Id = ID
             };
-            var success = await _deleteUser.DeleteUserAsync(deleteUserRequest);
+            var success = await _sender.Send(deleteUserRequest);
             return CreateResponse<bool>(success, StatusCodes.Status200OK, "User Deleted Successfully!");
         }
 

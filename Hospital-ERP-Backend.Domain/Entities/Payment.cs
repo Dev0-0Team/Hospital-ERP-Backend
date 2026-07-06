@@ -2,10 +2,8 @@
 
 namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class Payment
+public partial class Payment : BaseEntity
 {
-    public int Id { get; set; }
-
     public int InvoiceId { get; set; }
 
     public int PaymentMethodId { get; set; }

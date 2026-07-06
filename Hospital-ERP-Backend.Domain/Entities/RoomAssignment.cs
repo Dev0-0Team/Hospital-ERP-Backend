@@ -1,8 +1,7 @@
 ﻿namespace Hospital_ERP_Backend.Domain.Entities;
 
-public partial class RoomAssignment
+public partial class RoomAssignment : BaseEntity
 {
-    public int Id { get; set; }
 
     public int PatientId { get; set; }
 
@@ -11,10 +10,6 @@ public partial class RoomAssignment
     public DateTime AdmittedAt { get; set; }
 
     public DateTime? DischargedAt { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
 
     public Bed Bed { get; set; } = null!;
 
