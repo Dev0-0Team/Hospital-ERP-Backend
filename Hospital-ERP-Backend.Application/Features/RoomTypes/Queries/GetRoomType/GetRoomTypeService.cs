@@ -16,7 +16,7 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetRoomTyp
             _iRoomType = iRoomType;
         }
 
-        public async Task<GetRoomTypeResponse> GetRoomTypeAsync(GetRoomTypeRequest request)
+        private async Task<GetRoomTypeResponse> GetRoomTypeAsync(GetRoomTypeRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
