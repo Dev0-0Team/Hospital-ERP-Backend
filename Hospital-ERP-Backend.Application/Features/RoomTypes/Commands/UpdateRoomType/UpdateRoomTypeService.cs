@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoomType
 {
-    public class UpdateRoomTypeService
+    public class UpdateRoomTypeService : IRequestHandler<UpdateRoomTypeRequest, UpdateRoomTypeResponse>
     {
         private readonly IValidator<UpdateRoomTypeRequest> _validator;
         private readonly IBaseCommandRepository<RoomType> _iRoomType;
@@ -15,6 +16,11 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoo
             _validator = validator;
             _iRoomType = iRoomType;
             _iQueryRoomType = iQueryRoomType;
+        }
+
+        public async Task<UpdateRoomTypeResponse> Handle(UpdateRoomTypeRequest request, CancellationToken cancellationToken)
+        {
+           return await UpdateRoomTypeAsync(request);
         }
 
         public async Task<UpdateRoomTypeResponse> UpdateRoomTypeAsync(UpdateRoomTypeRequest request)
