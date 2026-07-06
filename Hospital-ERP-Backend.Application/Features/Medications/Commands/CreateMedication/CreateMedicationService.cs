@@ -10,7 +10,6 @@ namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateM
         private readonly IBaseCommandRepository<Medication> _medicationRepository;
 
         private readonly IValidator<CreateMedicationRequest> _validator;
-
         public CreateMedicationService(IBaseCommandRepository<Medication> medicationRepository, IValidator<CreateMedicationRequest> validator)
         {
             _medicationRepository = medicationRepository;
