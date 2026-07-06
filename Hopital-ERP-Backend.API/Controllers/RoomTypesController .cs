@@ -1,0 +1,84 @@
+﻿using Hospital_ERP_Backend.API;
+using Hospital_ERP_Backend.API.Controllers;
+using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType;
+using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.DeleteRoomType;
+using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoomType;
+using Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetAllRoomTypes;
+using Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetRoomType;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Hopital_ERP_Backend.API.Controllers
+{
+    [Route("api/RoomTypes")]
+    [ApiController]
+    public class RoomTypesController : BaseController
+    {
+        private readonly GetAllRoomTypesService _getAllRoomType;
+        private readonly GetRoomTypeService _getRoomType;
+        private readonly CreateRoomTypeService _createRoomType;
+        private readonly UpdateRoomTypeService _updateRoomType;
+        private readonly DeleteRoomTypeService _deleteRoomType;
+
+        public RoomTypesController
+            (GetAllRoomTypesService getAllRoomType, GetRoomTypeService getRoomType, CreateRoomTypeService createRoomType,
+            UpdateRoomTypeService updateRoomType, DeleteRoomTypeService deleteRoomType)
+        {
+            _getAllRoomType = getAllRoomType;
+            _getRoomType = getRoomType;
+            _createRoomType = createRoomType;
+            _updateRoomType = updateRoomType;
+            _deleteRoomType = deleteRoomType;
+        }
+
+        [HttpGet(Name = "GetAllRoomTypesAsync")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRoomTypesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
+        {
+            GetAllRoomTypesRequest getAllRoomTypes = new GetAllRoomTypesRequest
+            {
+                Page = page
+            };
+
+            var list = await _getAllRoomType.GetAllRoomTypesAsync(getAllRoomTypes);
+            return CreateResponse<IEnumerable<GetAllRoomTypesResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
+        }
+
+
+        [HttpGet("{ID}", Name = "GetRoomTypeByID")]
+        public async Task<ActionResult<ApiResponse<GetRoomTypeResponse?>>> GetByIDAsync([FromRoute] int ID)
+        {
+            GetRoomTypeRequest getRoomTypeRequest = new GetRoomTypeRequest
+            {
+                Id = ID
+            };
+            var response = await _getRoomType.GetRoomTypeAsync(getRoomTypeRequest);
+            return CreateResponse<GetRoomTypeResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
+        }
+
+        [HttpPost(Name = "CreateRoomTypeAsync")]
+        public async Task<ActionResult<ApiResponse<CreateRoomTypeResponse>>> CreateAsync([FromBody] CreateRoomTypeRequest request)
+        {
+
+            var success = await _createRoomType.CreateRoomTypeAsync(request);
+            return CreatedAtRoute("GetRoomTypeByID", new { ID = success!.Id }, success);
+        }
+
+        [HttpPut(Name = "UpdateRoomTypeAsync")]
+        public async Task<ActionResult<ApiResponse<UpdateRoomTypeResponse>>> UpdateAsync([FromBody] UpdateRoomTypeRequest request)
+        {
+            var response = await _updateRoomType.UpdateRoomTypeAsync(request);
+            return CreateResponse<UpdateRoomTypeResponse>(response, StatusCodes.Status200OK, "Room Type Updated Successfully!");
+        }
+
+        [HttpDelete("{ID}", Name = "DeleteRoomTypeAsync")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
+        {
+            DeleteRoomTypeRequest deleteRoomTypeRequest = new DeleteRoomTypeRequest
+            {
+                Id = ID
+            };
+            var success = await _deleteRoomType.DeleteRoomTypeAsync(deleteRoomTypeRequest);
+            return CreateResponse<bool>(success, StatusCodes.Status200OK, "Room Type Deleted Successfully!");
+        }
+
+    }
+}
