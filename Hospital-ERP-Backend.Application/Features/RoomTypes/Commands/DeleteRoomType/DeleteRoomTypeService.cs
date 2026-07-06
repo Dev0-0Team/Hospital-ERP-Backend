@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.DeleteRoomType
 {
-    public class DeleteRoomTypeService
+    public class DeleteRoomTypeService : IRequestHandler<DeleteRoomTypeRequest, bool>
     {
         private readonly IValidator<DeleteRoomTypeRequest> _validator;
         private readonly IBaseCommandRepository<RoomType> _iRoomType;
@@ -36,6 +37,11 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.DeleteRoo
                 throw new InvalidOperationException($"Failed to delete room type with Id {request.Id}.");
             }
             return isDeleted;
+        }
+
+        public async Task<bool> Handle(DeleteRoomTypeRequest request, CancellationToken cancellationToken)
+        {
+           return await DeleteRoomTypeAsync(request);
         }
     }
 }

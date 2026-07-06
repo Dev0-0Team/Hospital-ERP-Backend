@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType
 {
-    public class CreateRoomTypeService
+    public class CreateRoomTypeService : IRequestHandler<CreateRoomTypeRequest, CreateRoomTypeResponse>
     {
         private readonly IValidator<CreateRoomTypeRequest> _validator;
         private readonly IBaseCommandRepository<RoomType> _iRoomType;
@@ -39,6 +40,11 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoo
                 Id = result.Id,
                 Name = result.Name
             };
+        }
+
+        public async Task<CreateRoomTypeResponse> Handle(CreateRoomTypeRequest request, CancellationToken cancellationToken)
+        {
+         return  await CreateRoomTypeAsync(request);
         }
     }
 }
