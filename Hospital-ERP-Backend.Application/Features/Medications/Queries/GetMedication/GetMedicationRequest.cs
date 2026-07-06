@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetMedicationById
 {
-    public class GetMedicationRequest : IRequest<GetMedicationResponse>
+    public record GetMedicationRequest : IRequest<GetMedicationResponse>
     {
         public int Id { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication
 {
-    public class CreateMedicationRequest : IRequest<CreateMedicationResponse>
+    public record CreateMedicationRequest : IRequest<CreateMedicationResponse>
     {
         public string Name { get; set; } = string.Empty;
 

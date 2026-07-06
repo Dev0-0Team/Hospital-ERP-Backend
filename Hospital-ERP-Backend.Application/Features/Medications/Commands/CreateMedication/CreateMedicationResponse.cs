@@ -1,6 +1,6 @@
 ﻿namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication
 {
-    public class CreateMedicationResponse
+    public record CreateMedicationResponse
     {
         public int Id { get; set; }
 

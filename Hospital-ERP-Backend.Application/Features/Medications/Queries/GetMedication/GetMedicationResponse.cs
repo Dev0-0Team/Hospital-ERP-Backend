@@ -1,6 +1,6 @@
 ﻿namespace Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMedications
 {
-    public class GetMedicationResponse
+    public record GetMedicationResponse
     {
         public int Id { get; set; }
 
