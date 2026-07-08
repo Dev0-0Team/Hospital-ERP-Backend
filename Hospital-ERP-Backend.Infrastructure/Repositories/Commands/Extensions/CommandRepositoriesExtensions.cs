@@ -17,6 +17,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Extensions
             services.AddScoped<IBaseCommandRepository<RolePermission>, RolePermissionCommandRepository>();
             services.AddScoped<IBaseCommandRepository<Medication>, MedicationCommandRepository>();
             services.AddScoped<IBaseCommandRepository<RoomType>, RoomTypeCommandRepository>();
+            services.AddScoped<IBaseCommandRepository<LabTest>, LabTestCommandRepository>();
             return services;
         }
     }
