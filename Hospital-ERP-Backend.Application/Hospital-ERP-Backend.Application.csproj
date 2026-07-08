@@ -32,9 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\LapTests\Commands\" />
-    <Folder Include="Features\LapTests\Extensions\" />
-    <Folder Include="Features\LapTests\Queries\" />
+    <Folder Include="Features\LabTests\Commands\" />
+    <Folder Include="Features\LabTests\Extensions\" />
     <Folder Include="Features\Permissions\Commands\" />
     <Folder Include="Features\Permissions\Extensions\" />
   </ItemGroup>
