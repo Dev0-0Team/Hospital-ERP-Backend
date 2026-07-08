@@ -10,7 +10,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Extensions
 {
     public static class LabTestsServiceExtensions
     {
-        public static IServiceCollection AddLabTestsServices(this IServiceCollection services)
+        public static IServiceCollection AddLabTestsServicesExtension(this IServiceCollection services)
         {
 
             services.AddScoped<IValidator<CreateLabTestRequest>, CreateLabTestValidator>();
@@ -18,6 +18,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Extensions
             services.AddScoped<IValidator<DeleteLabTestRequest>, DeleteLabTestValidator>();
             services.AddScoped<IValidator<GetLabTestRequest>, GetLabTestValidator>();
             services.AddScoped<IValidator<GetAllLabTestsRequest>, GetAllLabTestsValidator>();
+
 
             services.AddScoped<GetAllLabTestsService>();
             services.AddScoped<GetLabTestService>();
