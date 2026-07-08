@@ -39,7 +39,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.CreateLabT
 
             if (result == null)
             {
-                throw new Exception("Failed to create lab test.");
+                throw new InvalidOperationException("Failed to create lab test.");
             }
 
             return new CreateLabTestResponse
