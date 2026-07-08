@@ -53,7 +53,7 @@ namespace Hospital_ERP_Backend.API.Controllers
         {
             var success = await _sender.Send(request);
 
-            return CreatedAtRoute("CreateMedicationAsync",
+            return CreatedAtRoute("GetMedicationByIdAsync",
                 new
                 {
                     ID = success.Id
