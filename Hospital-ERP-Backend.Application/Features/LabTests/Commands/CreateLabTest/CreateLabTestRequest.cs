@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.CreateLabTest
 {
-    internal class CreateLabTestRequest
+    public class CreateLabTestRequest : IRequest<CreateLabTestResponse>
     {
+        public string Name { get; set; } = null!;
+
+        public string NormalRange { get; set; } = null!;
     }
 }
