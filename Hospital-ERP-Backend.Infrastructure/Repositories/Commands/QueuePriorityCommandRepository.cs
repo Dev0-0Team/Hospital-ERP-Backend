@@ -35,7 +35,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             if (queuePriority == null) return null;
 
             _dbContext.Entry(queuePriority).CurrentValues.SetValues(entity);
-            queuePriority.UpdatedAt = DateTime.UtcNow;
 
             await _dbContext.SaveChangesAsync();
             return queuePriority;

@@ -40,6 +40,7 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.Upd
 
             existingQueuePriority.Name = request.Name;
             existingQueuePriority.Level = request.Level;
+            existingQueuePriority.UpdatedAt = DateTime.UtcNow;
 
             QueuePriority? result = await _iQueuePriority.UpdateAsync(existingQueuePriority);
             if (result == null)
