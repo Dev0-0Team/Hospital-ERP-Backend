@@ -1,6 +1,7 @@
 ﻿using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
@@ -37,13 +38,16 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
         public async Task<bool> DeleteAsync(int id)
         {
             RoomType? roomType = await _dbContext.RoomTypes.FindAsync(id);
-          
+           
             if (roomType == null)
             {
                 return false;
             }
-            _dbContext.Remove(roomType);
+            roomType.IsDeleted = true;
+            roomType.DeletedAt = DateTime.Now;
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }
+
+
