@@ -16,9 +16,7 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetA
             _iQueuePriority = iQueuePriority;
         }
 
-        // ==========================================
-        // المنطق الأساسي لجلب كل الـ Queue Priorities
-        // ==========================================
+  
         private async Task<IEnumerable<GetAllQueuePrioritiesResponse>> GetAllQueuePrioritiesAsync(GetAllQueuePrioritiesRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
