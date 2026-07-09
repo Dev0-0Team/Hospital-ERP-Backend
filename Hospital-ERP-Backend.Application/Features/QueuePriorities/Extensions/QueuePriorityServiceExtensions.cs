@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetAllQueuePriorities;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetQueuePriority;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,10 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Extensions
             Services.AddScoped<GetAllQueuePrioritiesService>();
             Services.AddScoped<IValidator<GetQueuePriorityRequest>, GetQueuePriorityValidator>();
             Services.AddScoped<GetQueuePriorityService>();
+            Services.AddScoped<IValidator<CreateQueuePriorityRequest>, CreateQueuePriorityValidator>();
+            Services.AddScoped<CreateQueuePriorityService>();
+
+
 
             return Services;
         }
