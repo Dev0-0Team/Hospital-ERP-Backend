@@ -3,20 +3,21 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Infrastructure.Data;
 using Hospital_ERP_Backend.Infrastructure.Setting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Data;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class MedicationInventoryQueryRepository : IBaseQueryRepository<MedicationInventory>
+    public class MedicationInventoryQueryRepository : IBaseQueryRepository<MedicationInventory>, IDisposable
     {
         private readonly IDbConnection _connection;
         private readonly MySetting _setting;
 
-        public MedicationInventoryQueryRepository(HospitalDbContext hospitalDbContext, IOptions<MySetting> setting)
+        public MedicationInventoryQueryRepository( IOptions<MySetting> setting)
         {
-            _connection = hospitalDbContext.Database.GetDbConnection();
+            _connection = new SqlConnection(setting.Value.ConnectionString);
             _setting = setting.Value;
         }
 
@@ -45,6 +46,11 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
                 "medication_inventories.SP_GetAllMedicationInventories",
                 parameters,
                 commandType: CommandType.StoredProcedure);
+        }
+
+        public void Dispose()
+        {
+            _connection.Dispose();
         }
     }
 }
