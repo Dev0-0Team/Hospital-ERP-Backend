@@ -3,21 +3,22 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Infrastructure.Data;
 using Hospital_ERP_Backend.Infrastructure.Setting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Data;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class UserRoleQueryRepository : IBaseQueryRepository<UserRole>
+    public class UserRoleQueryRepository : IBaseQueryRepository<UserRole>, IDisposable
     {
         private readonly MySetting _setting;
         private readonly IDbConnection _connection;
 
-        public UserRoleQueryRepository(IOptions<MySetting> setting, HospitalDbContext hospitalDbContext)
+        public UserRoleQueryRepository(IOptions<MySetting> setting)
         {
             _setting = setting.Value;
-            _connection = hospitalDbContext.Database.GetDbConnection();
+            _connection = new SqlConnection(_setting.ConnectionString);
         }
 
         public async Task<UserRole?> GetAsync(int id)
@@ -47,6 +48,11 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
                 parameters,
                 commandType: CommandType.StoredProcedure
             );
+        }
+
+        public void Dispose()
+        {
+            _connection?.Dispose();
         }
     }
 }
