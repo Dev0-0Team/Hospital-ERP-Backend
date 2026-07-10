@@ -22,7 +22,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
             var parameters = new
             {
                 Page = page,
-                PageSize = _setting.RowsPerPage
+                Rows = _setting.RowsPerPage
             };
 
             return await _connection.QueryAsync<LabTest>
