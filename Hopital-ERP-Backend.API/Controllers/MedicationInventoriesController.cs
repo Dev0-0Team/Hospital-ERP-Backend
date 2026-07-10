@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.DeleteMedicationInventory;
+﻿using Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.CreateMedicationInventory;
+using Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.DeleteMedicationInventory;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.UpdateMedicationInventory;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Queries.GetAllMedicationInventories;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Queries.GetMedicationInventory;
