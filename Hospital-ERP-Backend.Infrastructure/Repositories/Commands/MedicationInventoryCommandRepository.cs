@@ -37,8 +37,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
                       .CurrentValues
                       .SetValues(entity);
 
-            medicationInventory.UpdatedAt = DateTime.UtcNow;
-
             await _dbContext.SaveChangesAsync();
 
             return medicationInventory;
@@ -55,7 +53,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             }
 
             medicationInventory.IsDeleted = true;
-            medicationInventory.DeletedAt = DateTime.UtcNow;
 
             return await _dbContext.SaveChangesAsync() > 0;
         }

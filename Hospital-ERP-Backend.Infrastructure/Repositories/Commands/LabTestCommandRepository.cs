@@ -24,7 +24,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             if (labTest == null) return false;
 
             labTest.IsDeleted = true;
-            labTest.DeletedAt = DateTime.UtcNow;
 
             return await _dbContext.SaveChangesAsync() > 0;
         }
@@ -35,8 +34,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             if (labTest == null) return null;
 
             _dbContext.Entry(labTest).CurrentValues.SetValues(entity);
-
-            labTest.UpdatedAt = DateTime.UtcNow;
 
             await _dbContext.SaveChangesAsync();
             return labTest;
