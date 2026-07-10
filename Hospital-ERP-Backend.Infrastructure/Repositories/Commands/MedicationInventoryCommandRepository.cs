@@ -53,7 +53,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
             }
 
             medicationInventory.IsDeleted = true;
-            medicationInventory.DeletedAt = DateTime.UtcNow;
 
             return await _dbContext.SaveChangesAsync() > 0;
         }
