@@ -5,14 +5,14 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Queries.GetAllMedicationInventories
 {
-    public class GetAllMedicationInventoriesHandler : IRequestHandler<GetAllMedicationInventoriesRequest,
+    public class GetAllMedicationInventoriesService : IRequestHandler<GetAllMedicationInventoriesRequest,
             IEnumerable<GetAllMedicationInventoriesResponse>>
     {
         private readonly IBaseQueryRepository<MedicationInventory> _inventoryQueryRepository;
 
         private readonly IValidator<GetAllMedicationInventoriesRequest> _validator;
 
-        public GetAllMedicationInventoriesHandler(IBaseQueryRepository<MedicationInventory> inventoryQueryRepository,
+        public GetAllMedicationInventoriesService(IBaseQueryRepository<MedicationInventory> inventoryQueryRepository,
             IValidator<GetAllMedicationInventoriesRequest> validator)
         {
             _inventoryQueryRepository = inventoryQueryRepository;
@@ -36,7 +36,7 @@ namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Querie
 
             IEnumerable<MedicationInventory> inventories = await _inventoryQueryRepository.GetAllAsync(request.Page);
 
-            if (!inventories.Any())
+            if (inventories == null || !inventories.Any())
             {
                 throw new KeyNotFoundException($"No medication inventories found on page {request.Page}.");
             }
