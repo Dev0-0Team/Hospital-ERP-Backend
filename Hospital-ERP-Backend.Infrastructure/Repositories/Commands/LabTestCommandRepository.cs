@@ -36,8 +36,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 
             _dbContext.Entry(labTest).CurrentValues.SetValues(entity);
 
-            labTest.UpdatedAt = DateTime.UtcNow;
-
             await _dbContext.SaveChangesAsync();
             return labTest;
         }

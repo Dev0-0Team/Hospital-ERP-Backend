@@ -37,8 +37,6 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
                       .CurrentValues
                       .SetValues(entity);
 
-            medicationInventory.UpdatedAt = DateTime.UtcNow;
-
             await _dbContext.SaveChangesAsync();
 
             return medicationInventory;
