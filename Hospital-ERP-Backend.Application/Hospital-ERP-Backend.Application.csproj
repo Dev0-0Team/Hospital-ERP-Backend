@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\DrugInteractions\Commands\" />
     <Folder Include="Features\DrugInteractions\Extensions\" />
     <Folder Include="Features\MedicationInventories\Extensions\" />
     <Folder Include="Features\Permissions\Commands\" />
