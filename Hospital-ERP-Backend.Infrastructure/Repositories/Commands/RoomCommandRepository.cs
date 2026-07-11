@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hospital_ERP_Backend.Domain.Entities;
+using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using Hospital_ERP_Backend.Infrastructure.Data;
+using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    internal class RoomCommandRepository
+    public class RoomCommandRepository : BaseCommandRepository<Room>
     {
+        public RoomCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
+
     }
 }
