@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom;
+using Hospital_ERP_Backend.Application.Features.Rooms.Commands.DeleteRoom;
 using Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom;
 using Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetAllRooms;
 using Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetRoom;
@@ -15,11 +16,13 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Extensions
             Services.AddScoped<IValidator<GetRoomRequest>, GetRoomValidator>();
             Services.AddScoped<IValidator<CreateRoomRequest>, CreateRoomValidator>();
             Services.AddScoped<IValidator<UpdateRoomRequest>, UpdateRoomValidator>();
+            Services.AddScoped<IValidator<DeleteRoomRequest>, DeleteRoomValidator>();
 
             Services.AddScoped<GetAllRoomsService>();
             Services.AddScoped<GetRoomService>();
             Services.AddScoped<CreateRoomService>();
             Services.AddScoped<UpdateRoomService>();
+            Services.AddScoped<DeleteRoomService>();
             return Services;
         }
     }
