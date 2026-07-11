@@ -7,6 +7,7 @@ using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Extensions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
+using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
@@ -18,12 +19,15 @@ namespace Hospital_ERP_Backend.Application.Extensions
     {
         public static IServiceCollection AddApplicationServicesExtension(this IServiceCollection services)
         {
+       
+
             services.AddPersonServicesExtension();
             services.AddRoleServicesExtension();
             services.AddPermissionServicesExtension();
             services.AddUserServicesExtension();
             services.AddUserRoleServicesExtension();
             services.AddRoomTypeServicesExtension();
+            services.AddRoomServicesExtension();
             services.AddRolePermissionServicesExtension();
             services.AddMedicationServicesExtension();
             services.AddLabTestsServicesExtension();

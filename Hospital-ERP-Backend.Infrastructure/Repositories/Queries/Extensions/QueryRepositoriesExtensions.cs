@@ -21,6 +21,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<LabTest>, LabTestQueryRepository>();
             services.AddScoped<IBaseQueryRepository<MedicationInventory>, MedicationInventoryQueryRepository>();
             services.AddScoped<IBaseQueryRepository<DrugInteraction>, DrugInteractionsRepository>();
+            services.AddScoped<IBaseQueryRepository<Room>, RoomQueryRepository>();
             return services;
         }
     }
