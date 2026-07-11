@@ -20,6 +20,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Extensions
             services.AddScoped<IBaseCommandRepository<LabTest>, LabTestCommandRepository>();
             services.AddScoped<IBaseCommandRepository<QueuePriority>, QueuePriorityCommandRepository>();
             services.AddScoped<IBaseCommandRepository<MedicationInventory>, MedicationInventoryCommandRepository>();
+            services.AddScoped<IBaseCommandRepository<DrugInteraction>, DrugInteractionCommandRepository>();
             return services;
         }
     }
