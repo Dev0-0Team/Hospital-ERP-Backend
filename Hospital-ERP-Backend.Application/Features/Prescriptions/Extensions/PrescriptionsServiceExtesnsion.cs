@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.Prescriptions.Queries.GetAllPrescriptions;
 using Hospital_ERP_Backend.Application.Features.Prescriptions.Queries.GetPrescription;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,8 +11,10 @@ namespace Hospital_ERP_Backend.Application.Features.Prescriptions.Extensions
         public static IServiceCollection AddPrescriptionsExtension(this IServiceCollection services)
         {
             services.AddScoped<IValidator<GetPrescriptionRequest>, GetPrescriptionValidator>();
+            services.AddScoped<IValidator<GetAllPrescriptionsRequest>, GetAllPrescriptionsValidator>();
 
             services.AddScoped<GetPrescriptionService>();
+            services.AddScoped<GetAllPrescriptionsService>();
 
             return services;
         }
