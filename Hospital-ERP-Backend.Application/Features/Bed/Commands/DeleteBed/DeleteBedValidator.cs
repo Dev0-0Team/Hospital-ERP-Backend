@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Features.Bed.Commands.DeleteBed
+namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed
 {
-    internal class DeleteBedValidator
+    public class DeleteBedValidator : AbstractValidator<DeleteBedRequest>
     {
+        public DeleteBedValidator()
+        {
+            RuleFor(x => x.Id)
+                .GreaterThan(0).WithMessage("Id must be greater than 0.");
+        }
     }
 }

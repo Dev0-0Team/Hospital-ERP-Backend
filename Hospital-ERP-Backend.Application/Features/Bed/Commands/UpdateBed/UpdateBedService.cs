@@ -1,12 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
+using Hospital_ERP_Backend.Domain.Entities;
+using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Bed.Commands.UpdateBed
+namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed
 {
-    internal class UpdateBedService
+    public class UpdateBedService : IRequestHandler<UpdateBedRequest, UpdateBedResponse>
     {
+        private readonly IValidator<UpdateBedRequest> _validator;
+        private readonly IBaseCommandRepository<Bed> _iBed;
+        private readonly IBaseQueryRepository<Bed> _iQueryBed;
+
+        public UpdateBedService(IValidator<UpdateBedRequest> validator, IBaseCommandRepository<Bed> iBed, IBaseQueryRepository<Bed> iQueryBed)
+        {
+            _validator = validator;
+            _iBed = iBed;
+            _iQueryBed = iQueryBed;
+        }
+
+        public async Task<UpdateBedResponse> Handle(UpdateBedRequest request, CancellationToken cancellationToken)
+        {
+            return await UpdateBedAsync(request);
+        }
+
+        private async Task<UpdateBedResponse> UpdateBedAsync(UpdateBedRequest request)
+        {
+            var validationResult = await _validator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
+            }
+
+            Bed? existingBed = await _iQueryBed.GetAsync(request.Id);
+            if (existingBed == null)
+            {
+                throw new KeyNotFoundException($"Bed with Id {request.Id} not found.");
+            }
+
+            existingBed.RoomId = request.RoomId;
+            existingBed.BedNumber = request.BedNumber;
+            existingBed.Status = request.Status;
+
+            Bed? result = await _iBed.UpdateAsync(existingBed);
+            if (result == null)
+            {
+                throw new InvalidOperationException("Failed to update bed.");
+            }
+
+            return new UpdateBedResponse
+            {
+                Id = result.Id,
+                RoomId = result.RoomId,
+                BedNumber = result.BedNumber,
+                Status = result.Status
+            };
+        }
     }
 }

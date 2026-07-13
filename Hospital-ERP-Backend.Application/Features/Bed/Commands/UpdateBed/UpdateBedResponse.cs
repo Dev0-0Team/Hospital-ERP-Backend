@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital_ERP_Backend.Application.Features.Bed.Commands.UpdateBed
+﻿namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed
 {
-    internal class UpdateBedResponse
+    public record UpdateBedResponse
     {
+        public int Id { get; set; }
+        public int RoomId { get; set; }
+        public string BedNumber { get; set; } = null!;
+        public string Status { get; set; } = null!;
     }
 }
