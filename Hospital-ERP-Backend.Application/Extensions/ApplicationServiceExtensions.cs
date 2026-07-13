@@ -4,6 +4,7 @@ using Hospital_ERP_Backend.Application.Features.MedicationInventories.Extensions
 using Hospital_ERP_Backend.Application.Features.Medications.Extensions;
 using Hospital_ERP_Backend.Application.Features.Permissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
+using Hospital_ERP_Backend.Application.Features.PrescriptionItems.Extensions;
 using Hospital_ERP_Backend.Application.Features.Prescriptions.Extensions;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Extensions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
@@ -36,6 +37,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddMedicationInventoryServicesExtensions();
             services.AddDrugInteractionsServicesExtension();
             services.AddPrescriptionsServicesExtension();
+            services.AddPrescriptionItemsServicesExtension();
             return services;
         }
     }
