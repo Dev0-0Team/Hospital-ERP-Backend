@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
+﻿using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
+using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Extensions;
@@ -40,6 +41,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddPrescriptionsServicesExtension();
             services.AddPrescriptionItemsServicesExtension();
             services.AddLabOrdersServicesExtension();
+            services.AddAppointmentServicesExtension();
             return services;
         }
     }
