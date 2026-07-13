@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.CreateLabOrder;
+using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.DeleteLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetAllLabOrders;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetLabOrder;
@@ -15,10 +16,13 @@ namespace Hospital_ERP_Backend.Application.Features.LabOrders.Extensions
             services.AddScoped<IValidator<GetAllLabOrdersRequest>, GetAllLabOrdersValidator>();
             services.AddScoped<IValidator<CreateLabOrderRequest>, CreateLabOrderValidator>();
             services.AddScoped<IValidator<UpdateLabOrderRequest>, UpdateLabOrderValidator>();
+            services.AddScoped<IValidator<DeleteLabOrderRequest>, DeleteLabOrderValidator>();
 
             services.AddScoped<GetLabOrderService>();
             services.AddScoped<GetAllLabOrdersService>();
             services.AddScoped<UpdateLabOrderService>();
+            services.AddScoped<CreateLabOrderService>();
+            services.AddScoped<DeleteLabOrderService>();
 
             return services;
         }
