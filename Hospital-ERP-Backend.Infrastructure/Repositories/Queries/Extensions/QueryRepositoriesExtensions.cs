@@ -1,4 +1,4 @@
-﻿using Hospital_ERP_Backend.Domain.Entities;
+using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +25,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Prescription>, PrescriptionQueryRepository>();
             services.AddScoped<IBaseQueryRepository<PrescriptionItem>, PrescriptionItemQueryRepository>();
             services.AddScoped<IBaseQueryRepository<LabOrder>, LabOrderQueryRespository>();
+            services.AddScoped<IBaseQueryRepository<Appointment>, AppointmentQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Department>, DepartmentQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Bed>, BedQueryRepository>();
             return services;
