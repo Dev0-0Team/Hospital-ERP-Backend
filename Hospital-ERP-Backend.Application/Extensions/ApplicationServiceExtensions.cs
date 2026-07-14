@@ -1,4 +1,6 @@
 ﻿using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
+using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
+using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
@@ -23,8 +25,6 @@ namespace Hospital_ERP_Backend.Application.Extensions
     {
         public static IServiceCollection AddApplicationServicesExtension(this IServiceCollection services)
         {
-
-
             services.AddPersonServicesExtension();
             services.AddRoleServicesExtension();
             services.AddPermissionServicesExtension();
@@ -42,6 +42,8 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddPrescriptionItemsServicesExtension();
             services.AddLabOrdersServicesExtension();
             services.AddDepartmentServicesExtension();
+            services.AddAppointmentServicesExtension();
+            services.AddBedServicesExtension();
             return services;
         }
     }
