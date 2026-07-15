@@ -12,6 +12,7 @@ using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
 using Hospital_ERP_Backend.Application.Features.PrescriptionItems.Extensions;
 using Hospital_ERP_Backend.Application.Features.Prescriptions.Extensions;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Extensions;
+using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
@@ -46,6 +47,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddAppointmentServicesExtension();
             services.AddBedServicesExtension();
             services.AddLabTestResultsServiceExtension();
+            services.AddRadiologyOrdersServicesExtension();
             return services;
         }
     }
