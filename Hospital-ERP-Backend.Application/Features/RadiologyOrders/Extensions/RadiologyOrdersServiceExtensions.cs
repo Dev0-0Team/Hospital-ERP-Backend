@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.Appointments.Queries.GetAllAppointments;
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.CreateRadiologyOrder;
+using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.DeleteRadiologyOrder;
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.UpdateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.UpdateRadiologyOrder;
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Queries.GetAllRadiologyOrders;
@@ -17,11 +18,13 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyOrders.Extensions
             services.AddScoped<IValidator<GetRadiologyOrderRequest>, GetRadiologyOrderValidator>();
             services.AddScoped<IValidator<CreateRadiologyOrderRequest>, CreateRadiologyOrderValidator>();
             services.AddScoped<IValidator<UpdateRadiologyOrderRequest>, UpdateRadiologyOrderValidator>();
+            services.AddScoped<IValidator<DeleteRadiologyOrderRequest>, DeleteRadiologyOrderValidator>();
 
             services.AddScoped<GetAllRadiologyOrdersService>();
             services.AddScoped<GetAllAppointmentsService>();
             services.AddScoped<CreateRadiologyOrderService>();
             services.AddScoped<UpdateRadiologyOrderService>();
+            services.AddScoped<DeleteRadiologyOrderService>();
             return services;
         }
     }
