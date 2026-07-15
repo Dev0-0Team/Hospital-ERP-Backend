@@ -3,6 +3,7 @@ using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
+using Hospital_ERP_Backend.Application.Features.LabTestResults.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Extensions;
 using Hospital_ERP_Backend.Application.Features.Medications.Extensions;
@@ -12,6 +13,7 @@ using Hospital_ERP_Backend.Application.Features.PrescriptionItems.Extensions;
 using Hospital_ERP_Backend.Application.Features.Prescriptions.Extensions;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Extensions;
 using Hospital_ERP_Backend.Application.Features.RadiologyImages.Extensions;
+using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
@@ -46,6 +48,8 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddAppointmentServicesExtension();
             services.AddBedServicesExtension();
             services.AddRadiologyImageServicesExtension();
+            services.AddLabTestResultsServiceExtension();
+            services.AddRadiologyOrdersServicesExtension();
             return services;
         }
     }
