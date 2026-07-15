@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetAllLabOrders;
+using Hospital_ERP_Backend.Application.Features.LabTestResults.Commands.CreateLabTestResult;
 using Hospital_ERP_Backend.Application.Features.LabTestResults.Queries.GetLabTestResult;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,9 +14,11 @@ namespace Hospital_ERP_Backend.Application.Features.LabTestResults.Extensions
             services.AddScoped<IValidator<GetAllLabOrdersRequest>, GetAllLabOrdersValidator>();
 
             services.AddScoped<IValidator<GetLabTestResultRequest>, GetLabTestResultValidator>();
+            services.AddScoped<IValidator<CreateLabTestResultRequest>, CreateLabTestResultValidator>();
 
             services.AddScoped<GetLabTestResultService>();
             services.AddScoped<GetAllLabOrdersService>();
+            services.AddScoped<CreateLabTestResultService>();
             return services;
         }
 
