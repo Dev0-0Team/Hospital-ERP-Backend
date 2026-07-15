@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Queries.GetAllRadiologyReports;
+using Hospital_ERP_Backend.Application.Features.RadiologyReports.Queries.GetRadiologyReport;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyReports.Extensions
@@ -9,9 +10,11 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyReports.Extensions
         public static IServiceCollection AddRadiologyReportsServicesExtension(this IServiceCollection services)
         {
             services.AddScoped<IValidator<GetAllRadiologyReportsRequest>, GetAllRadiologyReportsValidator>();
+            services.AddScoped<IValidator<GetRadiologyReportRequest>, GetRadiologyReportValidator>();
 
 
             services.AddScoped<GetAllRadiologyReportsService>();
+            services.AddScoped<GetRadiologyReportService>();
 
             return services;
         }
