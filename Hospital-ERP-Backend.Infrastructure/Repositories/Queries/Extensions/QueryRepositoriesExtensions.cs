@@ -29,6 +29,9 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Department>, DepartmentQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Bed>, BedQueryRepository>();
             services.AddScoped<IBaseQueryRepository<RadiologyReport>, RadiologyReportQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RadiologyImage>, RadiologyImageQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<LabTestResult>, LabTestResultQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RadiologyOrder>, RadiologyOrderQueryRepository>();
             return services;
         }
     }
