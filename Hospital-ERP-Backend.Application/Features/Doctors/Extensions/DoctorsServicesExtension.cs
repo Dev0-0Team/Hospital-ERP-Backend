@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDoctor;
+using Hospital_ERP_Backend.Application.Features.Doctors.Commands.DeleteDoctor;
 using Hospital_ERP_Backend.Application.Features.Doctors.Commands.UpdateDoctor;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetAllDoctors;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetDoctor;
@@ -16,11 +17,13 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Extensions
             services.AddScoped<IValidator<GetDoctorRequest>, GetDoctorValidator>();
             services.AddScoped<IValidator<CreateDoctorRequest>, CreateDoctorValidator>();
             services.AddScoped<IValidator<UpdateDoctorRequest>, UpdateDoctorValidator>();
+            services.AddScoped<IValidator<DeleteDoctorRequest>, DeleteDoctorValidator>();
 
             services.AddScoped<GetAllDoctorsService>();
             services.AddScoped<GetDoctorService>();
             services.AddScoped<CreateDoctorService>();
             services.AddScoped<UpdateDoctorService>();
+            services.AddScoped<DeleteDoctorService>();
 
             return services;
         }
