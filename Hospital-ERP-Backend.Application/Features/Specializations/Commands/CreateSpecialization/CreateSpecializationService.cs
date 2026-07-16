@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Specializations.Command.CreateSpecialization
+namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization
 {
     public class CreateSpecializationService : IRequestHandler<CreateSpecializationRequest, CreateSpecializationResponse>
     {

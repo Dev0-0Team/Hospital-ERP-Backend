@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Features.Specializations.Command.UpdateSpecialization
+namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization
 {
     public class UpdateSpecializationValidator : AbstractValidator<UpdateSpecializationRequest>
     {

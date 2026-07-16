@@ -1,11 +1,7 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Hospital_ERP_Backend.Application.Features.Specializations.Command.CreateSpecialization
+
+namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization
 {
     internal class CreateSpecializationValidator : AbstractValidator<CreateSpecializationRequest>
     {

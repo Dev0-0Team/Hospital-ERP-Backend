@@ -1,5 +1,5 @@
 ﻿
-namespace Hospital_ERP_Backend.Application.Features.Specializations.Command.UpdateSpecialization
+namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization
 {
     public record UpdateSpecializationResponse
     {

@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Specializations.Command.UpdateSpecialization
+namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization
 {
     public class UpdateSpecializationService : IRequestHandler<UpdateSpecializationRequest,  UpdateSpecializationResponse>
     {
