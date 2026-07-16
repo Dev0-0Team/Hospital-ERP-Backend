@@ -1,6 +1,6 @@
-﻿namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue
+﻿namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue
 {
-    public record CreateAppointmentQueueResponse
+    public record UpdateAppointmentQueueResponse
     {
         public int Id { get; set; }
 

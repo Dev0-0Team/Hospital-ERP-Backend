@@ -1,11 +1,14 @@
 ﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue
+namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue
 {
-    public class CreateAppointmentQueueValidator : AbstractValidator<CreateAppointmentQueueRequest>
+    public class UpdateAppointmentQueueValidator : AbstractValidator<UpdateAppointmentQueueRequest>
     {
-        public CreateAppointmentQueueValidator()
+        public UpdateAppointmentQueueValidator()
         {
+            RuleFor(x => x.Id)
+                .GreaterThan(0).WithMessage("Id must be greater than 0.");
+
             RuleFor(x => x.AppointmentId)
                 .GreaterThan(0).WithMessage("Appointment ID must be greater than 0.");
 

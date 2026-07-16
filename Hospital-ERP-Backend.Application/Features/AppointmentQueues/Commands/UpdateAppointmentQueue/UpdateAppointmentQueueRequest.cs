@@ -1,6 +1,8 @@
-﻿namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue
+﻿using MediatR;
+
+namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue
 {
-    public record CreateAppointmentQueueResponse
+    public record UpdateAppointmentQueueRequest : IRequest<UpdateAppointmentQueueResponse>
     {
         public int Id { get; set; }
 
