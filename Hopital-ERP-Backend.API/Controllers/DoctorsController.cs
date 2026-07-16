@@ -19,59 +19,77 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1)
+        [HttpGet(Name = "GetAllDoctorsAsync")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<GetAllDoctorsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
-            var result = await _sender.Send(
-                new GetAllDoctorsRequest
-                {
-                    Page = page
-                });
+            GetAllDoctorsRequest request = new()
+            {
+                Page = page
+            };
 
-            return Ok(result);
+            var list = await _sender.Send(request);
+
+            return CreateResponse<IEnumerable<GetAllDoctorsResponse>?>(
+                list,
+                StatusCodes.Status200OK,
+                $"Rows: {list.Count()}");
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{ID:int}", Name = "GetDoctorByIdAsync")]
+        public async Task<ActionResult<ApiResponse<GetDoctorResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
-            var result = await _sender.Send(
-                new GetDoctorRequest
-                {
-                    Id = id
-                });
+            GetDoctorRequest request = new()
+            {
+                Id = ID
+            };
 
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateDoctorRequest request)
-        {
             var result = await _sender.Send(request);
 
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = result.Id },
-                result);
+            return CreateResponse<GetDoctorResponse?>(
+                result,
+                StatusCodes.Status200OK,
+                "Doctor found successfully!");
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateDoctorRequest request)
+        [HttpPost(Name = "CreateDoctorAsync")]
+        public async Task<ActionResult<ApiResponse<CreateDoctorResponse>>> CreateAsync([FromBody] CreateDoctorRequest request)
         {
-            var result = await _sender.Send(request);
+            var response = await _sender.Send(request);
 
-            return Ok(result);
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var result = await _sender.Send(
-                new DeleteDoctorRequest
+            return CreatedAtRoute(
+                "GetDoctorByIdAsync",
+                new
                 {
-                    Id = id
-                });
+                    ID = response.Id
+                },
+                response);
+        }
 
-            return Ok(result);
+        [HttpPut(Name = "UpdateDoctorAsync")]
+        public async Task<ActionResult<ApiResponse<UpdateDoctorResponse>>> UpdateAsync([FromBody] UpdateDoctorRequest request)
+        {
+            var response = await _sender.Send(request);
+
+            return CreateResponse(
+                response,
+                StatusCodes.Status200OK,
+                "Doctor updated successfully!");
+        }
+
+        [HttpDelete("{ID:int}", Name = "DeleteDoctorAsync")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
+        {
+            DeleteDoctorRequest request = new()
+            {
+                Id = ID
+            };
+
+            var success = await _sender.Send(request);
+
+            return CreateResponse(
+                success,
+                StatusCodes.Status200OK,
+                "Doctor deleted successfully!");
         }
     }
 }
