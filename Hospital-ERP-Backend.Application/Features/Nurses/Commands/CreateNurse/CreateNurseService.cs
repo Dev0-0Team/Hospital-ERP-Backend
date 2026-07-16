@@ -30,10 +30,10 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
 
         public async Task<CreateNurseResponse> Handle(CreateNurseRequest request, CancellationToken cancellationToken)
         {
-            return await CreateDoctorAsync(request);
+            return await CreateNurseAsync(request);
         }
 
-        public async Task<CreateNurseResponse> CreateDoctorAsync(CreateNurseRequest request)
+        public async Task<CreateNurseResponse> CreateNurseAsync(CreateNurseRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
 
