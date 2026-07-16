@@ -7,26 +7,74 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDocto
 {
     public class CreateDoctorService : IRequestHandler<CreateDoctorRequest, CreateDoctorResponse>
     {
-        private readonly IBaseCommandRepository<Doctor> _repository;
+        private readonly IBaseCommandRepository<Doctor> _doctorRepository;
+
+        private readonly IBaseQueryRepository<Person> _personRepository;
+
+        private readonly IBaseQueryRepository<Department> _departmentRepository;
+
+        private readonly IBaseQueryRepository<Specialization> _specializationRepository;
 
         private readonly IValidator<CreateDoctorRequest> _validator;
 
         public CreateDoctorService(
-            IBaseCommandRepository<Doctor> repository,
+            IBaseCommandRepository<Doctor> doctorRepository,
+            IBaseQueryRepository<Person> personRepository,
+            IBaseQueryRepository<Department> departmentRepository,
+            IBaseQueryRepository<Specialization> specializationRepository,
             IValidator<CreateDoctorRequest> validator)
         {
-            _repository = repository;
+            _doctorRepository = doctorRepository;
+            _personRepository = personRepository;
+            _departmentRepository = departmentRepository;
+            _specializationRepository = specializationRepository;
             _validator = validator;
         }
 
         public async Task<CreateDoctorResponse> Handle(CreateDoctorRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = await _validator.ValidateAsync(request);
+            return await CreateDoctorAsync(request);
+        }
+
+        public async Task<CreateDoctorResponse> CreateDoctorAsync(CreateDoctorRequest request)
+        {
+
+
+            var validationResult =
+                await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
                 throw new ArgumentException(
-                    string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
+                    string.Join(", ",
+                    validationResult.Errors.Select(x => x.ErrorMessage)));
+            }
+
+            Person? person =
+                await _personRepository.GetAsync(request.PersonId);
+
+            if (person == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Person with Id {request.PersonId} not found.");
+            }
+
+            Department? department =
+                await _departmentRepository.GetAsync(request.DepartmentId);
+
+            if (department == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Department with Id {request.DepartmentId} not found.");
+            }
+
+            Specialization? specialization =
+                await _specializationRepository.GetAsync(request.SpecializationId);
+
+            if (specialization == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Specialization with Id {request.SpecializationId} not found.");
             }
 
             Doctor doctor = new()
@@ -37,11 +85,13 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDocto
                 LicenseNumber = request.LicenseNumber
             };
 
-            var result = await _repository.CreateAsync(doctor);
+            Doctor? result =
+                await _doctorRepository.CreateAsync(doctor);
 
             if (result == null)
             {
-                throw new InvalidOperationException("Failed to create Doctor.");
+                throw new InvalidOperationException(
+                    "Failed to create Doctor.");
             }
 
             return new CreateDoctorResponse
@@ -54,4 +104,5 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDocto
             };
         }
     }
+
 }
