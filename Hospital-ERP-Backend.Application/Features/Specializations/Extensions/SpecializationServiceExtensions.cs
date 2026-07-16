@@ -10,7 +10,7 @@ namespace Hospital_ERP_Backend.Application.Features.Specializations.Extensions
 {
     public static class SpecializationServiceExtensions
     {
-        public static IServiceCollection AddRoomTypeServicesExtension(this IServiceCollection Services)
+        public static IServiceCollection AddSpecializationServicesExtension(this IServiceCollection Services)
         {
             Services.AddScoped<IValidator<GetAllSpecializationsRequest>, GetAllSpecializationsValidator>();
             Services.AddScoped<IValidator<GetSpecializationRequest>, GetSpecializationValidator>();
