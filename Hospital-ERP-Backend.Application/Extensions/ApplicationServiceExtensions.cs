@@ -12,13 +12,14 @@ using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
 using Hospital_ERP_Backend.Application.Features.PrescriptionItems.Extensions;
 using Hospital_ERP_Backend.Application.Features.Prescriptions.Extensions;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Extensions;
-using Hospital_ERP_Backend.Application.Features.RadiologyReports.Extensions;
 using Hospital_ERP_Backend.Application.Features.RadiologyImages.Extensions;
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Extensions;
+using Hospital_ERP_Backend.Application.Features.RadiologyReports.Extensions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
+using Hospital_ERP_Backend.Application.Features.Specializations.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +53,8 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddRadiologyImageServicesExtension();
             services.AddLabTestResultsServiceExtension();
             services.AddRadiologyOrdersServicesExtension();
+            services.AddSpecializationServicesExtension();
+
             return services;
         }
     }
