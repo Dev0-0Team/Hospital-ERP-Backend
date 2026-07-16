@@ -35,6 +35,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Doctor>, DoctorQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Specialization>, SpecializationQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Nurse>, NurseQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RoomAssignment>, RoomAssignmentQueryRepository>();
             return services;
         }
     }
