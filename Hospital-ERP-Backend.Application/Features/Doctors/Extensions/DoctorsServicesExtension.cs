@@ -19,7 +19,7 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Extensions
 
             services.AddScoped<GetAllDoctorsService>();
             services.AddScoped<GetDoctorService>();
-            services.AddScoped<CreateDoctorRequest>();
+            services.AddScoped<CreateDoctorService>();
             services.AddScoped<UpdateDoctorService>();
 
             return services;
