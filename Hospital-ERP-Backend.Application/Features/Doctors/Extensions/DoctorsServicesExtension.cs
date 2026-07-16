@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetAllDoctors;
+using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetDoctor;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital_ERP_Backend.Application.Features.Doctors.Extensions
@@ -10,8 +11,10 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Extensions
         {
 
             services.AddScoped<IValidator<GetAllDoctorsRequest>, GetAllDoctorsValidator>();
+            services.AddScoped<IValidator<GetDoctorRequest>, GetDoctorValidator>();
 
             services.AddScoped<GetAllDoctorsService>();
+            services.AddScoped<GetDoctorService>();
 
             return services;
         }
