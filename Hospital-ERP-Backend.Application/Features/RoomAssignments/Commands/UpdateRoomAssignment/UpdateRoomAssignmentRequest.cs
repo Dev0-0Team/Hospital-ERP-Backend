@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment
 {
-    internal class UpdateRoomAssignmentRequest
+    public record UpdateRoomAssignmentRequest : IRequest<UpdateRoomAssignmentResponse>
     {
+        public int Id { get; init; }
+        public int PatientId { get; init; }
+        public int BedId { get; init; }
+        public DateTime AdmittedAt { get; init; }
+        public DateTime? DischargedAt { get; init; }
     }
 }
