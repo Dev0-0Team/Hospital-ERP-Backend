@@ -1,6 +1,7 @@
 ﻿using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
+using Hospital_ERP_Backend.Application.Features.Doctors.Extensions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTestResults.Extensions;
@@ -53,6 +54,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddRadiologyImageServicesExtension();
             services.AddLabTestResultsServiceExtension();
             services.AddRadiologyOrdersServicesExtension();
+            services.AddDoctorsServicesExtension();
             services.AddSpecializationServicesExtension();
 
             return services;
