@@ -38,7 +38,6 @@
     <Folder Include="Features\Bed\Commands\CreateBed\" />
     <Folder Include="Features\Bed\Commands\DeleteBed\" />
     <Folder Include="Features\Bed\Commands\UpdateBed\" />
-    <Folder Include="Features\Doctors\Commands\" />
     <Folder Include="Features\MedicationInventories\Extensions\" />
     <Folder Include="Features\Permissions\Commands\" />
     <Folder Include="Features\Permissions\Extensions\" />
