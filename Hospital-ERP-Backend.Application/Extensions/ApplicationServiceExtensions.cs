@@ -26,14 +26,14 @@ namespace Hospital_ERP_Backend.Application.Extensions
         public static IServiceCollection AddApplicationServicesExtension(this IServiceCollection services)
         {
             services.AddPersonServicesExtension();
-            services.AddRoleServicesExtension();
+          //  services.AddRoleServicesExtension();
             services.AddPermissionServicesExtension();
             services.AddUserServicesExtension();
             services.AddUserRoleServicesExtension();
             services.AddRoomTypeServicesExtension();
             services.AddRoomServicesExtension();
             services.AddRolePermissionServicesExtension();
-            services.AddMedicationServicesExtension();
+           // services.AddMedicationServicesExtension();
             services.AddLabTestsServicesExtension();
             services.AddQueuePriorityServicesExtension();
             services.AddMedicationInventoryServicesExtensions();
@@ -44,6 +44,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddDepartmentServicesExtension();
             services.AddAppointmentServicesExtension();
             services.AddBedServicesExtension();
+            services.AddRoPatientExtension();
             return services;
         }
     }
