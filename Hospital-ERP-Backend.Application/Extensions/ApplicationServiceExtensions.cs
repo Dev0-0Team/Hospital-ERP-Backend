@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
+﻿using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
+using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Doctors.Extensions;
@@ -58,6 +59,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddDoctorsServicesExtension();
             services.AddSpecializationServicesExtension();
             services.AddNurseServiceExtensions();
+            services.AddAppointmentQueueServicesExtension();
 
             return services;
         }

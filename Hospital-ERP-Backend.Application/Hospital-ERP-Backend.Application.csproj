@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AppointmentQueues\Commands\CreateAppointmentQueue\" />
+    <Folder Include="Features\AppointmentQueues\Commands\DeleteAppointmentQueue\" />
+    <Folder Include="Features\AppointmentQueues\Commands\UpdateAppointmentQueue\" />
     <Folder Include="Features\Appointments\Commands\CreateAppointment\" />
     <Folder Include="Features\Appointments\Commands\DeleteAppointment\" />
     <Folder Include="Features\Appointments\Commands\UpdateAppointment\" />
