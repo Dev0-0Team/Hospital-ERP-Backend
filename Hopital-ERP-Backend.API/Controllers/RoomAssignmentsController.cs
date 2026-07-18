@@ -1,0 +1,72 @@
+﻿using Hospital_ERP_Backend.API;
+using Hospital_ERP_Backend.API.Controllers;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.DeleteRoomAssignment;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetAllRoomAssignments;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetRoomAssignment;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Hopital_ERP_Backend.API.Controllers
+{
+    [Route("api/RoomAssignments")]
+    [ApiController]
+    public class RoomAssignmentsController : BaseController
+    {
+        private readonly ISender _sender;
+
+        public RoomAssignmentsController(ISender sender)
+        {
+            _sender = sender;
+        }
+
+        [HttpGet(Name = "GetAllRoomAssignmentsAsync")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRoomAssignmentsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
+        {
+            GetAllRoomAssignmentsRequest getAllRoomAssignmentsRequest = new GetAllRoomAssignmentsRequest
+            {
+                Page = page
+            };
+
+            var list = await _sender.Send(getAllRoomAssignmentsRequest);
+            return CreateResponse<IEnumerable<GetAllRoomAssignmentsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
+        }
+
+        [HttpGet("{ID}", Name = "GetRoomAssignmentByID")]
+        public async Task<ActionResult<ApiResponse<GetRoomAssignmentResponse?>>> GetByIDAsync([FromRoute] int ID)
+        {
+            GetRoomAssignmentRequest getRoomAssignmentRequest = new GetRoomAssignmentRequest
+            {
+                Id = ID
+            };
+            var response = await _sender.Send(getRoomAssignmentRequest);
+            return CreateResponse<GetRoomAssignmentResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
+        }
+
+        [HttpPost(Name = "CreateRoomAssignmentAsync")]
+        public async Task<ActionResult<ApiResponse<CreateRoomAssignmentResponse>>> CreateAsync([FromBody] CreateRoomAssignmentRequest request)
+        {
+            var success = await _sender.Send(request);
+            return CreatedAtRoute("GetRoomAssignmentByID", new { ID = success!.Id }, success);
+        }
+
+        [HttpPut(Name = "UpdateRoomAssignmentAsync")]
+        public async Task<ActionResult<ApiResponse<UpdateRoomAssignmentResponse>>> UpdateAsync([FromBody] UpdateRoomAssignmentRequest request)
+        {
+            var response = await _sender.Send(request);
+            return CreateResponse<UpdateRoomAssignmentResponse>(response, StatusCodes.Status200OK, "Room Assignment Updated Successfully!");
+        }
+
+        [HttpDelete("{ID}", Name = "DeleteRoomAssignmentAsync")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
+        {
+            DeleteRoomAssignmentRequest deleteRoomAssignmentRequest = new DeleteRoomAssignmentRequest
+            {
+                Id = ID
+            };
+            var success = await _sender.Send(deleteRoomAssignmentRequest);
+            return CreateResponse<bool>(success, StatusCodes.Status200OK, "Room Assignment Deleted Successfully!");
+        }
+    }
+}

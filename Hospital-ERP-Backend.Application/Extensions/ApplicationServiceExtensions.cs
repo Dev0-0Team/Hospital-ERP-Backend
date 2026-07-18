@@ -1,4 +1,4 @@
-﻿using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
+using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
 using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
@@ -20,6 +20,7 @@ using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Extensions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Roles.Extensions;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
 using Hospital_ERP_Backend.Application.Features.Specializations.Extensions;
@@ -59,6 +60,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddDoctorsServicesExtension();
             services.AddSpecializationServicesExtension();
             services.AddNurseServiceExtensions();
+            services.AddRoomAssignmentServicesExtension();
             services.AddAppointmentQueueServicesExtension();
 
             return services;
