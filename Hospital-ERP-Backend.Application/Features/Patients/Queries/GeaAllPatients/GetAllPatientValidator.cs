@@ -3,7 +3,7 @@
 namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetAllPatients
 {
 
-    public class GetAllPatientValidator : AbstractValidator<GetAllPatient>
+    public class GetAllPatientValidator : AbstractValidator<GetAllPatientRequest>
     {
         public GetAllPatientValidator()
         {

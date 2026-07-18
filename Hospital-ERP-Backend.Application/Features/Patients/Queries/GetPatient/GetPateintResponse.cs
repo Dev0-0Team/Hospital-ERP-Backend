@@ -1,9 +1,10 @@
-﻿using System;
+﻿
+using System;
 
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetIDPatient
 {
-    public record GetIDPatientQuery
+    public record GetPateintResponse
     {
         public int PersonId { get; set; }
 

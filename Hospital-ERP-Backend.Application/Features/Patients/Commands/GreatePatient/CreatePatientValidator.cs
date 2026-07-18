@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePatient;
 
-namespace Hospital_ERP_Backend.Application.Features.Patients.Command.GreatPatient
+
+namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.GreatePatient
 {
    
-        public class CreatePatientValidator : AbstractValidator<CreatePatient>
+        public class CreatePatientValidator : AbstractValidator<CreatePatientRequest>
         {
             public CreatePatientValidator()
             {

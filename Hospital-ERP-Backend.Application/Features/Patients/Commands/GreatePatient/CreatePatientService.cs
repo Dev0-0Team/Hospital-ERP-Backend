@@ -1,29 +1,30 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.Patients.Commands.GreatePatient;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Patients.Command.GreatPatient
+namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePatient
 {
-    public class CreatePatientService : IRequestHandler<CreatePatient, GreatPatientCommand>
+    public class CreatePatientService : IRequestHandler<CreatePatientRequest, CreatePatientResponse>
     {
-        private readonly IValidator<CreatePatient> _validator;
+        private readonly IValidator<CreatePatientRequest> _validator;
         private readonly IBaseCommandRepository<Patient> _iPerson;
         private readonly IBaseQueryRepository<Patient> _iQueryPerson;
 
-        public CreatePatientService(IValidator<CreatePatient> validator, IBaseCommandRepository<Patient> iPerson, IBaseQueryRepository<Patient> iQueryPerson)
+        public CreatePatientService(IValidator<CreatePatientRequest> validator, IBaseCommandRepository<Patient> iPerson, IBaseQueryRepository<Patient> iQueryPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
             _iQueryPerson = iQueryPerson;
         }
 
-        public async Task<GreatPatientCommand> Handle(CreatePatient request, CancellationToken cancellationToken)
+        public async Task<CreatePatientResponse> Handle(CreatePatientRequest request, CancellationToken cancellationToken)
         {
             return await CreatePatientAsync(request);
         }
 
-        private async Task<GreatPatientCommand> CreatePatientAsync(CreatePatient request)
+        private async Task<CreatePatientResponse> CreatePatientAsync(CreatePatientRequest request)
         {
             // Validate the request
             var validationResult = await _validator.ValidateAsync(request);
@@ -45,7 +46,7 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Command.GreatPatien
                 throw new InvalidOperationException("Failed to create Patient.");
             }
 
-            return new GreatPatientCommand
+            return new CreatePatientResponse
             {
                PersonId = result.PersonId,
                 BloodType = result.BloodType

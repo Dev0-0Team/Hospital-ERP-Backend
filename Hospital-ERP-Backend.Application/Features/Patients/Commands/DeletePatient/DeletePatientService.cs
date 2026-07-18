@@ -3,27 +3,27 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Patients.Command.DeletePatient
+namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient
 {
-    public class DeletePatientService : IRequestHandler<DeletePatient, bool>
+    public class DeletePatientService : IRequestHandler<DeletePatientRequest, bool>
     {
         private readonly IBaseCommandRepository<Patient> _iPermission;
-        private readonly IValidator<DeletePatient> _validator;
+        private readonly IValidator<DeletePatientRequest> _validator;
         private readonly IBaseQueryRepository<Patient> _iQueryPermission;
 
-        public DeletePatientService(IBaseCommandRepository<Patient> iPermission, IValidator<DeletePatient> validator, IBaseQueryRepository<Patient> iQueryPermission)
+        public DeletePatientService(IBaseCommandRepository<Patient> iPermission, IValidator<DeletePatientRequest> validator, IBaseQueryRepository<Patient> iQueryPermission)
         {
             _iPermission = iPermission;
             _validator = validator;
             _iQueryPermission = iQueryPermission;
         }
 
-        public async Task<bool> Handle(DeletePatient request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeletePatientRequest request, CancellationToken cancellationToken)
         {
             return await DeletePatientAsync(request);
         }
 
-        private async Task<bool> DeletePatientAsync(DeletePatient request)
+        private async Task<bool> DeletePatientAsync(DeletePatientRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)

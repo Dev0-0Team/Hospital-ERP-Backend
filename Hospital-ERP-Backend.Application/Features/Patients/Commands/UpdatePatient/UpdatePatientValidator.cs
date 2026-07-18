@@ -1,17 +1,14 @@
-﻿using System;
+﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Command.UpdatePatient
 {
-    
-
-    
-    
-        public class UpdatePatientValidator : AbstractValidator<UpdatePatient>
+        public class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
         {
             public UpdatePatientValidator()
             {

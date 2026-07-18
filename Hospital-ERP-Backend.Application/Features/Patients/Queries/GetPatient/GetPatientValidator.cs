@@ -3,9 +3,9 @@
 namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetIDPatient
 {
 
-    public class GetIDPatientValidator : AbstractValidator<GetIDPatient>
+    public class GetPatientValidator : AbstractValidator<GetPateintRequest>
     {
-        public GetIDPatientValidator()
+        public GetPatientValidator()
         {
 
             RuleFor(x => x.PersonId)

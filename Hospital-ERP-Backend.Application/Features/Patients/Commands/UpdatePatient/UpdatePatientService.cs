@@ -1,29 +1,30 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.Patients.Command.UpdatePatient;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Patients.Command.UpdatePatient
+namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient
 {
-    public class UpdatePatientService : IRequestHandler<UpdatePatient, UpdatePatientCommand>
+    public class UpdatePatientService : IRequestHandler<UpdatePatientRequest, UpdatePatientResponse>
     {
-        private readonly IValidator<UpdatePatient> _validator;
+        private readonly IValidator<UpdatePatientRequest> _validator;
         private readonly IBaseCommandRepository<Patient> _iPerson;
         private readonly IBaseQueryRepository<Patient> _iQueryPerson;
 
-        public UpdatePatientService(IValidator<UpdatePatient> validator, IBaseCommandRepository<Patient> iPerson, IBaseQueryRepository<Patient> iQueryPerson)
+        public UpdatePatientService(IValidator<UpdatePatientRequest> validator, IBaseCommandRepository<Patient> iPerson, IBaseQueryRepository<Patient> iQueryPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
             _iQueryPerson = iQueryPerson;
         }
 
-        public async Task<UpdatePatientCommand> Handle(UpdatePatient request, CancellationToken cancellationToken)
+        public async Task<UpdatePatientResponse> Handle(UpdatePatientRequest request, CancellationToken cancellationToken)
         {
             return await UpdatePatientAsync(request);
         }
 
-        private async Task<UpdatePatientCommand> UpdatePatientAsync(UpdatePatient request)
+        private async Task<UpdatePatientResponse> UpdatePatientAsync(UpdatePatientRequest request)
         {
             // Validate the request
             var validationResult = await _validator.ValidateAsync(request);
@@ -45,7 +46,7 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Command.UpdatePatie
                 throw new InvalidOperationException("Failed to create Patient.");
             }
 
-            return new UpdatePatientCommand
+            return new UpdatePatientResponse
             {
                 PersonId = result.PersonId,
                 BloodType = result.BloodType

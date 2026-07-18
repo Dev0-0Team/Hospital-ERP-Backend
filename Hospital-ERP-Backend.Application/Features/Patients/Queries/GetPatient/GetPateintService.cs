@@ -7,23 +7,23 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetIDPatient
 {
-    public class GetIDPateintService : IRequestHandler<GetIDPatient, GetIDPatientQuery>
+    public class GetPateintService : IRequestHandler<GetPateintRequest, GetPateintResponse>
     {
-        private readonly IValidator<GetIDPatient> _validator;
+        private readonly IValidator<GetPateintRequest> _validator;
         private readonly IBaseQueryRepository<Patient> _iPerson;
 
-        public GetIDPateintService(IValidator<GetIDPatient> validator, IBaseQueryRepository<Patient> iPerson)
+        public GetPateintService(IValidator<GetPateintRequest> validator, IBaseQueryRepository<Patient> iPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
         }
 
-        public async Task<GetIDPatientQuery> Handle(GetIDPatient request, CancellationToken cancellationToken)
+        public async Task<GetPateintResponse> Handle(GetPateintRequest request, CancellationToken cancellationToken)
         {
             return await GetIDPateintAsync(request);
         }
 
-        private async Task<GetIDPatientQuery> GetIDPateintAsync(GetIDPatient request)
+        private async Task<GetPateintResponse> GetIDPateintAsync(GetPateintRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -37,7 +37,7 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetIDPatien
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
-            return new GetIDPatientQuery
+            return new GetPateintResponse
             {
                 PersonId= request.PersonId
                 
