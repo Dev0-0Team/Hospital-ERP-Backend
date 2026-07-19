@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.CreateDoctorSchedule;
+using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.DeleteDoctorSchedule;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.UpdateDoctorSchedule;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetDoctorSchedule;
@@ -16,12 +17,14 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Extensions
             services.AddScoped<IValidator<GetDoctorScheduleRequest>, GetDoctorScheduleValidator>();
             services.AddScoped<IValidator<CreateDoctorScheduleRequest>, CreateDoctorScheduleValidator>();
             services.AddScoped<IValidator<UpdateDoctorScheduleRequest>, UpdateDoctorScheduleValidator>();
+            services.AddScoped<IValidator<DeleteDoctorScheduleRequest>, DeleteDoctorScheduleValidator>();
 
 
             services.AddScoped<GetAllDoctorSchedulesService>();
             services.AddScoped<GetDoctorScheduleService>();
             services.AddScoped<CreateDoctorScheduleService>();
             services.AddScoped<UpdateDoctorScheduleService>();
+            services.AddScoped<DeleteDoctorScheduleService>();
 
             return services;
         }
