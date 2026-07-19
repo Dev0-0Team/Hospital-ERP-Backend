@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules
+﻿namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules
 {
-    internal class GetAllDoctorSchedulesResponse
+    public record GetAllDoctorSchedulesResponse
     {
+        public int Id { get; set; }
+
+        public int DoctorId { get; set; }
+
+        public string DayOfWeek { get; set; } = string.Empty;
+
+        public TimeOnly StartTime { get; set; }
+
+        public TimeOnly EndTime { get; set; }
     }
 }

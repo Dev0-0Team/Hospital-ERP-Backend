@@ -21,12 +21,12 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetA
             _validator = validator;
         }
 
-        public async Task<IEnumerable<GetAllDoctorSchedulesResponse>> Handle(GetAllDoctorSchedulesRequest request,CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetAllDoctorSchedulesResponse>> Handle(GetAllDoctorSchedulesRequest request, CancellationToken cancellationToken)
         {
             return await GetAllDoctorSchedulesAsync(request);
         }
 
-        private async Task<GetAllDoctorSchedulesResponse> GetAllDoctorSchedulesAsync(GetAllDoctorSchedulesRequest request)
+        private async Task<IEnumerable<GetAllDoctorSchedulesResponse>> GetAllDoctorSchedulesAsync(GetAllDoctorSchedulesRequest request)
         {
             var validationResult =
               await _validator.ValidateAsync(request);

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules
 {
-    internal class GetAllDoctorSchedulesValidator
+    public class GetAllDoctorSchedulesValidator
+        : AbstractValidator<GetAllDoctorSchedulesRequest>
     {
+        public GetAllDoctorSchedulesValidator()
+        {
+            RuleFor(x => x.Page)
+                .GreaterThan(0).WithMessage("Please enter number greater than 0");
+        }
     }
 }

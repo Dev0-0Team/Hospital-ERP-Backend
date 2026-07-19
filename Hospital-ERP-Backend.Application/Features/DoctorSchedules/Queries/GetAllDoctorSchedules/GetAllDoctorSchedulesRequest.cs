@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules
 {
-    internal class GetAllDoctorSchedulesRequest
+    public record GetAllDoctorSchedulesRequest
+        : IRequest<IEnumerable<GetAllDoctorSchedulesResponse>>
     {
+        public int Page { get; set; }
     }
 }
