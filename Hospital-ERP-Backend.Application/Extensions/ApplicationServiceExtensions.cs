@@ -1,6 +1,7 @@
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
 using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
+using Hospital_ERP_Backend.Application.Features.ChronicDiseases.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Doctors.Extensions;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Extensions;
@@ -70,6 +71,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddAppointmentQueueServicesExtension();
             services.AddDoctorScheduleServicesExtension();
             services.AddEmergencyContactsServicesExtension();
+            services.AddChronicDiseaseServicesExtension();
 
             return services;
         }
