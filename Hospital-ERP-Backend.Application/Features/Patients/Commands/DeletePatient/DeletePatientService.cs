@@ -3,19 +3,20 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
+
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient
 {
     public class DeletePatientService : IRequestHandler<DeletePatientRequest, bool>
     {
-        private readonly IBaseCommandRepository<Patient> _iPermission;
+        private readonly IBaseCommandRepository<Patient> _repository;
+        private readonly IBaseQueryRepository<Patient> _queryRepository;
         private readonly IValidator<DeletePatientRequest> _validator;
-        private readonly IBaseQueryRepository<Patient> _iQueryPermission;
 
-        public DeletePatientService(IBaseCommandRepository<Patient> iPermission, IValidator<DeletePatientRequest> validator, IBaseQueryRepository<Patient> iQueryPermission)
+        public DeletePatientService(IBaseCommandRepository<Patient> repository, IBaseQueryRepository<Patient> queryRepository, IValidator<DeletePatientRequest> validator)
         {
-            _iPermission = iPermission;
+            _repository = repository;
+            _queryRepository = queryRepository;
             _validator = validator;
-            _iQueryPermission = iQueryPermission;
         }
 
         public async Task<bool> Handle(DeletePatientRequest request, CancellationToken cancellationToken)
@@ -26,21 +27,27 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePati
         private async Task<bool> DeletePatientAsync(DeletePatientRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
+
             if (!validationResult.IsValid)
             {
-                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
+                throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
-            Patient? patient = await _iQueryPermission.GetAsync(request.PersonId);
+
+            Patient? patient = await _queryRepository.GetAsync(request.Id);
+
             if (patient == null)
             {
-                throw new KeyNotFoundException($"Permission with Id {request.PersonId} not found.");
+                throw new KeyNotFoundException($"Patient with Id {request.Id} not found.");
             }
-            var isDeleted = await _iPermission.DeleteAsync(patient.PersonId);
-            if (!isDeleted)
+
+            bool result = await _repository.DeleteAsync(request.Id);
+
+            if (!result)
             {
-                throw new InvalidOperationException($"Failed to delete permission with Id {request.PersonId}.");
+                throw new InvalidOperationException("Failed to delete patient.");
             }
-            return isDeleted;
+
+            return result;
         }
     }
 }

@@ -28,6 +28,20 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Appointment>, AppointmentQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Department>, DepartmentQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Bed>, BedQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RadiologyReport>, RadiologyReportQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RadiologyImage>, RadiologyImageQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<LabTestResult>, LabTestResultQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RadiologyOrder>, RadiologyOrderQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<Doctor>, DoctorQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<Specialization>, SpecializationQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<Nurse>, NurseQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<PaymentMethod>, PaymentMethodQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RoomAssignment>, RoomAssignmentQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<AppointmentQueue>, AppointmentQueueQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<DoctorSchedule>, DoctorScheduleQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<EmergencyContact>, EmergencyContactQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<Patient>, PatientQueryRepository>();
+
             return services;
         }
     }

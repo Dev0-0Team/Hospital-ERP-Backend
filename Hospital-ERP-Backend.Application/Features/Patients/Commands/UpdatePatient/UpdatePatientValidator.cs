@@ -1,33 +1,21 @@
-﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace Hospital_ERP_Backend.Application.Features.Patients.Command.UpdatePatient
+using FluentValidation;
+
+namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient
 {
-        public class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
+    public class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
+    {
+        public UpdatePatientValidator()
         {
-            public UpdatePatientValidator()
-            {
-                // Full Name
-                RuleFor(x => x.PersonId)
+            RuleFor(x => x.Id)
+                .GreaterThan(0).WithMessage("ID must be greater than 0.");
 
-                   .GreaterThan(0)
-                    .WithMessage("Person ID Must be 1 or Greater.");
+            RuleFor(x => x.PersonId)
+                .GreaterThan(0).WithMessage("Person ID must be greater than 0.");
 
-                // Date of Birth
-                RuleFor(x => x.BloodType)
-                    .NotEmpty()
-                    .WithMessage("Blood type is required.");
-
-
-            }
-
-
+            RuleFor(x => x.BloodType)
+                .MaximumLength(10).WithMessage("Blood type must not exceed 50 characters.");
         }
     }
-
-
+}

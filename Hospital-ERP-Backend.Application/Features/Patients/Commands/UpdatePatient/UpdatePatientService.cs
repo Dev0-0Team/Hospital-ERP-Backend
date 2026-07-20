@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Patients.Command.UpdatePatient;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
@@ -8,15 +7,18 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePati
 {
     public class UpdatePatientService : IRequestHandler<UpdatePatientRequest, UpdatePatientResponse>
     {
+        private readonly IBaseCommandRepository<Patient> _repository;
+        private readonly IBaseQueryRepository<Person> _personRepository;
+        private readonly IBaseQueryRepository<Patient> _queryRepository;
         private readonly IValidator<UpdatePatientRequest> _validator;
-        private readonly IBaseCommandRepository<Patient> _iPerson;
-        private readonly IBaseQueryRepository<Patient> _iQueryPerson;
 
-        public UpdatePatientService(IValidator<UpdatePatientRequest> validator, IBaseCommandRepository<Patient> iPerson, IBaseQueryRepository<Patient> iQueryPerson)
+        public UpdatePatientService(IBaseCommandRepository<Patient> repository, IBaseQueryRepository<Person> personRepository,
+            IBaseQueryRepository<Patient> queryRepository, IValidator<UpdatePatientRequest> validator)
         {
+            _repository = repository;
+            _personRepository = personRepository;
+            _queryRepository = queryRepository;
             _validator = validator;
-            _iPerson = iPerson;
-            _iQueryPerson = iQueryPerson;
         }
 
         public async Task<UpdatePatientResponse> Handle(UpdatePatientRequest request, CancellationToken cancellationToken)
@@ -26,28 +28,40 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePati
 
         private async Task<UpdatePatientResponse> UpdatePatientAsync(UpdatePatientRequest request)
         {
-            // Validate the request
             var validationResult = await _validator.ValidateAsync(request);
+
             if (!validationResult.IsValid)
             {
-                throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
+                throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Patient createPatient = new Patient
+            Patient? patient = await _queryRepository.GetAsync(request.Id);
+            if (patient == null)
             {
+                throw new KeyNotFoundException($"Patient with Id {request.Id} not found.");
+            }
 
-                PersonId = request.PersonId,
-                BloodType = request.BloodType
-            };
+            Person? person = await _personRepository.GetAsync(request.PersonId);
 
-            Patient? result = await _iPerson.CreateAsync(createPatient);
+            if (person == null)
+            {
+                throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
+            }
+
+            patient.PersonId = request.PersonId;
+            patient.BloodType = request.BloodType;
+            patient.UpdatedAt = DateTime.UtcNow;
+
+            Patient? result = await _repository.UpdateAsync(patient);
+
             if (result == null)
             {
-                throw new InvalidOperationException("Failed to create Patient.");
+                throw new InvalidOperationException("Failed to Update Patient.");
             }
 
             return new UpdatePatientResponse
             {
+                Id = result.Id,
                 PersonId = result.PersonId,
                 BloodType = result.BloodType
             };
