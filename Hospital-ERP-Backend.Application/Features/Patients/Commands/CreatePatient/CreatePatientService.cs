@@ -15,16 +15,14 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePati
     {
         private readonly IBaseCommandRepository<Patient> _repository;
         private readonly IBaseQueryRepository<Person> _personRepository;
-        private readonly IBaseQueryRepository<Patient> _queryRepository;
         private readonly IValidator<CreatePatientRequest> _validator;
 
         public CreatePatientService
             (IBaseCommandRepository<Patient> repository, IBaseQueryRepository<Person> personRepository, 
-            IValidator<CreatePatientRequest> validator, IBaseQueryRepository<Patient> queryRepository)
+            IValidator<CreatePatientRequest> validator)
         {
             _repository = repository;
             _personRepository = personRepository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
