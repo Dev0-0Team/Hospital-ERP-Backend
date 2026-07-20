@@ -12,6 +12,7 @@ using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Extensions;
 using Hospital_ERP_Backend.Application.Features.Medications.Extensions;
 using Hospital_ERP_Backend.Application.Features.Nurses.Extensions;
+using Hospital_ERP_Backend.Application.Features.Patients.Extensions;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Extensions;
 using Hospital_ERP_Backend.Application.Features.Permissions.Extensions;
 using Hospital_ERP_Backend.Application.Features.Persons.Extensions;
@@ -64,7 +65,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddSpecializationServicesExtension();
             services.AddNurseServiceExtensions();
             services.AddPaymentMethodServicesExtension();
-
+            services.AddPatientServiceExtensions();
             services.AddRoomAssignmentServicesExtension();
             services.AddAppointmentQueueServicesExtension();
             services.AddDoctorScheduleServicesExtension();
