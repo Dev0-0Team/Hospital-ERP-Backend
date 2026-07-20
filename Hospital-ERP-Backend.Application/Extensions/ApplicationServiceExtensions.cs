@@ -5,6 +5,7 @@ using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Doctors.Extensions;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Extensions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
+using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTestResults.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
@@ -68,6 +69,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddRoomAssignmentServicesExtension();
             services.AddAppointmentQueueServicesExtension();
             services.AddDoctorScheduleServicesExtension();
+            services.AddEmergencyContactsServicesExtension();
 
             return services;
         }
