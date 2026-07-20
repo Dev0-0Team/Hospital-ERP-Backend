@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.UpdateEmergencyContact
 {
-    internal class UpdateEmergencyContactRequest
+    public record UpdateEmergencyContactRequest() : IRequest<UpdateEmergencyContactResponse>
     {
+        public int Id { get; set; }
+        public int PatientId { get; set; }
+        public string Name { get; set; } = null!;
+        public string Phone { get; set; } = null!;
+        public string Relationship { get; set; } = null!;
     }
 }
