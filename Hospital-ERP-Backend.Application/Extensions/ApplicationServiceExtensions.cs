@@ -10,6 +10,7 @@ using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTestResults.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
+using Hospital_ERP_Backend.Application.Features.MedicalRecords.Extensions;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Extensions;
 using Hospital_ERP_Backend.Application.Features.Medications.Extensions;
 using Hospital_ERP_Backend.Application.Features.Nurses.Extensions;
@@ -72,7 +73,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddDoctorScheduleServicesExtension();
             services.AddEmergencyContactsServicesExtension();
             services.AddChronicDiseaseServicesExtension();
-
+            services.AddMedicalRecordServicesExtension();
             return services;
         }
     }
