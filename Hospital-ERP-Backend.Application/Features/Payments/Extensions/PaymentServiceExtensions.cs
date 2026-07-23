@@ -10,7 +10,7 @@ namespace Hospital_ERP_Backend.Application.Features.Payments.Extensions
 {
     public static class PaymentServiceExtensions
     {
-        public static IServiceCollection AddPaymentMethodServicesExtension(this IServiceCollection services)
+        public static IServiceCollection AddPaymentServicesExtension(this IServiceCollection services)
         {
             services.AddScoped<IValidator<CreatePaymentRequest>, CreatePaymentValidator>();
             services.AddScoped<IValidator<UpdatePaymentRequest>, UpdatePaymentValidator>();
