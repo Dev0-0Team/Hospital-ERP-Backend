@@ -43,7 +43,7 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvo
             Invoice invoice = new()
             {
                 PatientId = request.PatientId,
-                Status = request.Status,
+                Status = request.Status.ToString(),
                 TotalAmount = request.TotalAmount,
                 CreatedAt = DateTime.UtcNow
             };
@@ -59,7 +59,7 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvo
             {
                 Id = result.Id,
                 PatientId = result.PatientId,
-                Status = request.Status,
+                Status = request.Status.ToString(),
                 TotalAmount = request.TotalAmount
             };
         }

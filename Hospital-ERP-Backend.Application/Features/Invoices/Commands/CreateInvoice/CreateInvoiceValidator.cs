@@ -15,13 +15,8 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvo
                .GreaterThan(0).WithMessage("Total amount must be greater than 0");
 
             RuleFor(x => x.Status)
-                .Must(BeValidStatus)
+                .Must(x => Enum.IsDefined(typeof(InvoiceStatus), x))
                 .WithMessage("Invalid invoice status.");
-        }
-
-        private bool BeValidStatus(string status)
-        {
-            return Enum.IsDefined(typeof(InvoiceStatus), status);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hospital_ERP_Backend.Domain.Enums;
+using MediatR;
 
 
 namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice
@@ -7,6 +8,6 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvo
     {
         public int PatientId { get; set; }
         public decimal TotalAmount { get; set; }
-        public string Status { get; set; } = null!;
+        public InvoiceStatus Status { get; set; } 
     }
 }
