@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem
 {
-    internal class CreateInvoiceItemRequest
+    public record CreateInvoiceItemRequest : IRequest<CreateInvoiceItemResponse>
     {
+        public int InvoiceId { get; set; }
+
+        public string ItemName { get; set; } = string.Empty;
+
+        public decimal Amount { get; set; }
+
+        public string ReferenceType { get; set; } = string.Empty;
+
+        public int ReferenceId { get; set; }
     }
 }
