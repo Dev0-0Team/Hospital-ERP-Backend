@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetAllInvoiceItems;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetInvoiceItem;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,10 +13,12 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Extensions
         {
             services.AddScoped<IValidator<GetInvoiceItemRequest>, GetInvoiceItemValidator>();
             services.AddScoped<IValidator<GetAllInvoiceItemsRequest>, GetAllInvoiceItemsValidator>();
+            services.AddScoped<IValidator<CreateInvoiceItemRequest>, CreateInvoiceItemValidator>();
 
 
             services.AddScoped<GetInvoiceItemService>();
             services.AddScoped<GetAllInvoiceItemsService>();
+            services.AddScoped<CreateInvoiceItemService>();
             return services;
         }
     }
