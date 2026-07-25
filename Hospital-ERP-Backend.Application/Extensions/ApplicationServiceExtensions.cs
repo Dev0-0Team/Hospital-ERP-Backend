@@ -7,6 +7,8 @@ using Hospital_ERP_Backend.Application.Features.Doctors.Extensions;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Extensions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
 using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Extensions;
+using Hospital_ERP_Backend.Application.Features.InvoiceItems.Extensions;
+using Hospital_ERP_Backend.Application.Features.Invoices.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTestResults.Extensions;
 using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
@@ -78,6 +80,8 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddMedicalRecordServicesExtension();
             services.AddPaymentServicesExtension();
             services.AddNotificationsServicesExtension();
+            services.AddInvoiceItemsServicesExtension();
+            services.AddInvoiceServicesExtension();
             return services;
         }
     }
