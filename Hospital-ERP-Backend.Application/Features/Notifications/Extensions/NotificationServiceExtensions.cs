@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.Notifications.Commands.CreateNotification;
+using Hospital_ERP_Backend.Application.Features.Notifications.Commands.DeleteNotification;
 using Hospital_ERP_Backend.Application.Features.Notifications.Commands.UpdateNotification;
 using Hospital_ERP_Backend.Application.Features.Notifications.Queries.GetAllNotifications;
 using Hospital_ERP_Backend.Application.Features.Notifications.Queries.GetNotification;
@@ -16,11 +17,13 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Extensions
             services.AddScoped<IValidator<GetAllNotificationsRequest>, GetAllNotificationsValidator>();
             services.AddScoped<IValidator<CreateNotificationRequest>, CreateNotificationValidator>();
             services.AddScoped<IValidator<UpdateNotificationRequest>, UpdateNotificationValidator>();
+            services.AddScoped<IValidator<DeleteNotificationRequest>, DeleteNotificationValidator>();
 
             services.AddScoped<GetNotificationService>();
             services.AddScoped<GetAllNotificationsService>();
             services.AddScoped<CreateNotificationService>();
             services.AddScoped<UpdateNotificationService>();
+            services.AddScoped<DeleteNotificationService>();
 
 
             return services;

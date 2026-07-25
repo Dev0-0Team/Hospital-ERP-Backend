@@ -13,6 +13,7 @@ using Hospital_ERP_Backend.Application.Features.LabTests.Extensions;
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Extensions;
 using Hospital_ERP_Backend.Application.Features.MedicationInventories.Extensions;
 using Hospital_ERP_Backend.Application.Features.Medications.Extensions;
+using Hospital_ERP_Backend.Application.Features.Notifications.Extensions;
 using Hospital_ERP_Backend.Application.Features.Nurses.Extensions;
 using Hospital_ERP_Backend.Application.Features.Patients.Extensions;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Extensions;
@@ -76,6 +77,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddChronicDiseaseServicesExtension();
             services.AddMedicalRecordServicesExtension();
             services.AddPaymentServicesExtension();
+            services.AddNotificationsServicesExtension();
             return services;
         }
     }
