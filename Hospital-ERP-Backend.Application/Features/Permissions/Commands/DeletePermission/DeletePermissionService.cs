@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermission
 {
-    public class DeletePermissionService : IRequestHandler<DeletePermissionRequest, bool>
+    internal class DeletePermissionService : IRequestHandler<DeletePermissionRequest, bool>
     {
         private readonly IBaseCommandRepository<Permission> _iPermission;
         private readonly IValidator<DeletePermissionRequest> _validator;

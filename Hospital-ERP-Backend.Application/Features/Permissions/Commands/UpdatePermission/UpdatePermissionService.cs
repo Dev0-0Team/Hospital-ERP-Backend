@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission
 {
-    public class UpdatePermissionService : IRequestHandler<UpdatePermissionRequest, UpdatePermissionResponse>
+    internal class UpdatePermissionService : IRequestHandler<UpdatePermissionRequest, UpdatePermissionResponse>
     {
         private readonly IValidator<UpdatePermissionRequest> _validator;
         private readonly IBaseCommandRepository<Permission> _iPermission;
@@ -38,7 +38,7 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdateP
             }
 
             permission.Name = request.Name;
-            permission.UpdatedAt = DateTime.Now;
+            permission.UpdatedAt = DateTime.UtcNow;
 
             Permission? result = await _iPermission.UpdateAsync(permission);
             if (result == null)
