@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.DeleteRolePermission
 {
-    public class DeleteRolePermissionValidator : AbstractValidator<DeleteRolePermissionRequest>
+    internal class DeleteRolePermissionValidator : AbstractValidator<DeleteRolePermissionRequest>
     {
         public DeleteRolePermissionValidator()
         {

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.CreateRolePermission
 {
-    public class CreateRolePermissionValidator : AbstractValidator<CreateRolePermissionRequest>
+    internal class CreateRolePermissionValidator : AbstractValidator<CreateRolePermissionRequest>
     {
         public CreateRolePermissionValidator()
         {

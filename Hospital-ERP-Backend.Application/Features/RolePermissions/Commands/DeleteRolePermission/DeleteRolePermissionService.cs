@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.DeleteRolePermission
 {
-    public class DeleteRolePermissionService : IRequestHandler<DeleteRolePermissionRequest, bool>
+    internal class DeleteRolePermissionService : IRequestHandler<DeleteRolePermissionRequest, bool>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
         private readonly IBaseQueryRepository<RolePermission> _iRolePermissionQuery;
