@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerson
 {
-    public class DeletePersonService : IRequestHandler<DeletePersonRequest, bool>
+    internal class DeletePersonService : IRequestHandler<DeletePersonRequest, bool>
     {
         private readonly IValidator<DeletePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
