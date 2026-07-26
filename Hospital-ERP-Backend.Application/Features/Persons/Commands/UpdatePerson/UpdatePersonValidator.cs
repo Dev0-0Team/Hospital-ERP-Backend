@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Domain.Enums;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
-    public class UpdatePersonValidator : AbstractValidator<UpdatePersonRequest>
+    internal class UpdatePersonValidator : AbstractValidator<UpdatePersonRequest>
     {
         public UpdatePersonValidator()
         {
@@ -24,7 +25,7 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
             // Gender
             RuleFor(x => x.Gender)
                 .NotEmpty()
-                .Must(BeValidGender)
+                .Must(x => Enum.IsDefined(typeof(PersonGender), x))
                 .WithMessage("Gender must be Male, Female, or Other");
 
             // Phone
@@ -38,12 +39,6 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
                 .MaximumLength(250)
                 .When(x => x.Address != null)
                 .WithMessage("Address must not exceed 250 characters");
-        }
-
-        private bool BeValidGender(string gender)
-        {
-            var allowed = new[] { "Male", "Female", "Other" };
-            return allowed.Contains(gender);
         }
     }
 }
