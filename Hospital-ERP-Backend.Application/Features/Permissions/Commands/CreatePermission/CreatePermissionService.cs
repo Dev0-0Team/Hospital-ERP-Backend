@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission
 {
-    public class CreatePermissionService : IRequestHandler<CreatePermissionRequest, CreatePermissionResponse>
+    internal class CreatePermissionService : IRequestHandler<CreatePermissionRequest, CreatePermissionResponse>
     {
         private readonly IValidator<CreatePermissionRequest> _validator;
         private readonly IBaseCommandRepository<Permission> _iPermission;
@@ -33,7 +33,8 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreateP
 
             var permission = new Permission
             {
-                Name = request.Name
+                Name = request.Name,
+                CreatedAt = DateTime.UtcNow
             };
 
             Permission? result = await _iPermission.CreateAsync(permission);

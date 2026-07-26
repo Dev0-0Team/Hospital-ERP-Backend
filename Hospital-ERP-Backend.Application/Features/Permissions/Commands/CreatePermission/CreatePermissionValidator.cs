@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission
 {
-    public class CreatePermissionValidator : AbstractValidator<CreatePermissionRequest>
+    internal class CreatePermissionValidator : AbstractValidator<CreatePermissionRequest>
     {
         public CreatePermissionValidator()
         {

@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission
 {
-    public class UpdatePermissionValidator : AbstractValidator<UpdatePermissionRequest>
+    internal class UpdatePermissionValidator : AbstractValidator<UpdatePermissionRequest>
     {
         public UpdatePermissionValidator()
         {
