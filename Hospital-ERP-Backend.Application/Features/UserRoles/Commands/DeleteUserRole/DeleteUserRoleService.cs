@@ -4,11 +4,10 @@ using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using Microsoft.Identity.Client;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUserRole
 {
-    public class DeleteUserRoleService : IRequestHandler<DeleteUserRoleRequest, bool>
+    internal class DeleteUserRoleService : IRequestHandler<DeleteUserRoleRequest, bool>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
         private readonly IBaseQueryRepository<UserRole> _iUserRoleQuery;

@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUserRoles
 {
-    public class GetAllUserRolesValidator : AbstractValidator<GetAllUserRolesRequest>
+    internal class GetAllUserRolesValidator : AbstractValidator<GetAllUserRolesRequest>
     {
         public GetAllUserRolesValidator()
         {
