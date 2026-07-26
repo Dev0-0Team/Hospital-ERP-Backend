@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
 {
-    public class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
+    internal class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
     {
         public UpdateUserValidator()
         {

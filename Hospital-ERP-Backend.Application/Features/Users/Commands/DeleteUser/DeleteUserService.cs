@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
 {
-    public class DeleteUserService : IRequestHandler<DeleteUserRequest, bool>
+    internal class DeleteUserService : IRequestHandler<DeleteUserRequest, bool>
     {
         private readonly IValidator<DeleteUserRequest> _validator;
         private readonly IBaseCommandRepository<User> _iUser;
@@ -32,12 +32,13 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
             {
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
-            var person = await _iUserQuery.GetAsync(request.Id);
-            if (person == null)
+
+            var user = await _iUserQuery.GetAsync(request.Id);
+            if (user == null)
             {
                 throw new KeyNotFoundException($"User with Id {request.Id} not found.");
             }
-            var isDeleted = await _iUser.DeleteAsync(person.Id);
+            var isDeleted = await _iUser.DeleteAsync(user.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete user with Id {request.Id}.");

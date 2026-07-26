@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserRequest>
+    internal class CreateUserValidator : AbstractValidator<CreateUserRequest>
     {
         public CreateUserValidator()
         {
