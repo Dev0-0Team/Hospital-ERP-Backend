@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.CreateUserRole
 {
-    public class CreateUserRoleService : IRequestHandler<CreateUserRoleRequest, CreateUserRoleResponse>
+    internal class CreateUserRoleService : IRequestHandler<CreateUserRoleRequest, CreateUserRoleResponse>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
         private readonly IBaseQueryRepository<User> _iUserQuery;
@@ -41,7 +41,8 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.CreateUse
             UserRole createUserRole = new UserRole()
             {
                 UserId = request.UserId,
-                RoleId = request.RoleId
+                RoleId = request.RoleId,
+                CreatedAt = DateTime.UtcNow
             };
 
             User? isFound = await _iUserQuery.GetAsync(request.UserId);

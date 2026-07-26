@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUserRole
 {
-    public class UpdateUserRoleService : IRequestHandler<UpdateUserRoleRequest, UpdateUserRoleResponse>
+    internal class UpdateUserRoleService : IRequestHandler<UpdateUserRoleRequest, UpdateUserRoleResponse>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
         private readonly IBaseQueryRepository<User> _iUserQuery;
@@ -59,7 +59,7 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUse
             } 
             userRole.UserId = request.UserId;
             userRole.RoleId = request.RoleId;
-            userRole.UpdatedAt = DateTime.Now;
+            userRole.UpdatedAt = DateTime.UtcNow;
 
             UserRole? result = await _iUserRole.UpdateAsync(userRole);
             if (result == null)

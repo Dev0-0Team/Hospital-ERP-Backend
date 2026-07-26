@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUserRole
 {
-    public class DeleteUserRoleValidator : AbstractValidator<DeleteUserRoleRequest>
+    internal class DeleteUserRoleValidator : AbstractValidator<DeleteUserRoleRequest>
     {
         public DeleteUserRoleValidator()
         {
