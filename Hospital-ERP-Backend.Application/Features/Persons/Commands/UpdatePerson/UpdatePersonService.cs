@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
-    public class UpdatePersonService : IRequestHandler<UpdatePersonRequest, UpdatePersonResponse>
+    internal class UpdatePersonService : IRequestHandler<UpdatePersonRequest, UpdatePersonResponse>
     {
         private readonly IValidator<UpdatePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
@@ -40,10 +40,10 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
             }
             existingPerson.FullName = request.FullName;
             existingPerson.Dob = request.Dob;
-            existingPerson.Gender = request.Gender;
+            existingPerson.Gender = request.Gender.ToString();
             existingPerson.Phone = request.Phone;
             existingPerson.Address = request.Address;
-            existingPerson.UpdatedAt = DateTime.Now;
+            existingPerson.UpdatedAt = DateTime.UtcNow;
 
             Person? result = await _iPerson.UpdateAsync(existingPerson);
 
