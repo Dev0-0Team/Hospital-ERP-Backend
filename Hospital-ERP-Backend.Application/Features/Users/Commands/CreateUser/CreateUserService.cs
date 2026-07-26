@@ -41,7 +41,7 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
             {
                 Email = request.Email,
                 PersonId = request.PersonId,
-                Status = request.Status,
+                Status = request.Status.ToString(),
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 CreatedAt = DateTime.UtcNow
             };

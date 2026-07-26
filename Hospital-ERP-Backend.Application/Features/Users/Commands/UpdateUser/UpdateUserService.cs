@@ -47,7 +47,7 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
             }
             existingUser.Email = request.Email;
             existingUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-            existingUser.Status = request.Status;
+            existingUser.Status = request.Status.ToString();
             existingUser.PersonId = request.PersonId;
             existingUser.UpdatedAt = DateTime.UtcNow;
 
