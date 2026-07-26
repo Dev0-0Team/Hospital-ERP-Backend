@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole
 {
-    public class GetRoleValidator : AbstractValidator<GetRoleRequest>
+    internal class GetRoleValidator : AbstractValidator<GetRoleRequest>
     {
         public GetRoleValidator()
         {

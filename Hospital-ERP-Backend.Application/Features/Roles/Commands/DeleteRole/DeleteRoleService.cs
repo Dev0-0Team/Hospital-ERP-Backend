@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
 {
-    public class DeleteRoleService : IRequestHandler<DeleteRoleRequest, bool>
+    internal class DeleteRoleService : IRequestHandler<DeleteRoleRequest, bool>
     {
         private readonly IValidator<DeleteRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;

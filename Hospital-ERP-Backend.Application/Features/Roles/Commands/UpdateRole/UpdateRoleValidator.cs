@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
 {
-    public class UpdateRoleValidator : AbstractValidator<UpdateRoleRequest>
+    internal class UpdateRoleValidator : AbstractValidator<UpdateRoleRequest>
     {
         public UpdateRoleValidator() 
         {
