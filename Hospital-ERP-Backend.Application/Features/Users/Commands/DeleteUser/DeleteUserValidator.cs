@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Domain.Entities;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
 {
-    public class DeleteUserValidator : AbstractValidator<DeleteUserRequest>
+    internal class DeleteUserValidator : AbstractValidator<DeleteUserRequest>
     {
         public DeleteUserValidator()
         {

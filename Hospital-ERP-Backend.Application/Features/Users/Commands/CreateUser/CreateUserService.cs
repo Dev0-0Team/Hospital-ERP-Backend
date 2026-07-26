@@ -5,15 +5,17 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserService : IRequestHandler<CreateUserRequest, CreateUserResponse>
+    internal class CreateUserService : IRequestHandler<CreateUserRequest, CreateUserResponse>
     {
         private readonly IValidator<CreateUserRequest> _validator;
+        private readonly IBaseQueryRepository<Person> _personRepository;
         private readonly IBaseCommandRepository<User> _iUser;
 
-        public CreateUserService(IValidator<CreateUserRequest> validator, IBaseCommandRepository<User> iUser)
+        public CreateUserService(IValidator<CreateUserRequest> validator,IBaseQueryRepository<Person> personRepository ,IBaseCommandRepository<User> iUser)
         {
             _validator = validator;
             _iUser = iUser;
+            _personRepository = personRepository;
         }
 
         public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
@@ -29,12 +31,19 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
+            Person? person = await _personRepository.GetAsync(request.PersonId);
+            if (person == null)
+            {
+                throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
+            }
+
             User createUser = new User()
             {
                 Email = request.Email,
                 PersonId = request.PersonId,
-                Status = request.Status,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
+                Status = request.Status.ToString(),
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                CreatedAt = DateTime.UtcNow
             };
 
             User? result = await _iUser.CreateAsync(createUser);

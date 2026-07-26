@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetUser
 {
-    public class GetUserValidator : AbstractValidator<GetUserRequest>
+    internal class GetUserValidator : AbstractValidator<GetUserRequest>
     {
         public GetUserValidator()
         {

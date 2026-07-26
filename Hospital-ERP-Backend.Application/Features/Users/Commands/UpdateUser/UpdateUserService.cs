@@ -5,17 +5,19 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
 {
-    public class UpdateUserService : IRequestHandler<UpdateUserRequest, UpdateUserResponse>
+    internal class UpdateUserService : IRequestHandler<UpdateUserRequest, UpdateUserResponse>
     {
         private readonly IValidator<UpdateUserRequest> _validator;
         private readonly IBaseCommandRepository<User> _iUser;
+        private readonly IBaseQueryRepository<Person> _personRepository;
         private readonly IBaseQueryRepository<User> _iUserQuery;
 
-        public UpdateUserService(IValidator<UpdateUserRequest> validator, IBaseCommandRepository<User> iUser, IBaseQueryRepository<User> iUserQuery)
+        public UpdateUserService(IValidator<UpdateUserRequest> validator, IBaseQueryRepository<Person> personReopsitory,IBaseCommandRepository<User> iUser, IBaseQueryRepository<User> iUserQuery)
         {
             _validator = validator;
             _iUser = iUser;
             _iUserQuery = iUserQuery;
+            _personRepository = personReopsitory;
         }
 
         public async Task<UpdateUserResponse> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
@@ -31,6 +33,13 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
+            Person? person = await _personRepository.GetAsync(request.PersonId);
+            if (person == null)
+            {
+                throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
+            }
+
+
             User? existingUser = await _iUserQuery.GetAsync(request.Id);
             if (existingUser == null)
             {
@@ -38,9 +47,9 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
             }
             existingUser.Email = request.Email;
             existingUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-            existingUser.Status = request.Status;
+            existingUser.Status = request.Status.ToString();
             existingUser.PersonId = request.PersonId;
-            existingUser.UpdatedAt = DateTime.Now;
+            existingUser.UpdatedAt = DateTime.UtcNow;
 
             User? result = await _iUser.UpdateAsync(existingUser);
 
