@@ -24,8 +24,7 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
 
             // Gender
             RuleFor(x => x.Gender)
-                .NotEmpty()
-                .Must(x => Enum.IsDefined(typeof(PersonGender), x))
+                .IsInEnum()
                 .WithMessage("Gender must be Male, Female, or Other");
 
             // Phone

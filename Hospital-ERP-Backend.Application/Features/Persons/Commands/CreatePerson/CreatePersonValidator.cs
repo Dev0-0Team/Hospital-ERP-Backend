@@ -20,8 +20,7 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
 
             // Gender
             RuleFor(x => x.Gender)
-                .NotEmpty()
-                .Must(x => Enum.IsDefined(typeof(PersonGender), x))
+                .IsInEnum()
                 .WithMessage("Invalid Person Gender");
 
             // Phone
