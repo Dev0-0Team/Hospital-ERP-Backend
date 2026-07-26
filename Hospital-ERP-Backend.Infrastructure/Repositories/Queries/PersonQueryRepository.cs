@@ -11,7 +11,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
         protected override string GetAllSpName => "persons.SP_GetAllPersons";
         protected override string GetByIdSpName => "persons.SP_GetPersonById";
 
-        internal PersonQueryRepository(IOptions<MySetting> setting): base(setting)
+        public PersonQueryRepository(IOptions<MySetting> setting): base(setting)
         { }
     }
 }

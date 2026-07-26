@@ -6,7 +6,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
     internal class PersonCommandRepository : BaseCommandRepository<Person>
     {
-        internal PersonCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
+        public PersonCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
 
     }
 }
