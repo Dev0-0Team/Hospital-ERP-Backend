@@ -33,7 +33,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole
             Role role = new Role
             {
                 Name = request.Name,
-                UpdatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow
             };
 
             Role? result = await _iRole.CreateAsync(role);
