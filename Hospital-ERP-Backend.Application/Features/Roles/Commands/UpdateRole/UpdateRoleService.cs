@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
 {
-    public class UpdateRoleService : IRequestHandler<UpdateRoleRequest, UpdateRoleResponse>
+    internal class UpdateRoleService : IRequestHandler<UpdateRoleRequest, UpdateRoleResponse>
     {
         private readonly IValidator<UpdateRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;
@@ -39,7 +39,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
             }
 
             existingRole.Name = request.Name;
-            existingRole.UpdatedAt = DateTime.Now;
+            existingRole.UpdatedAt = DateTime.UtcNow;
 
             Role? result = await _iRole.UpdateAsync(existingRole);
             if (result == null)
