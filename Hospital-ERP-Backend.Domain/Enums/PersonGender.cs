@@ -8,7 +8,7 @@ namespace Hospital_ERP_Backend.Domain.Enums
 {
     public enum PersonGender
     {
-        Male,
+        Male = 1,
         Female,
         Other
     }
