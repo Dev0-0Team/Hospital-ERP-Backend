@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.CreateRolePermission
 {
-    public class CreateRolePermissionService : IRequestHandler<CreateRolePermissionRequest, CreateRolePermissionResponse>
+    internal class CreateRolePermissionService : IRequestHandler<CreateRolePermissionRequest, CreateRolePermissionResponse>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
         private readonly IBaseQueryRepository<Role> _iRoleQuery;
@@ -54,7 +54,8 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Crea
             RolePermission createRolePermission = new RolePermission()
             {
                 RoleId = request.RoleId,
-                PermissionId = request.PermissionId
+                PermissionId = request.PermissionId,
+                UpdatedAt = DateTime.UtcNow
             };
 
             RolePermission? result = await _iRolePermission.CreateAsync(createRolePermission);

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRolePermission
 {
-    public class UpdateRolePermissionService : IRequestHandler<UpdateRolePermissionRequest, UpdateRolePermissionResponse>
+    internal class UpdateRolePermissionService : IRequestHandler<UpdateRolePermissionRequest, UpdateRolePermissionResponse>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
         private readonly IBaseQueryRepository<RolePermission> _iRolePermissionQuery;
@@ -57,7 +57,7 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Upda
             }
             rolePermission.RoleId = request.RoleId;
             rolePermission.PermissionId = request.PermissionId;
-            rolePermission.UpdatedAt = DateTime.Now;
+            rolePermission.UpdatedAt = DateTime.UtcNow;
 
             RolePermission? result = await _iRolePermission.UpdateAsync(rolePermission);
             if (result == null)
