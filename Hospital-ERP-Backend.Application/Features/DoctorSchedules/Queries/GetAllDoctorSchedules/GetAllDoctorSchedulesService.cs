@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules
 {
-    public class GetAllDoctorSchedulesService
+    internal class GetAllDoctorSchedulesService
         : IRequestHandler<GetAllDoctorSchedulesRequest,
             IEnumerable<GetAllDoctorSchedulesResponse>>
     {

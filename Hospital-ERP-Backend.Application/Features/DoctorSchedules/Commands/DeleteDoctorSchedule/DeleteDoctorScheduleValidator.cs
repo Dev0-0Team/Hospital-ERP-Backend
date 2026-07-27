@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.DeleteDoctorSchedule
 {
-    public class DeleteDoctorScheduleValidator
+    internal class DeleteDoctorScheduleValidator
         : AbstractValidator<DeleteDoctorScheduleRequest>
     {
         public DeleteDoctorScheduleValidator()

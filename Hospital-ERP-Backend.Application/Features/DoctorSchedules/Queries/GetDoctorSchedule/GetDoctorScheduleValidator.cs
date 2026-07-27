@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetDoctorSchedule
 {
-    public class GetDoctorScheduleValidator
+    internal class GetDoctorScheduleValidator
         : AbstractValidator<GetDoctorScheduleRequest>
     {
         public GetDoctorScheduleValidator()
