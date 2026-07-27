@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.CreateRadiologyReport;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.CreateRadiologyReport;
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.DeleteRadiologyReport;
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.UpdateRadiologyReport;
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Queries.GetAllRadiologyReports;
@@ -55,7 +56,12 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreatedAtRoute(
                 "GetRadiologyReportByIdAsync",
                 new { ID = result.Id },
-                result);
+                new ApiResponse<CreateRadiologyReportResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Radiology Report Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut]

@@ -63,7 +63,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = result.Id
                 },
-                result);
+                new ApiResponse<CreateChronicDiseaseResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Chronic Disease Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut(Name = "UpdateChronicDiseaseAsync")]

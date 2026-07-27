@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson;
 using Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerson;
 using Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson;
 using Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPersons;
@@ -48,7 +49,13 @@ namespace Hospital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetPersonByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetPersonByID", new { ID = success!.Id },
+                new ApiResponse<CreatePersonResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Person Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdatePersonAsync")]

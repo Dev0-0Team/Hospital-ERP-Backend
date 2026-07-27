@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Notifications.Commands.CreateNotification;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Notifications.Commands.CreateNotification;
 using Hospital_ERP_Backend.Application.Features.Notifications.Commands.DeleteNotification;
 using Hospital_ERP_Backend.Application.Features.Notifications.Commands.UpdateNotification;
 using Hospital_ERP_Backend.Application.Features.Notifications.Queries.GetAllNotifications;
@@ -65,7 +66,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = result.Id
                 },
-                result);
+                new ApiResponse<CreateNotificationResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "bed Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut(Name = "UpdateNotificationAsync")]

@@ -63,7 +63,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateDepartmentResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Department Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateDepartmentAsync")]

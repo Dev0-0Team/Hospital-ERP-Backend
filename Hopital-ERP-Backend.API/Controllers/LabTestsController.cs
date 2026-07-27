@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.LabTests.Commands.CreateLabTest;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.LabTests.Commands.CreateLabTest;
 using Hospital_ERP_Backend.Application.Features.LabTests.Commands.DeleteLabTest;
 using Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabTest;
 using Hospital_ERP_Backend.Application.Features.LabTests.Queries.GetLabTest;
@@ -64,7 +65,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = success.Id
                 },
-                success);
+                new ApiResponse<CreateLabTestResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Lab Test Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateLabTestAsync")]

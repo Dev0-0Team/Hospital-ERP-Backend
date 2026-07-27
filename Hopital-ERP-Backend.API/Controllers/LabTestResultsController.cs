@@ -65,7 +65,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateLabTestResultResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Lab Test Result Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateLabTestResultAsync")]

@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.DeleteRoomType;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoomType;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetAllRoomTypes;
@@ -49,7 +50,13 @@ namespace Hospital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetRoomTypeByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetRoomTypeByID", new { ID = success!.Id },
+                new ApiResponse<CreateRoomTypeResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Room Type Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateRoomTypeAsync")]

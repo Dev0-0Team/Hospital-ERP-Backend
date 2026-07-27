@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.DeleteInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.UpdateInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetAllInvoiceItems;
@@ -65,7 +66,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = result.Id
                 },
-                result);
+                new ApiResponse<CreateInvoiceItemResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Invoice Item Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut(Name = "UpdateInvoiceItemAsync")]

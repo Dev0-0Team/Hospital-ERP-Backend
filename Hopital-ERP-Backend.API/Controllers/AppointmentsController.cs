@@ -60,7 +60,14 @@ namespace Hospital_ERP_Backend.API.Controllers
             var success = await _sender.Send(request);
 
            
-            return CreatedAtRoute("GetAppointmentByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetAppointmentByID",
+                new { ID = success!.Id },
+                new ApiResponse<CreateAppointmentResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Appointment Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateAppointmentAsync")]

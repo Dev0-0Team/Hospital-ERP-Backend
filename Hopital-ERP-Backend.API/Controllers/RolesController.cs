@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole;
 using Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole;
 using Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole;
 using Hospital_ERP_Backend.Application.Features.Roles.Queries.GetAllRoles;
@@ -48,7 +49,13 @@ namespace Hospital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetRoleByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetRoleByID", new { ID = success!.Id },
+                new ApiResponse<CreateRoleResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Role Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateRoleAsync")]
