@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class SpecializationQueryRepository : BaseQueryRepository<Specialization>
+    internal class SpecializationQueryRepository : BaseQueryRepository<Specialization>
     {
         protected override string GetAllSpName => "specializations.SP_GetAllSpecializations";
         protected override string GetByIdSpName => "specializations.SP_GetSpecializationsById";

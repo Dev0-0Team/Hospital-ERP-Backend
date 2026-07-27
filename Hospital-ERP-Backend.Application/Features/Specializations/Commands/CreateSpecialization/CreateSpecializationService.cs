@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization
 {
-    public class CreateSpecializationService : IRequestHandler<CreateSpecializationRequest, CreateSpecializationResponse>
+    internal class CreateSpecializationService : IRequestHandler<CreateSpecializationRequest, CreateSpecializationResponse>
     {
         private readonly IBaseCommandRepository<Specialization> _repository;
         private readonly IValidator<CreateSpecializationRequest> _validator;
@@ -32,7 +32,8 @@ namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.Cre
 
             Specialization specialization = new Specialization
             {
-                Name = request.Name
+                Name = request.Name,
+                CreatedAt = DateTime.UtcNow
             };
 
             Specialization? result = await _repository.CreateAsync(specialization);

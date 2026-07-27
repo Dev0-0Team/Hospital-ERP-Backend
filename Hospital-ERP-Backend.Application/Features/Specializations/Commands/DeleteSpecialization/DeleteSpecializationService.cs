@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.DeleteSpecialization
 {
-    public class DeleteSpecializationService : IRequestHandler<DeleteSpecializationRequest, bool>
+    internal class DeleteSpecializationService : IRequestHandler<DeleteSpecializationRequest, bool>
     {
         private readonly IBaseCommandRepository<Specialization> _repository;
         private readonly IValidator<DeleteSpecializationRequest> _validator;
