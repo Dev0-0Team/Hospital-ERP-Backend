@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Appointments.Commands.CreateAppointment;
+﻿using Hospital_ERP_Backend.Application.Features.Appointments.Commands.CreateAppointment;
 using Hospital_ERP_Backend.Application.Features.Appointments.Commands.DeleteAppointment;
 using Hospital_ERP_Backend.Application.Features.Appointments.Commands.UpdateAppointment;
 using Hospital_ERP_Backend.Application.Features.Appointments.Queries.GetAllAppointments;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Appointments.Queries.GetAppointm
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
  
     [Route("api/Appointments")]

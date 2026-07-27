@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser;
+﻿using Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser;
 using Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser;
 using Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser;
 using Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Users.Queries.GetUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Users")]
     [ApiController]

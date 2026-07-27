@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
+﻿using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetAllPermissions;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermissio
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Permissions")]
     [ApiController]

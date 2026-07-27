@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice;
+﻿using Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice;
 using Hospital_ERP_Backend.Application.Features.Invoices.Commands.DeleteInvoice;
 using Hospital_ERP_Backend.Application.Features.Invoices.Commands.UpdateInvoice;
 using Hospital_ERP_Backend.Application.Features.Invoices.Queries.GetAllInvoices;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Invoices.Queries.GetInvoice;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Invoices")]
     [ApiController]

@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.CreateRolePermission;
+﻿using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.CreateRolePermission;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.DeleteRolePermission;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRolePermission;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetAllRolePermissions;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRolePer
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RolePermissions")]
     [ApiController]

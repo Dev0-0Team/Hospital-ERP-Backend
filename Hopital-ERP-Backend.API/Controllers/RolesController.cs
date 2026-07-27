@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole;
+﻿using Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole;
 using Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole;
 using Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole;
 using Hospital_ERP_Backend.Application.Features.Roles.Queries.GetAllRoles;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Roles")]
     [ApiController]

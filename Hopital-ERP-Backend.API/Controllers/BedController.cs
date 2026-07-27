@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed;
+﻿using Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetAllBeds;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetBed;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Beds")]
     [ApiController]

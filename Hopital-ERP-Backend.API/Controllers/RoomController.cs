@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom;
+﻿using Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom;
 using Hospital_ERP_Backend.Application.Features.Rooms.Commands.DeleteRoom;
 using Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom;
 using Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetAllRooms;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetRoom;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Rooms")]
     [ApiController]
