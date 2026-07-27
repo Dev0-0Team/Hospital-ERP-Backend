@@ -46,7 +46,7 @@ namespace Hopital_ERP_Backend.API.Controllers
         }
 
         [HttpPost(Name = "CreateSpecializationAsync")]
-        public async Task<ActionResult> CreateAsync([FromBody] CreateSpecializationRequest request)
+        public async Task<ActionResult<ApiResponse<CreateSpecializationResponse>>> CreateAsync([FromBody] CreateSpecializationRequest request)
         {
             var success = await _sender.Send(request);
             return CreatedAtRoute
