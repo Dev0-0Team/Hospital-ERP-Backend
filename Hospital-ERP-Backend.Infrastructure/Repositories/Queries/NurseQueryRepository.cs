@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class NurseQueryRepository : BaseQueryRepository<Nurse>
+    internal class NurseQueryRepository : BaseQueryRepository<Nurse>
     {
         protected override string GetAllSpName => "nurses.SP_GetAllNurses";
         protected override string GetByIdSpName => "nurses.SP_GetNurseById";

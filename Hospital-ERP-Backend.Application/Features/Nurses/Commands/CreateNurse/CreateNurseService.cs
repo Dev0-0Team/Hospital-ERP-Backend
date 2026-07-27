@@ -1,17 +1,11 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDoctor;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
 {
-    public class CreateNurseService : IRequestHandler<CreateNurseRequest, CreateNurseResponse>
+    internal class CreateNurseService : IRequestHandler<CreateNurseRequest, CreateNurseResponse>
     {
         private readonly IBaseQueryRepository<Person> _personRepository;
         private readonly IBaseQueryRepository<Department> _departmentRepository;
@@ -60,8 +54,7 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
             Nurse nurse = new()
             {
                 PersonId = request.PersonId,
-                DepartmentId = request.DepartmentId,
-                CreatedAt = DateTime.UtcNow
+                DepartmentId = request.DepartmentId
             };
 
             Nurse? result =await _repository.CreateAsync(nurse);

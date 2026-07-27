@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse
 {
-    public class UpdateNurseValidator : AbstractValidator<UpdateNurseRequest>
+    internal class UpdateNurseValidator : AbstractValidator<UpdateNurseRequest>
     {
         public UpdateNurseValidator()
         {

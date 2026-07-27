@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetNurse
 {
-    public class GetNurseValidator : AbstractValidator<GetNurseRequest>
+    internal class GetNurseValidator : AbstractValidator<GetNurseRequest>
     {
         public GetNurseValidator()
         {

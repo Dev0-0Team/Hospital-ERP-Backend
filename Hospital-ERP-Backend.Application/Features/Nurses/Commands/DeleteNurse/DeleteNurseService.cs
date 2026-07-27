@@ -2,15 +2,11 @@
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.DeleteNurse
 {
-    public class DeleteNurseService : IRequestHandler<DeleteNurseRequest, bool>
+    internal class DeleteNurseService : IRequestHandler<DeleteNurseRequest, bool>
     {
         private readonly IBaseCommandRepository<Nurse> _repository;
         private readonly IBaseQueryRepository<Nurse> _queryRepository;
