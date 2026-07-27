@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateDepartment
 {
-    public class UpdateDepartmentService : IRequestHandler<UpdateDepartmentRequest, UpdateDepartmentResponse>
+    internal class UpdateDepartmentService : IRequestHandler<UpdateDepartmentRequest, UpdateDepartmentResponse>
     {
         private readonly IBaseCommandRepository<Department> _repository;
         private readonly IValidator<UpdateDepartmentRequest> _validator;

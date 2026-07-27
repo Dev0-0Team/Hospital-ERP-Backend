@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.DeleteDrugInteraction;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
@@ -7,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.DeleteDepartment
 {
-    public class DeleteDepartmentService : IRequestHandler<DeleteDepartmentRequest, bool>
+    internal class DeleteDepartmentService : IRequestHandler<DeleteDepartmentRequest, bool>
     {
         private IBaseCommandRepository<Department> _repository;
         private IBaseQueryRepository<Department> _queryRepository;
