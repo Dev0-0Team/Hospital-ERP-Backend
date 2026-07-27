@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.CreateMedicalRecord;
+﻿using Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.CreateMedicalRecord;
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.DeleteMedicalRecord;
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.UpdateMedicalRecord;
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Queries.GetAllMedicalRecords;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.MedicalRecords.Queries.GetMedica
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/MedicalRecords")]
     [ApiController]

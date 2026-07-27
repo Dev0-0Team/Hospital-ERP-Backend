@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.CreatePaymentMethod;
+﻿using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.CreatePaymentMethod;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.DeletePaymentMethod;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.UpdatePaymentMethod;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Queries.GetAllPaymentMethods;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.PaymentMethods.Queries.GetPaymen
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/PaymentMethods")]
     [ApiController]

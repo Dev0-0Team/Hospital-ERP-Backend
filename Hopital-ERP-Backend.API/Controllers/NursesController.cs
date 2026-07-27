@@ -3,7 +3,6 @@ using Hospital_ERP_Backend.Application.Features.Nurses.Commands.DeleteNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetAllNurses;
 using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetNurse;
-using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

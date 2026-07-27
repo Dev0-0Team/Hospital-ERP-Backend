@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority;
+﻿using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.DeleteQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetAllQueuePriorities;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetQueue
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/QueuePriorities")]
     [ApiController]

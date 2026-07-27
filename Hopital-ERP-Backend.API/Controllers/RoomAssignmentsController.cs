@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
+﻿using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.DeleteRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetAllRoomAssignments;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetRoomA
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RoomAssignments")]
     [ApiController]

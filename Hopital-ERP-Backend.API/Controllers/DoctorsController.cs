@@ -3,7 +3,6 @@ using Hospital_ERP_Backend.Application.Features.Doctors.Commands.DeleteDoctor;
 using Hospital_ERP_Backend.Application.Features.Doctors.Commands.UpdateDoctor;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetAllDoctors;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetDoctor;
-using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
