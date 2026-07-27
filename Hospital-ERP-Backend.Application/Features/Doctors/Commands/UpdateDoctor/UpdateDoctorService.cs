@@ -5,19 +5,28 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.UpdateDoctor
 {
-    public class UpdateDoctorService : IRequestHandler<UpdateDoctorRequest, UpdateDoctorResponse>
+    internal class UpdateDoctorService : IRequestHandler<UpdateDoctorRequest, UpdateDoctorResponse>
     {
         private readonly IBaseCommandRepository<Doctor> _commandRepository;
         private readonly IBaseQueryRepository<Doctor> _queryRepository;
+        private readonly IBaseQueryRepository<Person> _personRepository;
+        private readonly IBaseQueryRepository<Department> _departmentRepository;
+        private readonly IBaseQueryRepository<Specialization> _specializationRepository;
         private readonly IValidator<UpdateDoctorRequest> _validator;
 
         public UpdateDoctorService(
             IBaseCommandRepository<Doctor> commandRepository,
             IBaseQueryRepository<Doctor> queryRepository,
-            IValidator<UpdateDoctorRequest> validator)
+            IValidator<UpdateDoctorRequest> validator,
+            IBaseQueryRepository<Person> personRepository,
+            IBaseQueryRepository<Department> departmentRepository,
+            IBaseQueryRepository<Specialization> specializationRepository)
         {
             _commandRepository = commandRepository;
             _queryRepository = queryRepository;
+            _personRepository = personRepository;
+            _departmentRepository = departmentRepository;
+            _specializationRepository = specializationRepository;
             _validator = validator;
         }
 
@@ -36,6 +45,32 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.UpdateDocto
             if (doctor == null)
             {
                 throw new KeyNotFoundException($"Doctor with Id {request.Id} not found.");
+            }
+            Person? person =
+                await _personRepository.GetAsync(request.PersonId);
+
+            if (person == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Person with Id {request.PersonId} not found.");
+            }
+
+            Department? department =
+                await _departmentRepository.GetAsync(request.DepartmentId);
+
+            if (department == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Department with Id {request.DepartmentId} not found.");
+            }
+
+            Specialization? specialization =
+                await _specializationRepository.GetAsync(request.SpecializationId);
+
+            if (specialization == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Specialization with Id {request.SpecializationId} not found.");
             }
 
             doctor.PersonId = request.PersonId;

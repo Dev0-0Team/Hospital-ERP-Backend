@@ -3,6 +3,7 @@ using Hospital_ERP_Backend.Application.Features.Doctors.Commands.DeleteDoctor;
 using Hospital_ERP_Backend.Application.Features.Doctors.Commands.UpdateDoctor;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetAllDoctors;
 using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetDoctor;
+using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,7 +63,13 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateDoctorResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Doctor Created Successfully!",
+                    Data = response
+                }
+                );
         }
 
         [HttpPut(Name = "UpdateDoctorAsync")]
