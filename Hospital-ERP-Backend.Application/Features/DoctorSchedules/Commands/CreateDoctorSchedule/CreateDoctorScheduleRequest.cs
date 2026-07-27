@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hospital_ERP_Backend.Domain.Enums;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.CreateDoctorSchedule
 {
@@ -7,7 +8,7 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Cre
     {
         public int DoctorId { get; set; }
 
-        public string DayOfWeek { get; set; } = string.Empty;
+        public DoctorScheduleDayOfWeek DayOfWeek { get; set; }
 
         public TimeOnly StartTime { get; set; }
 

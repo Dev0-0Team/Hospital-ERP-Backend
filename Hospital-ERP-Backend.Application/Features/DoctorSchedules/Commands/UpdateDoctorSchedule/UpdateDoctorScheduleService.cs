@@ -64,7 +64,7 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Upd
             }
 
             schedule.DoctorId = request.DoctorId;
-            schedule.DayOfWeek = request.DayOfWeek;
+            schedule.DayOfWeek = request.DayOfWeek.ToString();
             schedule.StartTime = request.StartTime;
             schedule.EndTime = request.EndTime;
             schedule.UpdatedAt = DateTime.UtcNow;

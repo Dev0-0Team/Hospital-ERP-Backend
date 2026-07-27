@@ -2,31 +2,21 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.CreateDoctorSchedule
 {
-    public class CreateDoctorScheduleValidator
+    internal class CreateDoctorScheduleValidator
         : AbstractValidator<CreateDoctorScheduleRequest>
     {
-        private readonly string[] _days =
-        {
-            "Saturday",
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday"
-        };
-
         public CreateDoctorScheduleValidator()
         {
             RuleFor(x => x.DoctorId)
-                .GreaterThan(0);
+                .GreaterThan(0)
+                .WithMessage("Doctor Id must be greater than zero.");
 
             RuleFor(x => x.DayOfWeek)
-                .NotEmpty()
-                .Must(day => _days.Contains(day))
+                .IsInEnum()
                 .WithMessage("Invalid day of week.");
 
             RuleFor(x => x)
+                .NotEmpty().WithMessage("Start Time and End Time is Required.")
                 .Must(x => x.StartTime < x.EndTime)
                 .WithMessage("Start time must be before end time.");
         }

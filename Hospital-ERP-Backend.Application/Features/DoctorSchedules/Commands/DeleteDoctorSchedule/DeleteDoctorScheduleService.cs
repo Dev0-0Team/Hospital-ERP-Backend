@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.DeleteDoctorSchedule
 {
-    public class DeleteDoctorScheduleService
+    internal class DeleteDoctorScheduleService
         : IRequestHandler<DeleteDoctorScheduleRequest, bool>
     {
         private readonly IBaseCommandRepository<DoctorSchedule> _repository;

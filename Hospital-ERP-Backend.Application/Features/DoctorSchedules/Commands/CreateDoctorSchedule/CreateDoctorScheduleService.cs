@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.CreateDoctorSchedule
 {
-    public class CreateDoctorScheduleService
+    internal class CreateDoctorScheduleService
         : IRequestHandler<CreateDoctorScheduleRequest,
             CreateDoctorScheduleResponse>
     {
@@ -54,7 +54,7 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Cre
             DoctorSchedule schedule = new()
             {
                 DoctorId = request.DoctorId,
-                DayOfWeek = request.DayOfWeek,
+                DayOfWeek = request.DayOfWeek.ToString(),
                 StartTime = request.StartTime,
                 EndTime = request.EndTime
             };
