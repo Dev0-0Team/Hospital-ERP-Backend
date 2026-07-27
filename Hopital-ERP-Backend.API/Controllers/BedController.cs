@@ -46,7 +46,14 @@ namespace Hospital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateBedResponse>>> CreateAsync([FromBody] CreateBedRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetBedByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetBedByID",
+                new { ID = success!.Id },
+                new ApiResponse<CreateBedResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Bed Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateBedAsync")]

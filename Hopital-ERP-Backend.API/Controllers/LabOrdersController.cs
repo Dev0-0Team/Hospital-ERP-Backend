@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.CreateLabOrder;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.CreateLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.DeleteLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetAllLabOrders;
@@ -65,7 +66,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = result.Id
                 },
-                result);
+                new ApiResponse<CreateLabOrderResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Lab Order Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut(Name = "UpdateLabOrderAsync")]

@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetAllPermissions;
@@ -48,7 +49,13 @@ namespace Hospital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetPermissionByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetPermissionByID", new { ID = success!.Id },
+                new ApiResponse<CreatePermissionResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Permission Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdatePermissionAsync")]

@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.CreateRadiologyImage;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.CreateRadiologyImage;
 using Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.DeleteRadiologyImage;
 using Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.UpdateRadiologyImage;
 using Hospital_ERP_Backend.Application.Features.RadiologyImages.Queries.GetAllRadiologyImages;
@@ -64,7 +65,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = result.Id
                 },
-                result);
+                new ApiResponse<CreateRadiologyImageResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Radiology Image Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut(Name = "UpdateRadiologyImageAsync")]

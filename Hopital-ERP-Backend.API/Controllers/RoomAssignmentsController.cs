@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.DeleteRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetAllRoomAssignments;
@@ -46,7 +47,13 @@ namespace Hospital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateRoomAssignmentResponse>>> CreateAsync([FromBody] CreateRoomAssignmentRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetRoomAssignmentByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetRoomAssignmentByID", new { ID = success!.Id },
+                new ApiResponse<CreateRoomAssignmentResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Room Assignment Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateRoomAssignmentAsync")]

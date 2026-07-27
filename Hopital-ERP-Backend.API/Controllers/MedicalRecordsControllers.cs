@@ -59,7 +59,12 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreatedAtRoute(
                 "GetMedicalRecordByIdAsync",
                 new { ID = response.Id },
-                response);
+                new ApiResponse<CreateMedicalRecordResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Medical Record Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateMedicalRecordAsync")]

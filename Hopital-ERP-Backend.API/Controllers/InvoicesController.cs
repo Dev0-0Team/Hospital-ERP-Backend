@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice;
 using Hospital_ERP_Backend.Application.Features.Invoices.Commands.DeleteInvoice;
 using Hospital_ERP_Backend.Application.Features.Invoices.Commands.UpdateInvoice;
 using Hospital_ERP_Backend.Application.Features.Invoices.Queries.GetAllInvoices;
@@ -46,7 +47,14 @@ namespace Hospital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateInvoiceResponse>>> CreateAsync([FromBody] CreateInvoiceRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetInvoiceByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetInvoiceByID",
+                new { ID = success!.Id },
+                new ApiResponse<CreateInvoiceResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Invoice Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateInvoiceAsync")]

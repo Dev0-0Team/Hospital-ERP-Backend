@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePatient;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePatient;
 using Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient;
 using Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient;
 using Hospital_ERP_Backend.Application.Features.Patients.Queries.GetAllPatients;
@@ -46,7 +47,13 @@ namespace Hospital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreatePatientResponse>>> CreateAsync([FromBody] CreatePatientRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetPatientByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetPatientByID", new { ID = success!.Id },
+                new ApiResponse<CreatePatientResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Patient Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdatePatientAsync")]
