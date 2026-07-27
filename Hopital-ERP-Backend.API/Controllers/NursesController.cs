@@ -1,14 +1,13 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse;
+﻿using Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Commands.DeleteNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetAllNurses;
 using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetNurse;
+using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Nurses")]
     [ApiController]
@@ -64,7 +63,12 @@ namespace Hopital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateNurseResponse>
+                {
+                    statusCode = 201,
+                    Message = "Nurse Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateNurseAsync")]

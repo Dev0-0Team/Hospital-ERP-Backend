@@ -1,18 +1,12 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetAllDoctors;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetAllNurses
 {
-    public class GetAllNursesService : IRequestHandler<GetAllNursesRequest, IEnumerable<GetAllNursesResponse>>
+    internal class GetAllNursesService : IRequestHandler<GetAllNursesRequest, IEnumerable<GetAllNursesResponse>>
     {
         private readonly IBaseQueryRepository<Nurse> _repository;
         private readonly IValidator<GetAllNursesRequest> _validator;

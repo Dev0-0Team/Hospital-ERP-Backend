@@ -1,14 +1,11 @@
-﻿
-
-using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse;
+﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse
 {
-    public class UpdateNurseService : IRequestHandler<UpdateNurseRequest, UpdateNurseResponse>
+    internal class UpdateNurseService : IRequestHandler<UpdateNurseRequest, UpdateNurseResponse>
     {
         private readonly IBaseQueryRepository<Person> _personRepository;
         private readonly IBaseQueryRepository<Department> _departmentRepository;

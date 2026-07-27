@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
 {
-    public class CreateNurseValidator : AbstractValidator<CreateNurseRequest>
+    internal class CreateNurseValidator : AbstractValidator<CreateNurseRequest>
     {
         public CreateNurseValidator()
         {
