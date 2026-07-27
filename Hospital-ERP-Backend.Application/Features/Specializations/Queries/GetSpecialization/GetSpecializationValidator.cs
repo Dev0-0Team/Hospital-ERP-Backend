@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetSpecialization
 {
-    public class GetSpecializationValidator : AbstractValidator<GetSpecializationRequest>
+    internal class GetSpecializationValidator : AbstractValidator<GetSpecializationRequest>
     {
         public GetSpecializationValidator()
         {

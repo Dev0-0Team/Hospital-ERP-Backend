@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.API;
+﻿using Azure;
+using Hospital_ERP_Backend.API;
 using Hospital_ERP_Backend.API.Controllers;
 using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
 using Hospital_ERP_Backend.Application.Features.Specializations.Commands.DeleteSpecialization;
@@ -45,10 +46,18 @@ namespace Hopital_ERP_Backend.API.Controllers
         }
 
         [HttpPost(Name = "CreateSpecializationAsync")]
-        public async Task<ActionResult<ApiResponse<CreateSpecializationResponse>>> CreateAsync([FromBody] CreateSpecializationRequest request)
+        public async Task<ActionResult> CreateAsync([FromBody] CreateSpecializationRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetSpecializationByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute
+                ("GetSpecializationByID",
+                new { ID = success!.Id },
+                new ApiResponse<CreateSpecializationResponse>
+                {
+                    statusCode = 201,
+                    Message = "Specialization Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateSpecializationAsync")]

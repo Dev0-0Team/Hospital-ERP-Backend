@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetAllSpecializations
 {
-    public class GetAllSpecializationsValidator : AbstractValidator<GetAllSpecializationsRequest>
+    internal class GetAllSpecializationsValidator : AbstractValidator<GetAllSpecializationsRequest>
     {
         public GetAllSpecializationsValidator()
         {

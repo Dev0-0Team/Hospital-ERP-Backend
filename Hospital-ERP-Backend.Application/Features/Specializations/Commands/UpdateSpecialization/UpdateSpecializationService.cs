@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization
 {
-    public class UpdateSpecializationService : IRequestHandler<UpdateSpecializationRequest,  UpdateSpecializationResponse>
+    internal class UpdateSpecializationService : IRequestHandler<UpdateSpecializationRequest,  UpdateSpecializationResponse>
     {
         private readonly IBaseCommandRepository<Specialization> _repository;
         private readonly IBaseQueryRepository<Specialization> _queryRepository;
