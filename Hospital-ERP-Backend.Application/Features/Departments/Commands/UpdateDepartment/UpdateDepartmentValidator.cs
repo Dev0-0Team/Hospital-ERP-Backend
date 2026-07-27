@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateDepartment
 {
-    public class UpdateDepartmentValidator : AbstractValidator<UpdateDepartmentRequest>
+    internal class UpdateDepartmentValidator : AbstractValidator<UpdateDepartmentRequest>
     {
         public UpdateDepartmentValidator()
         {
@@ -15,7 +15,6 @@ namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateD
                 .MaximumLength(100).WithMessage("Name must not exceed 100 characters.");
 
             RuleFor(x => x.Description)
-                .NotEmpty().WithMessage("Description is required")
                 .MaximumLength(500).WithMessage("Description must not exceed 500 characters.");
         }
     }
