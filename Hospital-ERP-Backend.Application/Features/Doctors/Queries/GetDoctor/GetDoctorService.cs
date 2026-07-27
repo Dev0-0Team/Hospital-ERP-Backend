@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Doctors.Queries.GetDoctor
 {
-    public class GetDoctorService : IRequestHandler<GetDoctorRequest, GetDoctorResponse>
+    internal class GetDoctorService : IRequestHandler<GetDoctorRequest, GetDoctorResponse>
     {
         private readonly IBaseQueryRepository<Doctor> _repository;
 
