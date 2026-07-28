@@ -32,7 +32,7 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
             return await CreateAdministrativeStaffAsync(request);
         }
 
-        public async Task<CreateAdministrativeStaffResponse> CreateAdministrativeStaffAsync(CreateAdministrativeStaffRequest request)
+        private async Task<CreateAdministrativeStaffResponse> CreateAdministrativeStaffAsync(CreateAdministrativeStaffRequest request)
         {
             var validationResult =
                 await _validator.ValidateAsync(request);
