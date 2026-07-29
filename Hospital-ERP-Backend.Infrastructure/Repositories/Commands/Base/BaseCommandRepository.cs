@@ -1,6 +1,7 @@
 ﻿using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base
@@ -13,7 +14,12 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base
         {
             _dbContext = dbContext;
         }
-
+        
+        public virtual async Task<T?> FindAsync(int Id)
+        {
+            T? newEntity = await _dbContext.Set<T>().FindAsync(Id);
+            return newEntity;
+        }
 
         public virtual async Task<T?> CreateAsync(T entity)
         {
