@@ -38,6 +38,8 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoo
             }
 
             existingRoomType.Name = request.Name;
+            existingRoomType.UpdatedAt = DateTime.UtcNow;
+            
             RoomType? result = await _iRoomType.UpdateAsync(existingRoomType);
             if (result == null)
             {
