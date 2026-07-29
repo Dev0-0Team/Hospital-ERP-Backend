@@ -1,15 +1,11 @@
-﻿
-
-using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Persons.Queries.GetAllPersons;
-using Hospital_ERP_Backend.Application.Features.Persons.Queries.GetPerson;
+﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetAllRoomTypes
 {
-    public class GetAllRoomTypesService : IRequestHandler<GetAllRoomTypesRequest, IEnumerable<GetAllRoomTypesResponse>>
+    internal class GetAllRoomTypesService : IRequestHandler<GetAllRoomTypesRequest, IEnumerable<GetAllRoomTypesResponse>>
     {
         private readonly IValidator<GetAllRoomTypesRequest> _validator;
         private readonly IBaseQueryRepository<RoomType> _iRoomType;

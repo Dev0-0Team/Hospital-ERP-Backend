@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoomType
 {
-    public class UpdateRoomTypeValidator : AbstractValidator<UpdateRoomTypeRequest>
+    internal class UpdateRoomTypeValidator : AbstractValidator<UpdateRoomTypeRequest>
     {
         public UpdateRoomTypeValidator()
         {

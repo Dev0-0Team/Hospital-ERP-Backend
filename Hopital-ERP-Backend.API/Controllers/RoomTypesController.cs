@@ -1,5 +1,4 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType;
+﻿using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.DeleteRoomType;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoomType;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetAllRoomTypes;

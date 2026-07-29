@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType
 {
-    public class CreateRoomTypeValidator : AbstractValidator<CreateRoomTypeRequest>
+    internal class CreateRoomTypeValidator : AbstractValidator<CreateRoomTypeRequest>
     {
         public CreateRoomTypeValidator()
         {
