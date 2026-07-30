@@ -15,6 +15,12 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base
             _dbContext = dbContext;
         }
         
+        public virtual async Task<bool> IsExistAsync(int Id)
+        {
+            bool isFind = await _dbContext.Set<T>().AnyAsync(x =>x.Id == Id);
+            return isFind;
+        }
+
         public virtual async Task<T?> FindAsync(int Id)
         {
             T? newEntity = await _dbContext.Set<T>().FindAsync(Id);
