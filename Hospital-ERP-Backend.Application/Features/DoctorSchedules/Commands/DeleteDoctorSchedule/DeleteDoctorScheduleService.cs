@@ -9,31 +9,24 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Del
         : IRequestHandler<DeleteDoctorScheduleRequest, bool>
     {
         private readonly IBaseCommandRepository<DoctorSchedule> _repository;
-        private readonly IBaseQueryRepository<DoctorSchedule> _queryRepository;
         private readonly IValidator<DeleteDoctorScheduleRequest> _validator;
 
         public DeleteDoctorScheduleService(
             IBaseCommandRepository<DoctorSchedule> repository,
-            IBaseQueryRepository<DoctorSchedule> queryRepository,
             IValidator<DeleteDoctorScheduleRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
-        public async Task<bool> Handle(
-            DeleteDoctorScheduleRequest request,
-            CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteDoctorScheduleRequest request, CancellationToken cancellationToken)
         {
             return await DeleteDoctorScheduleAsync(request);
         }
 
-        private async Task<bool> DeleteDoctorScheduleAsync(
-            DeleteDoctorScheduleRequest request)
+        private async Task<bool> DeleteDoctorScheduleAsync(DeleteDoctorScheduleRequest request)
         {
-            var validationResult =
-                await _validator.ValidateAsync(request);
+            var validationResult = await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
@@ -42,16 +35,19 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Del
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            DoctorSchedule? schedule =
-                await _queryRepository.GetAsync(request.Id);
+            bool schedule = await _repository.IsExistAsync(request.Id);
 
-            if (schedule == null)
+            if (!schedule)
             {
-                throw new KeyNotFoundException(
-                    $"Doctor Schedule with Id {request.Id} not found.");
+                throw new KeyNotFoundException($"Doctor Schedule with Id {request.Id} not found.");
             }
 
-            return await _repository.DeleteAsync(request.Id);
+            bool isDeleted = await _repository.DeleteAsync(request.Id);
+            if (!isDeleted)
+            {
+                throw new InvalidOperationException($"Failed to delete administrative staff with Id {request.Id}.");
+            }
+            return isDeleted;
         }
     }
 }

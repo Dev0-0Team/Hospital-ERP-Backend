@@ -7,19 +7,17 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse
 {
     internal class UpdateNurseService : IRequestHandler<UpdateNurseRequest, UpdateNurseResponse>
     {
-        private readonly IBaseQueryRepository<Person> _personRepository;
-        private readonly IBaseQueryRepository<Department> _departmentRepository;
-        private readonly IBaseQueryRepository<Nurse> _nurseRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Department> _departmentRepository;
         private readonly IBaseCommandRepository<Nurse> _repository;
         private readonly IValidator<UpdateNurseRequest> _validator;
 
-        public UpdateNurseService(IBaseQueryRepository<Person> personRepository,
-            IBaseQueryRepository<Department> departmentRepository, IBaseQueryRepository<Nurse> nurseRepository,
+        public UpdateNurseService(IBaseCommandRepository<Person> personRepository,
+            IBaseCommandRepository<Department> departmentRepository,
             IBaseCommandRepository<Nurse> repository, IValidator<UpdateNurseRequest> validator)
         {
             _personRepository = personRepository;
             _departmentRepository = departmentRepository;
-            _nurseRepository = nurseRepository;
             _repository = repository;
             _validator = validator;
         }
@@ -38,28 +36,28 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Nurse? nurse = await _nurseRepository.GetAsync(request.Id);
+            Nurse? nurse = await _repository.FindAsync(request.Id);
             if(nurse == null)
             {
                 throw new KeyNotFoundException($"Nurse with Id {request.Id} not found.");
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
-            Department? department = await _departmentRepository.GetAsync(request.DepartmentId);
+            bool department = await _departmentRepository.IsExistAsync(request.DepartmentId);
 
-            if (department == null)
+            if (!department)
             {
                 throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
             }
 
-            nurse.DepartmentId = department.Id;
-            nurse.PersonId = person.Id;
+            nurse.DepartmentId = request.Id;
+            nurse.PersonId = request.Id;
             nurse.UpdatedAt = DateTime.UtcNow;
 
             Nurse? result = await _repository.UpdateAsync(nurse);

@@ -9,16 +9,14 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
         IRequestHandler<CreateAdministrativeStaffRequest, CreateAdministrativeStaffResponse>
     {
         private readonly IBaseCommandRepository<AdministrativeStaff> _repository;
-
-        private readonly IBaseQueryRepository<Person> _personRepository;
-
-        private readonly IBaseQueryRepository<Department> _departmentRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Department> _departmentRepository;
         private readonly IValidator<CreateAdministrativeStaffRequest> _validator;
 
         public CreateAdministrativeStaffService(
             IBaseCommandRepository<AdministrativeStaff> doctorRepository,
-            IBaseQueryRepository<Person> personRepository,
-            IBaseQueryRepository<Department> departmentRepository,
+            IBaseCommandRepository<Person> personRepository,
+            IBaseCommandRepository<Department> departmentRepository,
             IValidator<CreateAdministrativeStaffRequest> validator)
         {
             _repository = doctorRepository;
@@ -34,8 +32,7 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
         private async Task<CreateAdministrativeStaffResponse> CreateAdministrativeStaffAsync(CreateAdministrativeStaffRequest request)
         {
-            var validationResult =
-                await _validator.ValidateAsync(request);
+            var validationResult = await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
@@ -44,16 +41,16 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
-            Department? department = await _departmentRepository.GetAsync(request.DepartmentId);
+            bool department = await _departmentRepository.IsExistAsync(request.DepartmentId);
 
-            if (department == null)
+            if (!department)
             {
                 throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
             }
@@ -65,13 +62,11 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
                 JobTitle = request.JobTitle
             };
 
-            AdministrativeStaff? result =
-                await _repository.CreateAsync(administrativeStaff);
+            AdministrativeStaff? result = await _repository.CreateAsync(administrativeStaff);
 
             if (result == null)
             {
-                throw new InvalidOperationException(
-                    "Failed to create Doctor.");
+                throw new InvalidOperationException("Failed to create Administrative Staff.");
             }
 
             return new CreateAdministrativeStaffResponse

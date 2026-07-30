@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.DeleteD
     internal class DeleteDepartmentService : IRequestHandler<DeleteDepartmentRequest, bool>
     {
         private IBaseCommandRepository<Department> _repository;
-        private IBaseQueryRepository<Department> _queryRepository;
         private IValidator<DeleteDepartmentRequest> _validator;
 
-        public DeleteDepartmentService(IBaseCommandRepository<Department> repository, IBaseQueryRepository<Department> queryRepository, IValidator<DeleteDepartmentRequest> validator)
+        public DeleteDepartmentService(IBaseCommandRepository<Department> repository, IValidator<DeleteDepartmentRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -34,14 +32,14 @@ namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.DeleteD
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Department? department = await _queryRepository.GetAsync(request.Id);
+            bool department = await _repository.IsExistAsync(request.Id);
 
-            if (department == null)
+            if (!department)
             {
                 throw new KeyNotFoundException($"Department with Id {request.Id} not found.");
             }
 
-            var success = await _repository.DeleteAsync(department.Id);
+            var success = await _repository.DeleteAsync(request.Id);
 
             if (!success)
             {

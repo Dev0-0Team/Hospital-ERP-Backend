@@ -8,22 +8,19 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
     internal class UpdateAdministrativeStaffService : IRequestHandler<UpdateAdministrativeStaffRequest, UpdateAdministrativeStaffResponse>
     {
         private readonly IBaseCommandRepository<AdministrativeStaff> _repository;
-        private readonly IBaseQueryRepository<Person> _personRepository;
-        private readonly IBaseQueryRepository<Department> _departmentRepository;
-        private readonly IBaseQueryRepository<AdministrativeStaff> _queryRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Department> _departmentRepository;
         private readonly IValidator<UpdateAdministrativeStaffRequest> _validator;
 
         public UpdateAdministrativeStaffService(
             IBaseCommandRepository<AdministrativeStaff> doctorRepository,
-            IBaseQueryRepository<Person> personRepository,
-            IBaseQueryRepository<Department> departmentRepository,
-            IBaseQueryRepository<AdministrativeStaff> queryRepository,
+            IBaseCommandRepository<Person> personRepository,
+            IBaseCommandRepository<Department> departmentRepository,
             IValidator<UpdateAdministrativeStaffRequest> validator)
         {
             _repository = doctorRepository;
             _personRepository = personRepository;
             _departmentRepository = departmentRepository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -34,8 +31,7 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
         private async Task<UpdateAdministrativeStaffResponse> UpdateAdministrativeStaffAsync(UpdateAdministrativeStaffRequest request)
         {
-            var validationResult =
-                await _validator.ValidateAsync(request);
+            var validationResult = await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
@@ -44,21 +40,21 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
-            Department? department = await _departmentRepository.GetAsync(request.DepartmentId);
+            bool department = await _departmentRepository.IsExistAsync(request.DepartmentId);
 
-            if (department == null)
+            if (!department)
             {
                 throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
             }
 
-            AdministrativeStaff? administrativeStaff = await _queryRepository.GetAsync(request.Id);
+            AdministrativeStaff? administrativeStaff = await _repository.FindAsync(request.Id);
 
             if (administrativeStaff == null)
             {

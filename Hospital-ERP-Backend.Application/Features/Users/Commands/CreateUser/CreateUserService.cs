@@ -8,10 +8,10 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
     internal class CreateUserService : IRequestHandler<CreateUserRequest, CreateUserResponse>
     {
         private readonly IValidator<CreateUserRequest> _validator;
-        private readonly IBaseQueryRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
         private readonly IBaseCommandRepository<User> _iUser;
 
-        public CreateUserService(IValidator<CreateUserRequest> validator,IBaseQueryRepository<Person> personRepository ,IBaseCommandRepository<User> iUser)
+        public CreateUserService(IValidator<CreateUserRequest> validator,IBaseCommandRepository<Person> personRepository ,IBaseCommandRepository<User> iUser)
         {
             _validator = validator;
             _iUser = iUser;
@@ -31,8 +31,8 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
-            if (person == null)
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }

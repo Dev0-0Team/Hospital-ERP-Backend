@@ -3,29 +3,26 @@ using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
-
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRolePermission
 {
     internal class UpdateRolePermissionService : IRequestHandler<UpdateRolePermissionRequest, UpdateRolePermissionResponse>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
-        private readonly IBaseQueryRepository<RolePermission> _iRolePermissionQuery;
-        private readonly IBaseQueryRepository<Role> _iRoleQuery;
-        private readonly IBaseQueryRepository<Permission> _iPermissionQuery;
+        private readonly IBaseCommandRepository<Role> _iRoleCommand;
+        private readonly IBaseCommandRepository<Permission> _iPermissionCommand;
         private readonly IValidator<UpdateRolePermissionRequest> _iValidator;
 
         public UpdateRolePermissionService(
             IBaseCommandRepository<RolePermission> iRolePermission,
-            IBaseQueryRepository<Role> iRoleQuery,
-            IBaseQueryRepository<Permission> iPermissionQuery,
+            IBaseCommandRepository<Role> iRoleQuery,
+            IBaseCommandRepository<Permission> iPermissionQuery,
             IValidator<UpdateRolePermissionRequest> iValidator,
             IBaseQueryRepository<RolePermission> iRolePermissionQuery)
         {
             _iRolePermission = iRolePermission;
-            _iRoleQuery = iRoleQuery;
-            _iPermissionQuery = iPermissionQuery;
+            _iRoleCommand = iRoleQuery;
+            _iPermissionCommand = iPermissionQuery;
             _iValidator = iValidator;
-            _iRolePermissionQuery = iRolePermissionQuery;
         }
 
         public async Task<UpdateRolePermissionResponse> Handle(UpdateRolePermissionRequest request, CancellationToken cancellationToken)
@@ -40,21 +37,25 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Upda
             {
                 throw new ValidationException(validationResult.Errors);
             }
-            RolePermission? rolePermission = await _iRolePermissionQuery.GetAsync(request.Id);
+
+            RolePermission? rolePermission = await _iRolePermission.FindAsync(request.Id);
             if (rolePermission == null)
             {
                 throw new KeyNotFoundException($"RolePermission with Id {request.Id} not found.");
             }
-            var role = await _iRoleQuery.GetAsync(request.RoleId);
-            if (role == null)
+
+            bool role = await _iRoleCommand.IsExistAsync(request.RoleId);
+            if (!role)
             {
                 throw new KeyNotFoundException($"Role with Id {request.RoleId} not found.");
             }
-            var permission = await _iPermissionQuery.GetAsync(request.PermissionId);
-            if (permission == null)
+
+            bool permission = await _iPermissionCommand.IsExistAsync(request.PermissionId);
+            if (!permission)
             {
                 throw new KeyNotFoundException($"Permission with Id {request.PermissionId} not found.");
             }
+
             rolePermission.RoleId = request.RoleId;
             rolePermission.PermissionId = request.PermissionId;
             rolePermission.UpdatedAt = DateTime.UtcNow;
@@ -64,6 +65,7 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Upda
             {
                 throw new InvalidOperationException("Failed to update Role Permission.");
             }
+
             return new UpdateRolePermissionResponse
             {
                 Id = result.Id,

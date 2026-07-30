@@ -9,14 +9,12 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.DeleteNurse
     internal class DeleteNurseService : IRequestHandler<DeleteNurseRequest, bool>
     {
         private readonly IBaseCommandRepository<Nurse> _repository;
-        private readonly IBaseQueryRepository<Nurse> _queryRepository;
         private readonly IValidator<DeleteNurseRequest> _validator;
 
-        public DeleteNurseService(IBaseCommandRepository<Nurse> repository, IBaseQueryRepository<Nurse> queryRepository,IValidator<DeleteNurseRequest> validator)
+        public DeleteNurseService(IBaseCommandRepository<Nurse> repository,IValidator<DeleteNurseRequest> validator)
         {
             _repository = repository;
             _validator = validator;
-            _queryRepository = queryRepository; 
         }
 
         public async Task<bool> Handle(DeleteNurseRequest request,  CancellationToken cancellationToken)
@@ -33,14 +31,14 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.DeleteNurse
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Nurse? nurse = await _queryRepository.GetAsync(request.Id);
+            bool nurse = await _repository.IsExistAsync(request.Id);
 
-            if (nurse == null)
+            if (!nurse)
             {
                 throw new KeyNotFoundException($"Nurse with Id {request.Id} not found.");
             }
 
-            bool result = await _repository.DeleteAsync(nurse.Id);
+            bool result = await _repository.DeleteAsync(request.Id);
 
             if (!result)
             {

@@ -5,35 +5,29 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.UpdateDoctorSchedule
 {
-    public class UpdateDoctorScheduleService
+    internal class UpdateDoctorScheduleService
         : IRequestHandler<UpdateDoctorScheduleRequest, UpdateDoctorScheduleResponse>
     {
         private readonly IBaseCommandRepository<DoctorSchedule> _repository;
-        private readonly IBaseQueryRepository<DoctorSchedule> _queryRepository;
-        private readonly IBaseQueryRepository<Doctor> _doctorRepository;
+        private readonly IBaseCommandRepository<Doctor> _doctorRepository;
         private readonly IValidator<UpdateDoctorScheduleRequest> _validator;
 
         public UpdateDoctorScheduleService(
             IBaseCommandRepository<DoctorSchedule> repository,
-            IBaseQueryRepository<DoctorSchedule> queryRepository,
-            IBaseQueryRepository<Doctor> doctorRepository,
+            IBaseCommandRepository<Doctor> doctorRepository,
             IValidator<UpdateDoctorScheduleRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _doctorRepository = doctorRepository;
             _validator = validator;
         }
 
-        public async Task<UpdateDoctorScheduleResponse> Handle(
-            UpdateDoctorScheduleRequest request,
-            CancellationToken cancellationToken)
+        public async Task<UpdateDoctorScheduleResponse> Handle(UpdateDoctorScheduleRequest request, CancellationToken cancellationToken)
         {
             return await UpdateDoctorScheduleAsync(request);
         }
 
-        private async Task<UpdateDoctorScheduleResponse> UpdateDoctorScheduleAsync(
-            UpdateDoctorScheduleRequest request)
+        private async Task<UpdateDoctorScheduleResponse> UpdateDoctorScheduleAsync(UpdateDoctorScheduleRequest request)
         {
             var validationResult =
                 await _validator.ValidateAsync(request);
@@ -45,22 +39,18 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Upd
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Doctor? doctor =
-                await _doctorRepository.GetAsync(request.DoctorId);
+            bool doctor = await _doctorRepository.IsExistAsync(request.DoctorId);
 
-            if (doctor == null)
+            if (!doctor)
             {
-                throw new KeyNotFoundException(
-                    $"Doctor with Id {request.DoctorId} not found.");
+                throw new KeyNotFoundException($"Doctor with Id {request.DoctorId} not found.");
             }
 
-            DoctorSchedule? schedule =
-                await _queryRepository.GetAsync(request.Id);
+            DoctorSchedule? schedule = await _repository.FindAsync(request.Id);
 
             if (schedule == null)
             {
-                throw new KeyNotFoundException(
-                    $"Doctor Schedule with Id {request.Id} not found.");
+                throw new KeyNotFoundException($"Doctor Schedule with Id {request.Id} not found.");
             }
 
             schedule.DoctorId = request.DoctorId;
@@ -69,13 +59,11 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Upd
             schedule.EndTime = request.EndTime;
             schedule.UpdatedAt = DateTime.UtcNow;
 
-            DoctorSchedule? result =
-                await _repository.UpdateAsync(schedule);
+            DoctorSchedule? result = await _repository.UpdateAsync(schedule);
 
             if (result == null)
             {
-                throw new InvalidOperationException(
-                    "Failed to update Doctor Schedule.");
+                throw new InvalidOperationException("Failed to update Doctor Schedule.");
             }
 
             return new UpdateDoctorScheduleResponse

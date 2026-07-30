@@ -9,19 +9,19 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDocto
     {
         private readonly IBaseCommandRepository<Doctor> _doctorRepository;
 
-        private readonly IBaseQueryRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
 
-        private readonly IBaseQueryRepository<Department> _departmentRepository;
+        private readonly IBaseCommandRepository<Department> _departmentRepository;
 
-        private readonly IBaseQueryRepository<Specialization> _specializationRepository;
+        private readonly IBaseCommandRepository<Specialization> _specializationRepository;
 
         private readonly IValidator<CreateDoctorRequest> _validator;
 
         public CreateDoctorService(
             IBaseCommandRepository<Doctor> doctorRepository,
-            IBaseQueryRepository<Person> personRepository,
-            IBaseQueryRepository<Department> departmentRepository,
-            IBaseQueryRepository<Specialization> specializationRepository,
+            IBaseCommandRepository<Person> personRepository,
+            IBaseCommandRepository<Department> departmentRepository,
+            IBaseCommandRepository<Specialization> specializationRepository,
             IValidator<CreateDoctorRequest> validator)
         {
             _doctorRepository = doctorRepository;
@@ -50,28 +50,28 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDocto
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Person? person =
-                await _personRepository.GetAsync(request.PersonId);
+            bool person =
+                await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException(
                     $"Person with Id {request.PersonId} not found.");
             }
 
-            Department? department =
-                await _departmentRepository.GetAsync(request.DepartmentId);
+            bool department =
+                await _departmentRepository.IsExistAsync(request.DepartmentId);
 
-            if (department == null)
+            if (!department)
             {
                 throw new KeyNotFoundException(
                     $"Department with Id {request.DepartmentId} not found.");
             }
 
-            Specialization? specialization =
-                await _specializationRepository.GetAsync(request.SpecializationId);
+            bool specialization =
+                await _specializationRepository.IsExistAsync(request.SpecializationId);
 
-            if (specialization == null)
+            if (!specialization)
             {
                 throw new KeyNotFoundException(
                     $"Specialization with Id {request.SpecializationId} not found.");
