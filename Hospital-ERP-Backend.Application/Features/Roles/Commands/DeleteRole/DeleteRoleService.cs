@@ -11,13 +11,11 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
     {
         private readonly IValidator<DeleteRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;
-        private readonly IBaseQueryRepository<Role> _iRoleQuery;
 
-        public DeleteRoleService(IValidator<DeleteRoleRequest> validator, IBaseCommandRepository<Role> iRole, IBaseQueryRepository<Role> iRoleQuery)
+        public DeleteRoleService(IValidator<DeleteRoleRequest> validator, IBaseCommandRepository<Role> iRole)
         {
             _validator = validator;
             _iRole = iRole;
-            _iRoleQuery = iRoleQuery;
         }
 
         public async Task<bool> Handle(DeleteRoleRequest request, CancellationToken cancellationToken)
@@ -33,12 +31,12 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.DeleteRole
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var role = await _iRoleQuery.GetAsync(request.Id);
-            if (role == null)
+            bool role = await _iRole.IsExistAsync(request.Id);
+            if (!role)
             {
                 throw new KeyNotFoundException($"Role with Id {request.Id} not found.");
             }
-            var isDeleted = await _iRole.DeleteAsync(role.Id);
+            var isDeleted = await _iRole.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete role with Id {request.Id}.");

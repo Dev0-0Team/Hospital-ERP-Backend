@@ -10,13 +10,11 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
     {
         private readonly IValidator<UpdateRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;
-        private readonly IBaseQueryRepository<Role> _iQueryRole;
 
-        public UpdateRoleService(IValidator<UpdateRoleRequest> validator, IBaseCommandRepository<Role> iRole, IBaseQueryRepository<Role> iQueryRole)
+        public UpdateRoleService(IValidator<UpdateRoleRequest> validator, IBaseCommandRepository<Role> iRole)
         {
             _validator = validator;
             _iRole = iRole;
-            _iQueryRole = iQueryRole;
         }
         
         public async Task<UpdateRoleResponse> Handle(UpdateRoleRequest request, CancellationToken cancellationToken)
@@ -32,7 +30,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             
-            Role? existingRole = await _iQueryRole.GetAsync(request.Id);
+            Role? existingRole = await _iRole.FindAsync(request.Id);
             if (existingRole == null)
             {
                 throw new KeyNotFoundException($"Role with Id {request.Id} not found.");
