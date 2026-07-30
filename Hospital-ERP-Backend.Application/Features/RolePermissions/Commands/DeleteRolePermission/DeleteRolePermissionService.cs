@@ -10,13 +10,11 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Dele
     internal class DeleteRolePermissionService : IRequestHandler<DeleteRolePermissionRequest, bool>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
-        private readonly IBaseQueryRepository<RolePermission> _iRolePermissionQuery;
         private readonly IValidator<DeleteRolePermissionRequest> _iValidator;
 
-        public DeleteRolePermissionService(IBaseCommandRepository<RolePermission> iRolePermission, IBaseQueryRepository<RolePermission> iRolePermissionQuery, IValidator<DeleteRolePermissionRequest> iValidator)
+        public DeleteRolePermissionService(IBaseCommandRepository<RolePermission> iRolePermission, IValidator<DeleteRolePermissionRequest> iValidator)
         {
             _iRolePermission = iRolePermission;
-            _iRolePermissionQuery = iRolePermissionQuery;
             _iValidator = iValidator;
         }
 
@@ -32,12 +30,12 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Dele
             {
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
-            RolePermission? rolePermission = await _iRolePermissionQuery.GetAsync(request.Id);
-            if (rolePermission == null)
+            bool rolePermission = await _iRolePermission.IsExistAsync(request.Id);
+            if (!rolePermission)
             {
                 throw new KeyNotFoundException($"Role Permission with Id {request.Id} not found.");
             }
-            bool isDeleted = await _iRolePermission.DeleteAsync(rolePermission.Id);
+            bool isDeleted = await _iRolePermission.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete role permission with Id {request.Id}.");
