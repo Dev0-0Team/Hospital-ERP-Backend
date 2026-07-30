@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
     {
         private readonly IValidator<CreatePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
-        private readonly IBaseQueryRepository<Person> _iQueryPerson;
 
-        public CreatePersonService(IValidator<CreatePersonRequest> validator, IBaseCommandRepository<Person> iPerson, IBaseQueryRepository<Person> iQueryPerson)
+        public CreatePersonService(IValidator<CreatePersonRequest> validator, IBaseCommandRepository<Person> iPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
-            _iQueryPerson = iQueryPerson;
         }
 
         public async Task<CreatePersonResponse> Handle(CreatePersonRequest request, CancellationToken cancellationToken)
