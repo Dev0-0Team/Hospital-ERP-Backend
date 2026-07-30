@@ -10,14 +10,12 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Cre
             CreateDoctorScheduleResponse>
     {
         private readonly IBaseCommandRepository<DoctorSchedule> _repository;
-
-        private readonly IBaseQueryRepository<Doctor> _doctorRepository;
-
+        private readonly IBaseCommandRepository<Doctor> _doctorRepository;
         private readonly IValidator<CreateDoctorScheduleRequest> _validator;
 
         public CreateDoctorScheduleService(
             IBaseCommandRepository<DoctorSchedule> repository,
-            IBaseQueryRepository<Doctor> doctorRepository,
+            IBaseCommandRepository<Doctor> doctorRepository,
             IValidator<CreateDoctorScheduleRequest> validator)
         {
             _repository = repository;
@@ -42,13 +40,12 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Cre
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Doctor? doctor =
-                await _doctorRepository.GetAsync(request.DoctorId);
+            bool doctor =
+                await _doctorRepository.IsExistAsync(request.DoctorId);
 
-            if (doctor == null)
+            if (!doctor)
             {
-                throw new KeyNotFoundException(
-                    $"Doctor with Id {request.DoctorId} not found.");
+                throw new KeyNotFoundException($"Doctor with Id {request.DoctorId} not found.");
             }
 
             DoctorSchedule schedule = new()
@@ -59,13 +56,11 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Cre
                 EndTime = request.EndTime
             };
 
-            DoctorSchedule? result =
-                await _repository.CreateAsync(schedule);
+            DoctorSchedule? result = await _repository.CreateAsync(schedule);
 
             if (result == null)
             {
-                throw new InvalidOperationException(
-                    "Failed to create Doctor Schedule.");
+                throw new InvalidOperationException("Failed to create Doctor Schedule.");
             }
 
             return new CreateDoctorScheduleResponse

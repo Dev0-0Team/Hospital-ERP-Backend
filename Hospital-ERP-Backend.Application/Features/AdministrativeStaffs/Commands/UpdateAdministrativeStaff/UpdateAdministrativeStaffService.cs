@@ -54,7 +54,7 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
                 throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
             }
 
-            AdministrativeStaff? administrativeStaff = await _queryRepository.GetAsync(request.Id);
+            AdministrativeStaff? administrativeStaff = await _repository.FindAsync(request.Id);
 
             if (administrativeStaff == null)
             {
