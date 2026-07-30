@@ -1,4 +1,5 @@
 using Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Extensions;
+using Hospital_ERP_Backend.Application.Features.Allergies.Extensions;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
 using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
@@ -84,6 +85,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddInvoiceItemsServicesExtension();
             services.AddInvoiceServicesExtension();
             services.AddAdministrativeStaffServicesExtension();
+            services.AddAllergyServicesExtension();
             return services;
         }
     }
