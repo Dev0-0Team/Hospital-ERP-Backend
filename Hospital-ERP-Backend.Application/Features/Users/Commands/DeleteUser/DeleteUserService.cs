@@ -11,13 +11,11 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
     {
         private readonly IValidator<DeleteUserRequest> _validator;
         private readonly IBaseCommandRepository<User> _iUser;
-        private readonly IBaseQueryRepository<User> _iUserQuery;
 
-        public DeleteUserService(IValidator<DeleteUserRequest> validator, IBaseCommandRepository<User> iUser, IBaseQueryRepository<User> iUserQuery)
+        public DeleteUserService(IValidator<DeleteUserRequest> validator, IBaseCommandRepository<User> iUser)
         {
             _validator = validator;
             _iUser = iUser;
-            _iUserQuery = iUserQuery;
         }
 
         public async Task<bool> Handle(DeleteUserRequest request, CancellationToken cancellationToken)
@@ -33,12 +31,12 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var user = await _iUserQuery.GetAsync(request.Id);
-            if (user == null)
+            bool user = await _iUser.IsExistAsync(request.Id);
+            if (!user)
             {
                 throw new KeyNotFoundException($"User with Id {request.Id} not found.");
             }
-            var isDeleted = await _iUser.DeleteAsync(user.Id);
+            var isDeleted = await _iUser.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete user with Id {request.Id}.");

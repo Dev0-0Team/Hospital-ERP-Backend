@@ -9,14 +9,12 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
     {
         private readonly IValidator<UpdateUserRequest> _validator;
         private readonly IBaseCommandRepository<User> _iUser;
-        private readonly IBaseQueryRepository<Person> _personRepository;
-        private readonly IBaseQueryRepository<User> _iUserQuery;
+        private readonly IBaseCommandRepository<Person> _personRepository;
 
-        public UpdateUserService(IValidator<UpdateUserRequest> validator, IBaseQueryRepository<Person> personReopsitory,IBaseCommandRepository<User> iUser, IBaseQueryRepository<User> iUserQuery)
+        public UpdateUserService(IValidator<UpdateUserRequest> validator, IBaseCommandRepository<Person> personReopsitory,IBaseCommandRepository<User> iUser)
         {
             _validator = validator;
             _iUser = iUser;
-            _iUserQuery = iUserQuery;
             _personRepository = personReopsitory;
         }
 
@@ -33,14 +31,14 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
-            if (person == null)
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
 
-            User? existingUser = await _iUserQuery.GetAsync(request.Id);
+            User? existingUser = await _iUser.FindAsync(request.Id);
             if (existingUser == null)
             {
                 throw new KeyNotFoundException($"User with Id {request.Id} not found.");
