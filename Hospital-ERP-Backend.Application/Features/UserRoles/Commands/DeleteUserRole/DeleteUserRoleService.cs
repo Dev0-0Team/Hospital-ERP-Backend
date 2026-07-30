@@ -10,13 +10,11 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUse
     internal class DeleteUserRoleService : IRequestHandler<DeleteUserRoleRequest, bool>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
-        private readonly IBaseQueryRepository<UserRole> _iUserRoleQuery;
         private readonly IValidator<DeleteUserRoleRequest> _validator;
 
-        public DeleteUserRoleService(IBaseCommandRepository<UserRole> iUserRole,IBaseQueryRepository<UserRole> iUserRoleQuery, IValidator<DeleteUserRoleRequest> validator)
+        public DeleteUserRoleService(IBaseCommandRepository<UserRole> iUserRole, IValidator<DeleteUserRoleRequest> validator)
         {
             _iUserRole = iUserRole;
-            _iUserRoleQuery = iUserRoleQuery;
             _validator = validator;
         }
 
@@ -32,12 +30,12 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUse
             {
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
-            UserRole? userRole = await _iUserRoleQuery.GetAsync(request.Id);
-            if (userRole == null)
+            bool userRole = await _iUserRole.IsExistAsync(request.Id);
+            if (!userRole)
             {
                 throw new KeyNotFoundException($"User Role with Id {request.Id} not found.");
             }
-            bool isDeleted = await _iUserRole.DeleteAsync(userRole.Id);
+            bool isDeleted = await _iUserRole.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete user role with Id {request.Id}.");

@@ -8,23 +8,20 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUse
     internal class UpdateUserRoleService : IRequestHandler<UpdateUserRoleRequest, UpdateUserRoleResponse>
     {
         private readonly IBaseCommandRepository<UserRole> _iUserRole;
-        private readonly IBaseQueryRepository<User> _iUserQuery;
-        private readonly IBaseQueryRepository<Role> _iRoleQuery;
+        private readonly IBaseCommandRepository<User> _iUserCommand;
+        private readonly IBaseCommandRepository<Role> _iRoleCommand;
         private readonly IValidator<UpdateUserRoleRequest> _validator;
-        private readonly IBaseQueryRepository<UserRole> _iUserRoleQuery;
 
         public UpdateUserRoleService(
             IBaseCommandRepository<UserRole> iUserRole,
-            IBaseQueryRepository<User> iUserQuery,
-            IBaseQueryRepository<Role> iRoleQuery,
-            IValidator<UpdateUserRoleRequest> validator,
-            IBaseQueryRepository<UserRole> iUserRoleQuery)
+            IBaseCommandRepository<User> iUserQuery,
+            IBaseCommandRepository<Role> iRoleQuery,
+            IValidator<UpdateUserRoleRequest> validator)
         {
             _iUserRole = iUserRole;
-            _iUserQuery = iUserQuery;
-            _iRoleQuery = iRoleQuery;
+            _iUserCommand = iUserQuery;
+            _iRoleCommand = iRoleQuery;
             _validator = validator;
-            _iUserRoleQuery = iUserRoleQuery;
         }
 
         public async Task<UpdateUserRoleResponse> Handle(UpdateUserRoleRequest request, CancellationToken cancellationToken)
@@ -40,23 +37,23 @@ namespace Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUse
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            UserRole? userRole = await _iUserRoleQuery.GetAsync(request.Id);
+            UserRole? userRole = await _iUserRole.FindAsync(request.Id);
             if (userRole == null)
             {
                 throw new KeyNotFoundException($"User Role with Id {request.Id} not found.");
             }
 
-            User? isFound = await _iUserQuery.GetAsync(request.UserId);
-            if (isFound == null)
+            bool isFound = await _iUserCommand.IsExistAsync(request.UserId);
+            if (!isFound)
             {
                 throw new KeyNotFoundException($"User with Id {request.UserId} not found.");
             }
 
-            Role? isRoleFound = await _iRoleQuery.GetAsync(request.RoleId);
-            if (isRoleFound == null)
+            bool isRoleFound = await _iRoleCommand.IsExistAsync(request.RoleId);
+            if (!isRoleFound)
             {
                 throw new KeyNotFoundException($"Role with Id {request.RoleId} not found.");
-            } 
+            }
             userRole.UserId = request.UserId;
             userRole.RoleId = request.RoleId;
             userRole.UpdatedAt = DateTime.UtcNow;
