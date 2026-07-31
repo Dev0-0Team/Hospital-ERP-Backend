@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Queries.GetAllRadiologyImages
 {
-    public class GetAllRadiologyImagesService
+    internal class GetAllRadiologyImagesService
         : IRequestHandler<GetAllRadiologyImagesRequest,
             IEnumerable<GetAllRadiologyImagesResponse>>
     {

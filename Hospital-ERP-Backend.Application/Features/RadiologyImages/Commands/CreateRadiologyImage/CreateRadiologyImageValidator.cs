@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.CreateRadiologyImage
 {
-    public class CreateRadiologyImageValidator
+    internal class CreateRadiologyImageValidator
         : AbstractValidator<CreateRadiologyImageRequest>
     {
         public CreateRadiologyImageValidator()
