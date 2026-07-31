@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTestResults.Commands.DeleteLabTestResult
 {
-    public class DeleteLabTestResultService
+    internal class DeleteLabTestResultService
         : IRequestHandler<DeleteLabTestResultRequest, bool>
     {
         private readonly IBaseCommandRepository<LabTestResult> _repository;

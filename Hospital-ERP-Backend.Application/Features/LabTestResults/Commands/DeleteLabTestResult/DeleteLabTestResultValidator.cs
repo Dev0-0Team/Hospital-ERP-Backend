@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.LabTestResults.Commands.DeleteLabTestResult
 {
-    public class DeleteLabTestResultValidator
+    internal class DeleteLabTestResultValidator
         : AbstractValidator<DeleteLabTestResultRequest>
     {
         public DeleteLabTestResultValidator()
