@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.CreateMedicationInventory
 {
-    public class CreateMedicationInventoryService : IRequestHandler<CreateMedicationInventoryRequest, CreateMedicationInventoryResponse>
+    internal class CreateMedicationInventoryService : IRequestHandler<CreateMedicationInventoryRequest, CreateMedicationInventoryResponse>
     {
         private readonly IBaseCommandRepository<MedicationInventory> _medicationInventoryRepository;
 

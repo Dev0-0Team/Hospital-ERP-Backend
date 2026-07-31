@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Queries.GetAllMedicationInventories
 {
-    public class GetAllMedicationInventoriesValidator : AbstractValidator<GetAllMedicationInventoriesRequest>
+    internal class GetAllMedicationInventoriesValidator : AbstractValidator<GetAllMedicationInventoriesRequest>
     {
         public GetAllMedicationInventoriesValidator()
         {

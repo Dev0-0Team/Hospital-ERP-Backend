@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.DeleteMedicationInventory
 {
-    public class DeleteMedicationInventoryValidator : AbstractValidator<DeleteMedicationInventoryRequest>
+    internal class DeleteMedicationInventoryValidator : AbstractValidator<DeleteMedicationInventoryRequest>
     {
         public DeleteMedicationInventoryValidator()
         {

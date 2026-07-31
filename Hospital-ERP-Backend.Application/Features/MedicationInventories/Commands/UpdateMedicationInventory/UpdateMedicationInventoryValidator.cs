@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.UpdateMedicationInventory
 {
-    public class UpdateMedicationInventoryValidator : AbstractValidator<UpdateMedicationInventoryRequest>
+    internal class UpdateMedicationInventoryValidator : AbstractValidator<UpdateMedicationInventoryRequest>
     {
         public UpdateMedicationInventoryValidator()
         {

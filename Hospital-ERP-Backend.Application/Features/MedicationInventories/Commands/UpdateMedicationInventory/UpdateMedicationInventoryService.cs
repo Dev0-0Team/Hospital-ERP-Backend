@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.UpdateMedicationInventory
 {
-    public class UpdateMedicationInventoryService : IRequestHandler<UpdateMedicationInventoryRequest, UpdateMedicationInventoryResponse>
+    internal class UpdateMedicationInventoryService : IRequestHandler<UpdateMedicationInventoryRequest, UpdateMedicationInventoryResponse>
     {
         private readonly IValidator<UpdateMedicationInventoryRequest> _validator;
 
