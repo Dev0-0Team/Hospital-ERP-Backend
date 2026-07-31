@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.UpdateQueuePriority
 {
-    public class UpdateRadiologyOrderService : IRequestHandler<UpdateRadiologyOrderRequest, UpdateRadiologyOrderResponse>
+    internal class UpdateRadiologyOrderService : IRequestHandler<UpdateRadiologyOrderRequest, UpdateRadiologyOrderResponse>
     {
         private readonly IBaseCommandRepository<RadiologyOrder> _repository;
         private readonly IBaseQueryRepository<RadiologyOrder> _queryRepository;
