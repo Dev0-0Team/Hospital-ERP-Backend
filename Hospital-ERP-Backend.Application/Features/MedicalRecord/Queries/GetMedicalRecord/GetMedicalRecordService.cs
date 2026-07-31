@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Queries.GetMedicalRecord
 {
-    public class GetMedicalRecordService : IRequestHandler<GetMedicalRecordRequest, GetMedicalRecordResponse>
+    internal class GetMedicalRecordService : IRequestHandler<GetMedicalRecordRequest, GetMedicalRecordResponse>
     {
         private readonly IBaseQueryRepository<MedicalRecord> _repository;
         private readonly IValidator<GetMedicalRecordRequest> _validator;

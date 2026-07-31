@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.UpdateMedicalRecord
 {
-    public class UpdateMedicalRecordValidator : AbstractValidator<UpdateMedicalRecordRequest>
+    internal class UpdateMedicalRecordValidator : AbstractValidator<UpdateMedicalRecordRequest>
     {
         public UpdateMedicalRecordValidator()
         {

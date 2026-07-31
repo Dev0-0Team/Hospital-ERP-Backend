@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.DeleteMedicalRecord
 {
-    public class DeleteMedicalRecordValidator : AbstractValidator<DeleteMedicalRecordRequest>
+    internal class DeleteMedicalRecordValidator : AbstractValidator<DeleteMedicalRecordRequest>
     {
         public DeleteMedicalRecordValidator()
         {
