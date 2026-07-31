@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.UpdateNotification
 {
-    public class UpdateNotificationService
+    internal class UpdateNotificationService
         : IRequestHandler<UpdateNotificationRequest, UpdateNotificationResponse>
     {
         private readonly IValidator<UpdateNotificationRequest> _validator;

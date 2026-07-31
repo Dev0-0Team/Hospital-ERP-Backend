@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.DeleteNotification
 {
-    public class DeleteNotificationValidator
+    internal class DeleteNotificationValidator
         : AbstractValidator<DeleteNotificationRequest>
     {
         public DeleteNotificationValidator()

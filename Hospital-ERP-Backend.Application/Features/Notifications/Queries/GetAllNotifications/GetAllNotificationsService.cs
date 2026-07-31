@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Queries.GetAllNotifications
 {
-    public class GetAllNotificationsService
+    internal class GetAllNotificationsService
         : IRequestHandler<GetAllNotificationsRequest,
             IEnumerable<GetAllNotificationsResponse>>
     {

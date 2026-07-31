@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.DeleteNotification
 {
-    public class DeleteNotificationService
+    internal class DeleteNotificationService
         : IRequestHandler<DeleteNotificationRequest, bool>
     {
         private readonly IValidator<DeleteNotificationRequest> _validator;

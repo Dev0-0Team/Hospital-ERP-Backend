@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.CreateNotification
 {
-    public class CreateNotificationValidator
+    internal class CreateNotificationValidator
         : AbstractValidator<CreateNotificationRequest>
     {
         public CreateNotificationValidator()
