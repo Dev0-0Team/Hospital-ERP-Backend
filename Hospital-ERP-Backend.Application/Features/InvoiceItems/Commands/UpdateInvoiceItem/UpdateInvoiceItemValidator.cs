@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.UpdateInvoiceItem
 {
-    public class UpdateInvoiceItemValidator : AbstractValidator<UpdateInvoiceItemRequest>
+    internal class UpdateInvoiceItemValidator : AbstractValidator<UpdateInvoiceItemRequest>
     {
         public UpdateInvoiceItemValidator()
         {

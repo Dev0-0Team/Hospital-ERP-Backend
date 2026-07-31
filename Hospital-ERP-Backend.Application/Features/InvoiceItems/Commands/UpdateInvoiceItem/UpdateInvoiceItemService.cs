@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.UpdateInvoiceItem
 {
-    public class UpdateInvoiceItemService
+    internal class UpdateInvoiceItemService
         : IRequestHandler<UpdateInvoiceItemRequest, UpdateInvoiceItemResponse>
     {
         private readonly IValidator<UpdateInvoiceItemRequest> _validator;

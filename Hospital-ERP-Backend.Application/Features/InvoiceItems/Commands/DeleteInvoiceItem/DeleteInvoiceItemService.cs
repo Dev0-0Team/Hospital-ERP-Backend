@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.DeleteInvoiceItem
 {
-    public class DeleteInvoiceItemService
+    internal class DeleteInvoiceItemService
         : IRequestHandler<DeleteInvoiceItemRequest, bool>
     {
         private readonly IValidator<DeleteInvoiceItemRequest> _validator;

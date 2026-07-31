@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.DeleteInvoiceItem
 {
-    public class DeleteInvoiceItemValidator
+    internal class DeleteInvoiceItemValidator
         : AbstractValidator<DeleteInvoiceItemRequest>
     {
         public DeleteInvoiceItemValidator()

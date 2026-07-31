@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem
 {
-    public class CreateInvoiceItemValidator : AbstractValidator<CreateInvoiceItemRequest>
+    internal class CreateInvoiceItemValidator : AbstractValidator<CreateInvoiceItemRequest>
     {
         public CreateInvoiceItemValidator()
         {
