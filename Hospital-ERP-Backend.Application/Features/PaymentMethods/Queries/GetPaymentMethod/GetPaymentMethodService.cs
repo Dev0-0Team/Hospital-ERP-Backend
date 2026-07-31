@@ -1,15 +1,13 @@
 ﻿
 
 using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermission;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System.Security;
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Queries.GetPaymentMethod
 {
-    public class GetPaymentMethodService : IRequestHandler<GetPaymentMethodRequest, GetPaymentMethodResponse>
+    internal class GetPaymentMethodService : IRequestHandler<GetPaymentMethodRequest, GetPaymentMethodResponse>
     {
         private readonly IBaseQueryRepository<PaymentMethod> _repository;
         private readonly IValidator<GetPaymentMethodRequest> _validator;
