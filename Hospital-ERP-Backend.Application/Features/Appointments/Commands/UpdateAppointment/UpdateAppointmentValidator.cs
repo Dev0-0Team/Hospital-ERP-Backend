@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.UpdateAppointment
 {
-    public class UpdateAppointmentValidator : AbstractValidator<UpdateAppointmentRequest>
+    internal class UpdateAppointmentValidator : AbstractValidator<UpdateAppointmentRequest>
     {
         public UpdateAppointmentValidator()
         {

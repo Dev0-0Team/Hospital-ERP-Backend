@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Appointments.Queries.GetAllAppointments
 {
-    public class GetAllAppointmentsService : IRequestHandler<GetAllAppointmentsRequest, IEnumerable<GetAllAppointmentsResponse>>
+    internal class GetAllAppointmentsService : IRequestHandler<GetAllAppointmentsRequest, IEnumerable<GetAllAppointmentsResponse>>
     {
         private readonly IValidator<GetAllAppointmentsRequest> _validator;
         private readonly IBaseQueryRepository<Appointment> _iAppointment;
