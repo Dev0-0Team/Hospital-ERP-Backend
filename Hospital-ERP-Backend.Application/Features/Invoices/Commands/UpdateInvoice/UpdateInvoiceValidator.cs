@@ -1,14 +1,10 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.UpdateInvoice
 {
-    public class UpdateInvoiceValidator : AbstractValidator<UpdateInvoiceRequest>
+    internal class UpdateInvoiceValidator : AbstractValidator<UpdateInvoiceRequest>
     {
         public UpdateInvoiceValidator()
         {

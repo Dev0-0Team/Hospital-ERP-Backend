@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Domain.Enums;
 
 namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice
 {
-    public class CreateInvoiceValidator : AbstractValidator<CreateInvoiceRequest>
+    internal class CreateInvoiceValidator : AbstractValidator<CreateInvoiceRequest>
     {
         public CreateInvoiceValidator()
         {

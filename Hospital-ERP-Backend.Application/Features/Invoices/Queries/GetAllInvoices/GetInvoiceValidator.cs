@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Invoices.Queries.GetAllInvoices
 {
-    public class GetAllInvoicesValidator : AbstractValidator<GetAllInvoicesRequest>
+    internal class GetAllInvoicesValidator : AbstractValidator<GetAllInvoicesRequest>
     {
         public GetAllInvoicesValidator()
         {

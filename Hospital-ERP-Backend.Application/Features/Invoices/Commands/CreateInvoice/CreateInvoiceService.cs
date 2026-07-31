@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.CreateInvoice
 {
-    public class CreateInvoiceService : IRequestHandler<CreateInvoiceRequest, CreateInvoiceResponse>
+    internal class CreateInvoiceService : IRequestHandler<CreateInvoiceRequest, CreateInvoiceResponse>
     {
         private IBaseCommandRepository<Invoice> _repository;
         private IValidator<CreateInvoiceRequest> _validator;

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.DeleteInvoice
 {
-    public class DeleteInvoiceService : IRequestHandler<DeleteInvoiceRequest, bool>
+    internal class DeleteInvoiceService : IRequestHandler<DeleteInvoiceRequest, bool>
     {
         private readonly IBaseCommandRepository<Invoice> _repository;
         private readonly IBaseQueryRepository<Invoice> _queryRepository;
