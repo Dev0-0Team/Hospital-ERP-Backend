@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority
 {
-    public class UpdateQueuePriorityService : IRequestHandler<UpdateQueuePriorityRequest, UpdateQueuePriorityResponse>
+    internal class UpdateQueuePriorityService : IRequestHandler<UpdateQueuePriorityRequest, UpdateQueuePriorityResponse>
     {
         private readonly IValidator<UpdateQueuePriorityRequest> _validator;
         private readonly IBaseCommandRepository<QueuePriority> _iQueuePriority;

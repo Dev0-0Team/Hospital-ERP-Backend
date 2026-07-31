@@ -2,8 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority
 {
-    
-    public class CreateQueuePriorityValidator : AbstractValidator<CreateQueuePriorityRequest>
+    internal class CreateQueuePriorityValidator : AbstractValidator<CreateQueuePriorityRequest>
     {
         public CreateQueuePriorityValidator()
         {
