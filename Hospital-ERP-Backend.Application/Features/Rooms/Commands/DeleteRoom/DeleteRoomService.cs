@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.DeleteRoom
     {
         private readonly IValidator<DeleteRoomRequest> _validator;
         private readonly IBaseCommandRepository<Room> _iRoom;
-        private readonly IBaseQueryRepository<Room> _iRoomQuery;
 
-        public DeleteRoomService(IValidator<DeleteRoomRequest> validator, IBaseCommandRepository<Room> iRoom, IBaseQueryRepository<Room> iRoomQuery)
+        public DeleteRoomService(IValidator<DeleteRoomRequest> validator, IBaseCommandRepository<Room> iRoom)
         {
             _validator = validator;
             _iRoom = iRoom;
-            _iRoomQuery = iRoomQuery;
         }
 
         private async Task<bool> DeleteRoomAsync(DeleteRoomRequest request)
@@ -26,12 +24,12 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.DeleteRoom
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var room = await _iRoomQuery.GetAsync(request.Id);
-            if (room == null)
+            var room = await _iRoom.IsExistAsync(request.Id);
+            if (!room)
             {
                 throw new KeyNotFoundException($"Room with Id {request.Id} not found.");
             }
-            var isDeleted = await _iRoom.DeleteAsync(room.Id);
+            var isDeleted = await _iRoom.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete room with Id {request.Id}.");
