@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Prescriptions.Commands.CreatePrescription
 {
-    public class CreatePrescriptionService : IRequestHandler<CreatePrescriptionRequest, CreatePrescriptionResponse>
+    internal class CreatePrescriptionService : IRequestHandler<CreatePrescriptionRequest, CreatePrescriptionResponse>
     {
         private readonly IBaseCommandRepository<Prescription> _repository;
         private readonly IValidator<CreatePrescriptionRequest> _validator;
