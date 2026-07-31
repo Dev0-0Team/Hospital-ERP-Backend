@@ -5,14 +5,11 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class LabTestResultQueryRepository : BaseQueryRepository<LabTestResult>
+    internal class LabTestResultQueryRepository : BaseQueryRepository<LabTestResult>
     {
         protected override string GetAllSpName => "lab_test_results.SP_GetAllLabTestResults";
         protected override string GetByIdSpName => "lab_test_results.SP_GetLabTestResultById";
 
-        public LabTestResultQueryRepository(IOptions<MySetting> options) : base(options)
-        {
-
-        }
+        public LabTestResultQueryRepository(IOptions<MySetting> options) : base(options){ }
     }
 }

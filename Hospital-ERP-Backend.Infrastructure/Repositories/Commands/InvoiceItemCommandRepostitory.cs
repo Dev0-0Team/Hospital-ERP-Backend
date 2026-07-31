@@ -4,10 +4,8 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class InvoiceItemCommandRepository : BaseCommandRepository<InvoiceItem>
+    internal class InvoiceItemCommandRepository : BaseCommandRepository<InvoiceItem>
     {
-
-
         public InvoiceItemCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
     }
 }

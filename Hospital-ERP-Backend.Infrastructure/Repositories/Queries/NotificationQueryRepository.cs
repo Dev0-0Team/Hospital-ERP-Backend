@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class NotificationQueryRepository : BaseQueryRepository<Notification>
+    internal class NotificationQueryRepository : BaseQueryRepository<Notification>
     {
         protected override string GetAllSpName => "notifications.SP_GetAllNotifications";
         protected override string GetByIdSpName => "notifications.SP_GetNotificationById";

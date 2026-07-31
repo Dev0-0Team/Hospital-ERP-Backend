@@ -5,7 +5,7 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class InvoiceCommandRepository : BaseCommandRepository<Invoice>
+    internal class InvoiceCommandRepository : BaseCommandRepository<Invoice>
     {
         public InvoiceCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }  
     }
