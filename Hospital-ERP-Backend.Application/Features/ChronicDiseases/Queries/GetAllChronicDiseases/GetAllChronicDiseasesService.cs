@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Queries.GetAllChronicDiseases
 {
-    public class GetAllChronicDiseasesService : IRequestHandler<GetAllChronicDiseasesRequest, IEnumerable<GetAllChronicDiseasesResponse>>
+    internal class GetAllChronicDiseasesService : IRequestHandler<GetAllChronicDiseasesRequest, IEnumerable<GetAllChronicDiseasesResponse>>
     {
         private readonly IBaseQueryRepository<ChronicDisease> _chronicDiseaseQueryRepository;
 

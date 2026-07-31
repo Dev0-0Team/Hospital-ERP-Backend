@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.DeleteChronicDisease
 {
-    public class DeleteChronicDiseaseValidator
+    internal class DeleteChronicDiseaseValidator
         : AbstractValidator<DeleteChronicDiseaseRequest>
     {
         public DeleteChronicDiseaseValidator()
