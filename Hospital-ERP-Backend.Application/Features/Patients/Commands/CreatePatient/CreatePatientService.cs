@@ -1,17 +1,12 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePatient
 {
-    public class CreatePatientService : IRequestHandler<CreatePatientRequest, CreatePatientResponse>
+    internal class CreatePatientService : IRequestHandler<CreatePatientRequest, CreatePatientResponse>
     {
         private readonly IBaseCommandRepository<Patient> _repository;
         private readonly IBaseQueryRepository<Person> _personRepository;

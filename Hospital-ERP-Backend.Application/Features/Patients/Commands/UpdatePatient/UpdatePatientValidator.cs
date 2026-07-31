@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient
 {
-    public class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
+    internal class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
     {
         public UpdatePatientValidator()
         {
