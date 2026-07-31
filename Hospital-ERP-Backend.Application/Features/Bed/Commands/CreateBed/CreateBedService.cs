@@ -28,7 +28,7 @@ namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed
             {
                 RoomId = request.RoomId,
                 BedNumber = request.BedNumber,
-                Status = request.Status,
+                Status = request.Status.ToString()
             };
 
             Bed? result = await _iBed.CreateAsync(bed);
