@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class DrugInteractionsRepository : BaseQueryRepository<DrugInteraction>
+    internal class DrugInteractionsRepository : BaseQueryRepository<DrugInteraction>
     {
 
         protected override string GetAllSpName => "drug_interactions.SP_GetAllDrugInteractions";

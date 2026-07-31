@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class ChronicDiseaseQueryRepository : BaseQueryRepository<ChronicDisease>
+    internal class ChronicDiseaseQueryRepository : BaseQueryRepository<ChronicDisease>
     {
         protected override string GetAllSpName => "chronic_diseases.SP_GetAllChronicDiseases";
         protected override string GetByIdSpName => "chronic_diseases.SP_GetChronicDiseaseById";

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class RoomAssignmentQueryRepository : BaseQueryRepository<RoomAssignment>
+    internal class RoomAssignmentQueryRepository : BaseQueryRepository<RoomAssignment>
     {
         protected override string GetAllSpName => "room_assignments.SP_GetAllRoomAssignments";
         protected override string GetByIdSpName => "room_assignments.SP_GetRoomAssignmentById";

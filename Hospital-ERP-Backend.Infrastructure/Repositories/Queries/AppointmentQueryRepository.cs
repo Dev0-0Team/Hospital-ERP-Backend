@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class AppointmentQueryRepository : BaseQueryRepository<Appointment>
+    internal class AppointmentQueryRepository : BaseQueryRepository<Appointment>
     {
         protected override string GetAllSpName => "appointments.SP_GetAllAppointments";
         protected override string GetByIdSpName => "appointments.SP_GetAppointmentById";
