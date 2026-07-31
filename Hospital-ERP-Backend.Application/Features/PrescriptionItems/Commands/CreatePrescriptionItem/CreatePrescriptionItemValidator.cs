@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.PrescriptionItems.Commands.CreatePrescriptionItem
 {
-    public class CreatePrescriptionItemValidator : AbstractValidator<CreatePrescriptionItemRequest>
+    internal class CreatePrescriptionItemValidator : AbstractValidator<CreatePrescriptionItemRequest>
     {
         public CreatePrescriptionItemValidator()
         {

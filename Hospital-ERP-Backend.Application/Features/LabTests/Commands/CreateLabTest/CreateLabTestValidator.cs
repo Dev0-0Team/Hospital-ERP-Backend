@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.CreateLabTest
 {
-    public class CreateLabTestValidator : AbstractValidator<CreateLabTestRequest>
+    internal class CreateLabTestValidator : AbstractValidator<CreateLabTestRequest>
     {
         public CreateLabTestValidator()
         {

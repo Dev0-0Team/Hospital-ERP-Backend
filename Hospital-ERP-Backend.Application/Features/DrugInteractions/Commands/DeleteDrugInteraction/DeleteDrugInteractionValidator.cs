@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.DeleteDrugInteraction
 {
-    public class DeleteDrugInteractionValidator : AbstractValidator<DeleteDrugInteractionRequest>
+    internal class DeleteDrugInteractionValidator : AbstractValidator<DeleteDrugInteractionRequest>
     {
         public DeleteDrugInteractionValidator()
         {

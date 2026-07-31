@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 namespace Hospital_ERP_Backend.Application.Features.LapTests.Queries.GetAllLabTests
 {
-    public class GetAllLabTestsValidator : AbstractValidator<GetAllLabTestsRequest>
+    internal class GetAllLabTestsValidator : AbstractValidator<GetAllLabTestsRequest>
     {
         public GetAllLabTestsValidator()
         {

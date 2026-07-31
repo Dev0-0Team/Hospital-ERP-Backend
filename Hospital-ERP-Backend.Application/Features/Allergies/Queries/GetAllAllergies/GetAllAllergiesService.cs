@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Queries.GetAllAllergies
 {
-    public class GetAllAllergiesService :
+    internal class GetAllAllergiesService :
         IRequestHandler<GetAllAllergiesRequest,
         IEnumerable<GetAllAllergiesResponse>>
     {

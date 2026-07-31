@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.DeleteQueuePriority
 {
-    public class DeleteQueuePriorityService : IRequestHandler<DeleteQueuePriorityRequest, bool>
+    internal class DeleteQueuePriorityService : IRequestHandler<DeleteQueuePriorityRequest, bool>
     {
         private readonly IValidator<DeleteQueuePriorityRequest> _validator;
         private readonly IBaseCommandRepository<QueuePriority> _iQueuePriority;

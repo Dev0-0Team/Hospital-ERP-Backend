@@ -3,7 +3,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.DeletePaymentMethod
 {
-    public class DeletePaymentMethodValidator : AbstractValidator<DeletePaymentMethodRequest>
+    internal class DeletePaymentMethodValidator : AbstractValidator<DeletePaymentMethodRequest>
     {
         public DeletePaymentMethodValidator()
         {

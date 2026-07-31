@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.Application.Features.Roles.Queries.GetRole;
-using MediatR;
+﻿using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetRoom
 {

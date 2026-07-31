@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment
 {
-    public class CreateRoomAssignmentValidator : AbstractValidator<CreateRoomAssignmentRequest>
+    internal class CreateRoomAssignmentValidator : AbstractValidator<CreateRoomAssignmentRequest>
     {
         public CreateRoomAssignmentValidator()
         {

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.CreateNotification
 {
-    public class CreateNotificationService
+    internal class CreateNotificationService
         : IRequestHandler<CreateNotificationRequest,
             CreateNotificationResponse>
     {

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.UpdateRadiologyImage
 {
-    public class UpdateRadiologyImageService
+    internal class UpdateRadiologyImageService
     : IRequestHandler<UpdateRadiologyImageRequest, UpdateRadiologyImageResponse>
     {
         private readonly IBaseCommandRepository<RadiologyImage> _repository;

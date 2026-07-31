@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Queries.GetAllDrugInteractions
 {
-    public class GetAllDrugInteractionsValidator : AbstractValidator<GetAllDrugInteractionsRequest>
+    internal class GetAllDrugInteractionsValidator : AbstractValidator<GetAllDrugInteractionsRequest>
     {
         public GetAllDrugInteractionsValidator()
         {

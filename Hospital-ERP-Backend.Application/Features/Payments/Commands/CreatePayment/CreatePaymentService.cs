@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.CreatePayment
 {
-    public class CreatePaymentService : IRequestHandler<CreatePaymentRequest, CreatePaymentResponse>
+    internal class CreatePaymentService : IRequestHandler<CreatePaymentRequest, CreatePaymentResponse>
     {
         private readonly IBaseCommandRepository<Payment> _repository;
         private readonly IValidator<CreatePaymentRequest> _validator;

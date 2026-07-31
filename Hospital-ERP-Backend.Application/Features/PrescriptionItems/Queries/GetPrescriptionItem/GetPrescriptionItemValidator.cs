@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.PrescriptionItems.Queries.GetPrescriptionItem
 {
-    public class GetPrescriptionItemValidator : AbstractValidator<GetPrescriptionItemRequest>
+    internal class GetPrescriptionItemValidator : AbstractValidator<GetPrescriptionItemRequest>
     {
         public GetPrescriptionItemValidator()
         {

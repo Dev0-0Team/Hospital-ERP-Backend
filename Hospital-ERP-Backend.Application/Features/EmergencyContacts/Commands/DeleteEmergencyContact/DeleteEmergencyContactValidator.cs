@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.DeleteEmergencyContact
 {
-    public class DeleteEmergencyContactValidator : AbstractValidator<DeleteEmergencyContactRequest>
+    internal class DeleteEmergencyContactValidator : AbstractValidator<DeleteEmergencyContactRequest>
     {
         public DeleteEmergencyContactValidator()
         {

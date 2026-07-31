@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.CreateAllergy
 {
-    public class CreateAllergyService :
+    internal class CreateAllergyService :
         IRequestHandler<CreateAllergyRequest, CreateAllergyResponse>
     {
         private readonly IBaseCommandRepository<Allergy> _repository;

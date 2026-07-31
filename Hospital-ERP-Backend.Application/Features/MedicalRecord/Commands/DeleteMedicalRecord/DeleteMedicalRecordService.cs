@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.DeleteMedicalRecord
 {
-    public class DeleteMedicalRecordService : IRequestHandler<DeleteMedicalRecordRequest, bool>
+    internal class DeleteMedicalRecordService : IRequestHandler<DeleteMedicalRecordRequest, bool>
     {
         private readonly IBaseCommandRepository<MedicalRecord> _repository;
         private readonly IBaseQueryRepository<MedicalRecord> _queryRepository;

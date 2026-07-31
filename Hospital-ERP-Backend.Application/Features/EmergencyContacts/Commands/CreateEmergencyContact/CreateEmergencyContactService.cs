@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.CreateEmergencyContact
 {
-    public class CreateEmergencyContactService : IRequestHandler<CreateEmergencyContactRequest, CreateEmergencyContactResponse>
+    internal class CreateEmergencyContactService : IRequestHandler<CreateEmergencyContactRequest, CreateEmergencyContactResponse>
     {
 
         private readonly IBaseCommandRepository<EmergencyContact> _emergencyContactCommandRepository;

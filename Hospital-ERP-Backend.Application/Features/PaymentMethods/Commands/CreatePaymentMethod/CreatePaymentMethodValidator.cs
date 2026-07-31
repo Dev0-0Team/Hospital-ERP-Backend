@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.CreatePaymentMethod
 {
-    public class CreatePaymentMethodValidator : AbstractValidator<CreatePaymentMethodRequest>
+    internal class CreatePaymentMethodValidator : AbstractValidator<CreatePaymentMethodRequest>
     {
         public CreatePaymentMethodValidator()
         {

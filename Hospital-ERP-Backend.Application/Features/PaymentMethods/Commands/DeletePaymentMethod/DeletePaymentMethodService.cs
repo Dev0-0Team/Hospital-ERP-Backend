@@ -4,12 +4,11 @@ using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using Microsoft.Identity.Client;
-using System.Security;
+
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.DeletePaymentMethod
 {
-    public class DeletePaymentMethodService : IRequestHandler<DeletePaymentMethodRequest, bool>
+    internal class DeletePaymentMethodService : IRequestHandler<DeletePaymentMethodRequest, bool>
     {
         private readonly IBaseCommandRepository<PaymentMethod> _repository;
         private readonly IValidator<DeletePaymentMethodRequest> _validator;

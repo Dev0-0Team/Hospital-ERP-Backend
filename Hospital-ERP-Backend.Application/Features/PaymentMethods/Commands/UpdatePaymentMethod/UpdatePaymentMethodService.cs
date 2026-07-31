@@ -1,15 +1,12 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using Microsoft.Identity.Client;
-using System.Security;
 
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.UpdatePaymentMethod
 {
-    public class UpdatePaymentMethodService : IRequestHandler<UpdatePaymentMethodRequest, UpdatePaymentMethodResponse>
+    internal class UpdatePaymentMethodService : IRequestHandler<UpdatePaymentMethodRequest, UpdatePaymentMethodResponse>
     {
         private readonly IBaseCommandRepository<PaymentMethod> _repository;
         private readonly IBaseQueryRepository<PaymentMethod> _queryRepository;

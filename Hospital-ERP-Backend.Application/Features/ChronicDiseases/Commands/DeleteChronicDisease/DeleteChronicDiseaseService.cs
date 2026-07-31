@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.DeleteChronicDisease
 {
-    public class DeleteChronicDiseaseService
+    internal class DeleteChronicDiseaseService
         : IRequestHandler<DeleteChronicDiseaseRequest, bool>
     {
         private readonly IBaseCommandRepository<ChronicDisease> _repository;

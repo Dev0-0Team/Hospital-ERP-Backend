@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.DeleteAppointment
 {
-    public class DeleteAppointmentService : IRequestHandler<DeleteAppointmentRequest, bool>
+    internal class DeleteAppointmentService : IRequestHandler<DeleteAppointmentRequest, bool>
     {
         private readonly IValidator<DeleteAppointmentRequest> _validator;
         private readonly IBaseCommandRepository<Appointment> _iAppointment;

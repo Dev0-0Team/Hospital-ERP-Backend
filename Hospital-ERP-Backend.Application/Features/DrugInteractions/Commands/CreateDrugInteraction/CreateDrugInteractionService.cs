@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.CreateDrugInteraction
 {
-    public class CreateDrugInteractionService : IRequestHandler<CreateDrugInteractionRequest, CreateDrugInteractionResponse>
+    internal class CreateDrugInteractionService : IRequestHandler<CreateDrugInteractionRequest, CreateDrugInteractionResponse>
     {
         private readonly IBaseCommandRepository<DrugInteraction> _repository;
         private readonly IValidator<CreateDrugInteractionRequest> _validator;

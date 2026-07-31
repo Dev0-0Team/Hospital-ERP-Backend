@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.UpdateChronicDisease
 {
-    public class UpdateChronicDiseaseValidator : AbstractValidator<UpdateChronicDiseaseRequest>
+    internal class UpdateChronicDiseaseValidator : AbstractValidator<UpdateChronicDiseaseRequest>
     {
         public UpdateChronicDiseaseValidator()
         {

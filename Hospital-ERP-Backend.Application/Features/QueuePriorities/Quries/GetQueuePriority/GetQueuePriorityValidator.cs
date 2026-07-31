@@ -3,7 +3,7 @@
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetQueuePriority
 {
   
-    public class GetQueuePriorityValidator : AbstractValidator<GetQueuePriorityRequest>
+    internal class GetQueuePriorityValidator : AbstractValidator<GetQueuePriorityRequest>
     {
         public GetQueuePriorityValidator()
         {

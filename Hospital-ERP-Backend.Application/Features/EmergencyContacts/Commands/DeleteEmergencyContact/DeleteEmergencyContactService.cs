@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.DeleteEmergencyContact
 {
-    public class DeleteEmergencyContactService : IRequestHandler<DeleteEmergencyContactRequest, bool>
+    internal class DeleteEmergencyContactService : IRequestHandler<DeleteEmergencyContactRequest, bool>
     {
         private readonly IBaseCommandRepository<EmergencyContact> _emergencyContactCommandRepo;
         private readonly IBaseQueryRepository<EmergencyContact> _emergencyContactQueryRepo;

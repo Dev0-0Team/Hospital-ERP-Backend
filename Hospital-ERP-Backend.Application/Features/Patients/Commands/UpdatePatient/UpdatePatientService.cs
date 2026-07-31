@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient
 {
-    public class UpdatePatientService : IRequestHandler<UpdatePatientRequest, UpdatePatientResponse>
+    internal class UpdatePatientService : IRequestHandler<UpdatePatientRequest, UpdatePatientResponse>
     {
         private readonly IBaseCommandRepository<Patient> _repository;
         private readonly IBaseQueryRepository<Person> _personRepository;

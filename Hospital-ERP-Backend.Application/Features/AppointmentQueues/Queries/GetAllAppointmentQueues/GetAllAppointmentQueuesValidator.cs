@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Queries.GetAllAppointmentQueues
 {
-    public class GetAllAppointmentQueuesValidator : AbstractValidator<GetAllAppointmentQueuesRequest>
+    internal class GetAllAppointmentQueuesValidator : AbstractValidator<GetAllAppointmentQueuesRequest>
     {
         public GetAllAppointmentQueuesValidator()
         {

@@ -1,13 +1,11 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System.Security;
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.CreatePaymentMethod
 {
-    public class CreatePaymentMethodService : IRequestHandler<CreatePaymentMethodRequest, CreatePaymentMethodResponse>
+    internal class CreatePaymentMethodService : IRequestHandler<CreatePaymentMethodRequest, CreatePaymentMethodResponse>
     {
         private readonly IBaseCommandRepository<PaymentMethod> _repository;
         private readonly IValidator<CreatePaymentMethodRequest> _validator;

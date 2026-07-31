@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.DeleteAppointmentQueue
 {
-    public class DeleteAppointmentQueueValidator : AbstractValidator<DeleteAppointmentQueueRequest>
+    internal class DeleteAppointmentQueueValidator : AbstractValidator<DeleteAppointmentQueueRequest>
     {
         public DeleteAppointmentQueueValidator()
         {

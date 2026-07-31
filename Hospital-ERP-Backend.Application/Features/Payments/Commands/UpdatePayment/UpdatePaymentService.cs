@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.UpdatePayment
 {
-    public class UpdatePaymentService : IRequestHandler<UpdatePaymentRequest, UpdatePaymentResponse>
+    internal class UpdatePaymentService : IRequestHandler<UpdatePaymentRequest, UpdatePaymentResponse>
     {
         private readonly IBaseCommandRepository<Payment> _repository;
         private readonly IBaseQueryRepository<Payment> _queryRepository;

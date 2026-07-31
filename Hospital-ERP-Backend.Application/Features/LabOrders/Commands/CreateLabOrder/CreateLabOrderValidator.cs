@@ -3,7 +3,7 @@ using Hospital_ERP_Backend.Domain.Enums;
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.CreateLabOrder
 {
-    public class CreateLabOrderValidator : AbstractValidator<CreateLabOrderRequest>
+    internal class CreateLabOrderValidator : AbstractValidator<CreateLabOrderRequest>
     {
         public CreateLabOrderValidator()
         {

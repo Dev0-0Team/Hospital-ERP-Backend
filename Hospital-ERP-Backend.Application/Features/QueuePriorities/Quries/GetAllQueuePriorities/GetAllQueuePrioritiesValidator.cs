@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetAllQu
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetAllQueuePriorities
 {
  
-    public class GetAllQueuePrioritiesValidator : AbstractValidator<GetAllQueuePrioritiesRequest>
+    internal class GetAllQueuePrioritiesValidator : AbstractValidator<GetAllQueuePrioritiesRequest>
     {
         public GetAllQueuePrioritiesValidator()
         {

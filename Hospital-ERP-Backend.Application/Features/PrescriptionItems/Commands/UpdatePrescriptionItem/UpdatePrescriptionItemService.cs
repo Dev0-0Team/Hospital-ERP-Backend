@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.PrescriptionItems.Commands.UpdatePrescriptionItem
 {
-    public class UpdatePrescriptionItemService : IRequestHandler<UpdatePrescriptionItemRequest, UpdatePrescriptionItemResponse>
+    internal class UpdatePrescriptionItemService : IRequestHandler<UpdatePrescriptionItemRequest, UpdatePrescriptionItemResponse>
     {
         private readonly IValidator<UpdatePrescriptionItemRequest> _validator;
 

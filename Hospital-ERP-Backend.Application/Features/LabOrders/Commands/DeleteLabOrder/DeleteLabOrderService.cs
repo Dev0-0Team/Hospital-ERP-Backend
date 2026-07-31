@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.DeleteLabOrder
 {
-    public class DeleteLabOrderService : IRequestHandler<DeleteLabOrderRequest, bool>
+    internal class DeleteLabOrderService : IRequestHandler<DeleteLabOrderRequest, bool>
     {
         private readonly IValidator<DeleteLabOrderRequest> _validator;
 

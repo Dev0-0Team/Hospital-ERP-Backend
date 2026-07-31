@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue
 {
-    public class UpdateAppointmentQueueService : IRequestHandler<UpdateAppointmentQueueRequest, UpdateAppointmentQueueResponse>
+    internal class UpdateAppointmentQueueService : IRequestHandler<UpdateAppointmentQueueRequest, UpdateAppointmentQueueResponse>
     {
         private readonly IValidator<UpdateAppointmentQueueRequest> _validator;
         private readonly IBaseCommandRepository<AppointmentQueue> _iAppointmentQueue;

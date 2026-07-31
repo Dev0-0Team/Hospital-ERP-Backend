@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Queries.GetNotification
 {
-    public class GetNotificationValidator
+    internal class GetNotificationValidator
         : AbstractValidator<GetNotificationRequest>
     {
         public GetNotificationValidator()

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment
 {
-    public class UpdateRoomAssignmentService : IRequestHandler<UpdateRoomAssignmentRequest, UpdateRoomAssignmentResponse>
+    internal class UpdateRoomAssignmentService : IRequestHandler<UpdateRoomAssignmentRequest, UpdateRoomAssignmentResponse>
     {
         private readonly IValidator<UpdateRoomAssignmentRequest> _validator;
         private readonly IBaseCommandRepository<RoomAssignment> _iRoomAssignment;

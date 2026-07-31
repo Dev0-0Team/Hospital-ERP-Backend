@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Queries.GetAllBeds
 {
-    public class GetAllBedsValidator : AbstractValidator<GetAllBedsRequest>
+    internal class GetAllBedsValidator : AbstractValidator<GetAllBedsRequest>
     {
         public GetAllBedsValidator()
         {

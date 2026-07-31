@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Queries.GetMedicationInventory
 {
-    public class GetMedicationInventoryService : IRequestHandler<GetMedicationInventoryRequest, GetMedicationInventoryResponse>
+    internal class GetMedicationInventoryService : IRequestHandler<GetMedicationInventoryRequest, GetMedicationInventoryResponse>
     {
         private readonly IBaseQueryRepository<MedicationInventory> _medicationInventory;
 

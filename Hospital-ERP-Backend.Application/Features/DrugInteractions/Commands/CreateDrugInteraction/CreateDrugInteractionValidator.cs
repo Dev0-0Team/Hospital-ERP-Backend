@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.CreateDrugInteraction
 {
-    public class CreateDrugInteractionValidator : AbstractValidator<CreateDrugInteractionRequest>
+    internal class CreateDrugInteractionValidator : AbstractValidator<CreateDrugInteractionRequest>
     {
         public CreateDrugInteractionValidator()
         {

@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.DeleteQueuePriority
 {
-    public class DeleteQueuePriorityValidator : AbstractValidator<DeleteQueuePriorityRequest>
+    internal class DeleteQueuePriorityValidator : AbstractValidator<DeleteQueuePriorityRequest>
     {
         public DeleteQueuePriorityValidator()
         {

@@ -3,7 +3,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Queries.GetPaymentMethod
 {
-    public class GetPaymentMethodValidator : AbstractValidator<GetPaymentMethodRequest>
+    internal class GetPaymentMethodValidator : AbstractValidator<GetPaymentMethodRequest>
     {
         public GetPaymentMethodValidator()
         {

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.UpdateAllergy
 {
-    public class UpdateAllergyService :
+    internal class UpdateAllergyService :
         IRequestHandler<UpdateAllergyRequest, UpdateAllergyResponse>
     {
         private readonly IBaseCommandRepository<Allergy> _repository;

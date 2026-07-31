@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.UpdateRadiologyImage
 {
-    public class UpdateRadiologyImageValidator
+    internal class UpdateRadiologyImageValidator
         : AbstractValidator<UpdateRadiologyImageRequest>
     {
         public UpdateRadiologyImageValidator()

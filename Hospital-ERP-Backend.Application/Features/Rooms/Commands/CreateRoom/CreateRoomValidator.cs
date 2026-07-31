@@ -1,14 +1,11 @@
 ﻿using FluentValidation;
 
-namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
+namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom
 {
-    public class UpdateRoomValidator : AbstractValidator<UpdateRoomRequest>
+    internal class CreateRoomValidator : AbstractValidator<CreateRoomRequest>
     {
-        public UpdateRoomValidator()
+        public CreateRoomValidator()
         {
-            RuleFor(x => x.Id)
-                .GreaterThan(0).WithMessage("Id must be greater than 0.");
-
             RuleFor(x => x.DepartmentId)
                 .GreaterThan(0).WithMessage("Department Id must be greater than 0.");
 

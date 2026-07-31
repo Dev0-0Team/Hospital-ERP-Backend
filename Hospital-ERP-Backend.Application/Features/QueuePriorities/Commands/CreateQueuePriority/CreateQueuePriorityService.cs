@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority
 {
-    public class CreateQueuePriorityService : IRequestHandler<CreateQueuePriorityRequest, CreateQueuePriorityResponse>
+    internal class CreateQueuePriorityService : IRequestHandler<CreateQueuePriorityRequest, CreateQueuePriorityResponse>
     {
         private readonly IValidator<CreateQueuePriorityRequest> _validator;
         private readonly IBaseCommandRepository<QueuePriority> _iQueuePriority;

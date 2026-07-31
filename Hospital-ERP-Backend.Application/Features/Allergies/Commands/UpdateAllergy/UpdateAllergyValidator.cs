@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.UpdateAllergy
 {
-    public class UpdateAllergyValidator : AbstractValidator<UpdateAllergyRequest>
+    internal class UpdateAllergyValidator : AbstractValidator<UpdateAllergyRequest>
     {
         public UpdateAllergyValidator()
         {

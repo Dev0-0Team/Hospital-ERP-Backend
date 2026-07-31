@@ -3,7 +3,7 @@
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority
 {
    
-    public class UpdateQueuePriorityValidator : AbstractValidator<UpdateQueuePriorityRequest>
+    internal class UpdateQueuePriorityValidator : AbstractValidator<UpdateQueuePriorityRequest>
     {
         public UpdateQueuePriorityValidator()
         {

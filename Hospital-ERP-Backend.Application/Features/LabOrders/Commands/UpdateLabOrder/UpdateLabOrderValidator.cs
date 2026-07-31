@@ -3,7 +3,7 @@ using Hospital_ERP_Backend.Domain.Enums;
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLabOrder
 {
-    public class UpdateLabOrderValidator : AbstractValidator<UpdateLabOrderRequest>
+    internal class UpdateLabOrderValidator : AbstractValidator<UpdateLabOrderRequest>
     {
         public UpdateLabOrderValidator()
         {

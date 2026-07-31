@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetAllInvoiceItems
 {
-    public class GetAllInvoiceItemsService : IRequestHandler<GetAllInvoiceItemsRequest, IEnumerable<GetAllInvoiceItemsResponse>>
+    internal class GetAllInvoiceItemsService : IRequestHandler<GetAllInvoiceItemsRequest, IEnumerable<GetAllInvoiceItemsResponse>>
     {
         private readonly IBaseQueryRepository<InvoiceItem> _repository;
         private readonly IValidator<GetAllInvoiceItemsRequest> _validator;

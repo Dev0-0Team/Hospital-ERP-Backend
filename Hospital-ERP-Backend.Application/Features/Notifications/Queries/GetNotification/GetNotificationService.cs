@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Queries.GetNotification
 {
-    public class GetNotificationService
+    internal class GetNotificationService
         : IRequestHandler<GetNotificationRequest, GetNotificationResponse>
     {
         private readonly IBaseQueryRepository<Notification> _repository;

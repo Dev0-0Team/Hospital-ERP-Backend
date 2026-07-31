@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient
 {
-    public class DeletePatientService : IRequestHandler<DeletePatientRequest, bool>
+    internal class DeletePatientService : IRequestHandler<DeletePatientRequest, bool>
     {
         private readonly IBaseCommandRepository<Patient> _repository;
         private readonly IBaseQueryRepository<Patient> _queryRepository;

@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetAllPatients
 {
-    public class GetAllPatientsValidator : AbstractValidator<GetAllPatientsRequest>
+    internal class GetAllPatientsValidator : AbstractValidator<GetAllPatientsRequest>
     {
         public GetAllPatientsValidator()
         {

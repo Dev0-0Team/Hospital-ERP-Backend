@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Queries.GetAllAllergies
 {
-    public class GetAllAllergiesValidator :
+    internal class GetAllAllergiesValidator :
         AbstractValidator<GetAllAllergiesRequest>
     {
         public GetAllAllergiesValidator()

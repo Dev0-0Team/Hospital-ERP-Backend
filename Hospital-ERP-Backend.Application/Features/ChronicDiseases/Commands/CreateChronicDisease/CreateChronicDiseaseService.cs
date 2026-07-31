@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.CreateChronicDisease
 {
-    public class CreateChronicDiseaseService : IRequestHandler<CreateChronicDiseaseRequest, CreateChronicDiseaseResponse>
+    internal class CreateChronicDiseaseService : IRequestHandler<CreateChronicDiseaseRequest, CreateChronicDiseaseResponse>
     {
 
         private readonly IBaseCommandRepository<ChronicDisease> _chronicDiseaseCommandRepository;

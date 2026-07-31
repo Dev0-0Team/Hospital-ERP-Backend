@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication
 {
-    public class CreateMedicationService : IRequestHandler<CreateMedicationRequest, CreateMedicationResponse>
+    internal class CreateMedicationService : IRequestHandler<CreateMedicationRequest, CreateMedicationResponse>
     {
         private readonly IBaseCommandRepository<Medication> _medicationRepository;
 

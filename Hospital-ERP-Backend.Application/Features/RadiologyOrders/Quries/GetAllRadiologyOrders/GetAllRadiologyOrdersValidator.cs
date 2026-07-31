@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyOrders.Queries.GetAllRadiologyOrders
 {
-    public class GetAllRadiologyOrdersValidator
+    internal class GetAllRadiologyOrdersValidator
         : AbstractValidator<GetAllRadiologyOrdersRequest>
     {
         public GetAllRadiologyOrdersValidator()

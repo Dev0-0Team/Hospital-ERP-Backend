@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.UpdateEmergencyContact
 {
-    public class UpdateEmergencyContactService
+    internal class UpdateEmergencyContactService
         : IRequestHandler<UpdateEmergencyContactRequest, UpdateEmergencyContactResponse>
     {
         private readonly IValidator<UpdateEmergencyContactRequest> _validator;

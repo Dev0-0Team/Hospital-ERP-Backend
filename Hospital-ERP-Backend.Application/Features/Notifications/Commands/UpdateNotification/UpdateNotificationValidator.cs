@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.UpdateNotification
 {
-    public class UpdateNotificationValidator
+    internal class UpdateNotificationValidator
         : AbstractValidator<UpdateNotificationRequest>
     {
         public UpdateNotificationValidator()

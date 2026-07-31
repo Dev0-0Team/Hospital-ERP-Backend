@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyReports.Queries.GetRadiologyReport
 {
-    public class GetRadiologyReportService
+    internal class GetRadiologyReportService
         : IRequestHandler<GetRadiologyReportRequest,
             GetRadiologyReportResponse>
     {

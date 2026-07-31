@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Queries.GetAllMedicalRecords
 {
-    public class GetAllMedicalRecordsValidator : AbstractValidator<GetAllMedicalRecordsRequest>
+    internal class GetAllMedicalRecordsValidator : AbstractValidator<GetAllMedicalRecordsRequest>
     {
         public GetAllMedicalRecordsValidator()
         {

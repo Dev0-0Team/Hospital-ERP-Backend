@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.UpdateChronicDisease
 {
-    public class UpdateChronicDiseaseService
+    internal class UpdateChronicDiseaseService
         : IRequestHandler<UpdateChronicDiseaseRequest, UpdateChronicDiseaseResponse>
     {
         private readonly IValidator<UpdateChronicDiseaseRequest> _validator;

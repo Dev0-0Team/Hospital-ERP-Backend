@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed
 {
-    public class UpdateBedValidator : AbstractValidator<UpdateBedRequest>
+    internal class UpdateBedValidator : AbstractValidator<UpdateBedRequest>
     {
         public UpdateBedValidator()
         {
