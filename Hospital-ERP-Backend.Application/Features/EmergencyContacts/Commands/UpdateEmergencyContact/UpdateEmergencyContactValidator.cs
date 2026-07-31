@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.UpdateEmergencyContact
 {
-    public class UpdateEmergencyContactValidator : AbstractValidator<UpdateEmergencyContactRequest>
+    internal class UpdateEmergencyContactValidator : AbstractValidator<UpdateEmergencyContactRequest>
     {
         public UpdateEmergencyContactValidator()
         {
