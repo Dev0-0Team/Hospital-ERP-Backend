@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment
 {
-    public class UpdateRoomAssignmentValidator : AbstractValidator<UpdateRoomAssignmentRequest>
+    internal class UpdateRoomAssignmentValidator : AbstractValidator<UpdateRoomAssignmentRequest>
     {
         public UpdateRoomAssignmentValidator()
         {

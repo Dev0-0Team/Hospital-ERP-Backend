@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.DeleteRoomAssignment
 {
-    public class DeleteRoomAssignmentValidator : AbstractValidator<DeleteRoomAssignmentRequest>
+    internal class DeleteRoomAssignmentValidator : AbstractValidator<DeleteRoomAssignmentRequest>
     {
         public DeleteRoomAssignmentValidator()
         {
