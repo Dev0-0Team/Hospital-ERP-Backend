@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue
 {
-    public class CreateAppointmentQueueValidator : AbstractValidator<CreateAppointmentQueueRequest>
+    internal class CreateAppointmentQueueValidator : AbstractValidator<CreateAppointmentQueueRequest>
     {
         public CreateAppointmentQueueValidator()
         {
