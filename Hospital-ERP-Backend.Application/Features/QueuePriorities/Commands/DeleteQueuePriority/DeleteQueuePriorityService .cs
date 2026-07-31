@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.Del
     {
         private readonly IValidator<DeleteQueuePriorityRequest> _validator;
         private readonly IBaseCommandRepository<QueuePriority> _iQueuePriority;
-        private readonly IBaseQueryRepository<QueuePriority> _iQueuePriorityQuery;
 
-        public DeleteQueuePriorityService(IValidator<DeleteQueuePriorityRequest> validator, IBaseCommandRepository<QueuePriority> iQueuePriority, IBaseQueryRepository<QueuePriority> iQueuePriorityQuery)
+        public DeleteQueuePriorityService(IValidator<DeleteQueuePriorityRequest> validator, IBaseCommandRepository<QueuePriority> iQueuePriority)
         {
             _validator = validator;
             _iQueuePriority = iQueuePriority;
-            _iQueuePriorityQuery = iQueuePriorityQuery;
         }
 
    
@@ -27,13 +25,13 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.Del
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var queuePriority = await _iQueuePriorityQuery.GetAsync(request.Id);
-            if (queuePriority == null)
+            bool queuePriority = await _iQueuePriority.IsExistAsync(request.Id);
+            if (!queuePriority)
             {
                 throw new KeyNotFoundException($"Queue priority with Id {request.Id} not found.");
             }
 
-            var isDeleted = await _iQueuePriority.DeleteAsync(queuePriority.Id);
+            var isDeleted = await _iQueuePriority.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete queue priority with Id {request.Id}.");
