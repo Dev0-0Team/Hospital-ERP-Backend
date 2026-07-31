@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetAllLabOrders
 {
-    public class GetAllLabOrdersService : IRequestHandler<GetAllLabOrdersRequest, IEnumerable<GetAllLabOrdersResponse>>
+    internal class GetAllLabOrdersService : IRequestHandler<GetAllLabOrdersRequest, IEnumerable<GetAllLabOrdersResponse>>
     {
         private readonly IBaseQueryRepository<LabOrder> _labOrderQueryRepository;
 

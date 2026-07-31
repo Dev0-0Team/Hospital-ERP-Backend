@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetLabOrder
 {
-    public class GetLabOrderService : IRequestHandler<GetLabOrderRequest, GetLabOrderResponse>
+    internal class GetLabOrderService : IRequestHandler<GetLabOrderRequest, GetLabOrderResponse>
     {
         private readonly IBaseQueryRepository<LabOrder> _repository;
         private readonly IValidator<GetLabOrderRequest> _validator;

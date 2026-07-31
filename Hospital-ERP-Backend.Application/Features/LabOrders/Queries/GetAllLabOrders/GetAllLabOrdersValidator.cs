@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetAllLabOrders
 {
-    public class GetAllLabOrdersValidator : AbstractValidator<GetAllLabOrdersRequest>
+    internal class GetAllLabOrdersValidator : AbstractValidator<GetAllLabOrdersRequest>
     {
         public GetAllLabOrdersValidator()
         {
