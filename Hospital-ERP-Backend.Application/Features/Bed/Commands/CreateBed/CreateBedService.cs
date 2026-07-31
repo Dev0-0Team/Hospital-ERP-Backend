@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed
 {
-    public class CreateBedService : IRequestHandler<CreateBedRequest, CreateBedResponse>
+    internal class CreateBedService : IRequestHandler<CreateBedRequest, CreateBedResponse>
     {
         private readonly IValidator<CreateBedRequest> _validator;
         private readonly IBaseCommandRepository<Bed> _iBed;

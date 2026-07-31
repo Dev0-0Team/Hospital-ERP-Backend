@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed
 {
-    public class CreateBedValidator : AbstractValidator<CreateBedRequest>
+    internal class CreateBedValidator : AbstractValidator<CreateBedRequest>
     {
         public CreateBedValidator()
         {

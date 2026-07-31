@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed
 {
-    public class DeleteBedService : IRequestHandler<DeleteBedRequest, bool>
+    internal class DeleteBedService : IRequestHandler<DeleteBedRequest, bool>
     {
         private readonly IValidator<DeleteBedRequest> _validator;
         private readonly IBaseCommandRepository<Bed> _iBed;

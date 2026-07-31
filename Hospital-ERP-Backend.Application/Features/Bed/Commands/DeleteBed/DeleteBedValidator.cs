@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed
 {
-    public class DeleteBedValidator : AbstractValidator<DeleteBedRequest>
+    internal class DeleteBedValidator : AbstractValidator<DeleteBedRequest>
     {
         public DeleteBedValidator()
         {
