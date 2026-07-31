@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.UpdateDrugInteraction
 {
-    public class UpdateDrugInteractionValidator : AbstractValidator<UpdateDrugInteractionRequest>
+    internal class UpdateDrugInteractionValidator : AbstractValidator<UpdateDrugInteractionRequest>
     {
         public UpdateDrugInteractionValidator()
         {
