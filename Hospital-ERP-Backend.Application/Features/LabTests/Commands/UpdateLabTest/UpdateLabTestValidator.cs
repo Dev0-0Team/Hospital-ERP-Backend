@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabTest
 {
-    public class UpdateLabTestValidator : AbstractValidator<UpdateLabTestRequest>
+    internal class UpdateLabTestValidator : AbstractValidator<UpdateLabTestRequest>
     {
         public UpdateLabTestValidator()
         {

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabTest
 {
-    public class UpdateLabTestService
+    internal class UpdateLabTestService
         : IRequestHandler<UpdateLabTestRequest, UpdateLabTestResponse>
     {
         private readonly IValidator<UpdateLabTestRequest> _validator;
