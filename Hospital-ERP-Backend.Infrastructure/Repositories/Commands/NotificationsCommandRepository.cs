@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class NotificationsCommandRepository : BaseCommandRepository<Notification>
+    internal class NotificationsCommandRepository : BaseCommandRepository<Notification>
     {
         public NotificationsCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
     }

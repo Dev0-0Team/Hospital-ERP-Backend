@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class BedCommandRepository : BaseCommandRepository<Bed>
+    internal class BedCommandRepository : BaseCommandRepository<Bed>
     {
         public BedCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
 

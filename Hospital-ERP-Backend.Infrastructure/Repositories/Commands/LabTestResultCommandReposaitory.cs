@@ -4,10 +4,8 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class LabTestResultCommandReposaitory : BaseCommandRepository<LabTestResult>
+    internal class LabTestResultCommandReposaitory : BaseCommandRepository<LabTestResult>
     {
-        public LabTestResultCommandReposaitory(HospitalDbContext context) : base(context)
-        {
-        }
+        public LabTestResultCommandReposaitory(HospitalDbContext context) : base(context) { }
     }
 }
