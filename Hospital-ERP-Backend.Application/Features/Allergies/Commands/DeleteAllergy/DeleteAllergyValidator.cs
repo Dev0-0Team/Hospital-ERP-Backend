@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.DeleteAllergy
 {
-    public class DeleteAllergyValidator : AbstractValidator<DeleteAllergyRequest>
+    internal class DeleteAllergyValidator : AbstractValidator<DeleteAllergyRequest>
     {
         public DeleteAllergyValidator()
         {

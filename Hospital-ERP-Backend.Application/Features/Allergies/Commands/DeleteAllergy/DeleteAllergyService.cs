@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.DeleteAllergy
 {
-    public class DeleteAllergyService :
+    internal class DeleteAllergyService :
         IRequestHandler<DeleteAllergyRequest, bool>
     {
         private readonly IBaseCommandRepository<Allergy> _repository;
