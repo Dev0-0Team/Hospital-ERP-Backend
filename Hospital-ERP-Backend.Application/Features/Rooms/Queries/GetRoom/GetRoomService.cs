@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetRoom
 {
-    public class GetRoomService : IRequestHandler<GetRoomRequest, GetRoomResponse>
+    internal class GetRoomService : IRequestHandler<GetRoomRequest, GetRoomResponse>
     {
         private readonly IValidator<GetRoomRequest> _validator;
         private readonly IBaseQueryRepository<Room> _iRoom;

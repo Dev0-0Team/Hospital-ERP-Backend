@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetAllRooms
 {
-    public class GetAllRoomsValidator : AbstractValidator<GetAllRoomsRequest>
+    internal class GetAllRoomsValidator : AbstractValidator<GetAllRoomsRequest>
     {
         public GetAllRoomsValidator()
         {

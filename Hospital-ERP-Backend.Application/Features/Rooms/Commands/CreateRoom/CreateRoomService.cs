@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom
 {
-    public class CreateRoomService : IRequestHandler<CreateRoomRequest, CreateRoomResponse>
+    internal class CreateRoomService : IRequestHandler<CreateRoomRequest, CreateRoomResponse>
     {
         private readonly IValidator<CreateRoomRequest> _validator;
         private readonly IBaseCommandRepository<Room> _iRoom;

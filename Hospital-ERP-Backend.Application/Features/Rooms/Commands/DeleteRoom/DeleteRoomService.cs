@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.DeleteRoom
 {
-    public class DeleteRoomService : IRequestHandler<DeleteRoomRequest, bool>
+    internal class DeleteRoomService : IRequestHandler<DeleteRoomRequest, bool>
     {
         private readonly IValidator<DeleteRoomRequest> _validator;
         private readonly IBaseCommandRepository<Room> _iRoom;
