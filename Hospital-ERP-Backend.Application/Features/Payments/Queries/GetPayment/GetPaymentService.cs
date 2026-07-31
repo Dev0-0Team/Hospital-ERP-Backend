@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Queries.GetPayment
 {
-    public class GetPaymentService : IRequestHandler<GetPaymentRequest, GetPaymentResponse>
+    internal class GetPaymentService : IRequestHandler<GetPaymentRequest, GetPaymentResponse>
     {
             private readonly IBaseQueryRepository<Payment> _repository;
             private readonly IValidator<GetPaymentRequest> _validator;

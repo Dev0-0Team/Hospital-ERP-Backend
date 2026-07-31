@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.DeletePaymentMethod;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
@@ -7,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.DeletePayment
 {
-    public class DeletePaymentService : IRequestHandler<DeletePaymentRequest, bool>
+    internal class DeletePaymentService : IRequestHandler<DeletePaymentRequest, bool>
     {
         private readonly IBaseCommandRepository<Payment> _repository;
         private readonly IValidator<DeletePaymentRequest> _validator;

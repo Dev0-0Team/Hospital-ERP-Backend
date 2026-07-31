@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Queries.GetAllPayments
 {
-    public class GetAllPaymentsService : IRequestHandler<GetAllPaymentsRequest, IEnumerable<GetAllPaymentsResponse>>
+    internal class GetAllPaymentsService : IRequestHandler<GetAllPaymentsRequest, IEnumerable<GetAllPaymentsResponse>>
     {
         private readonly IBaseQueryRepository<Payment> _repository;
         private readonly IValidator<GetAllPaymentsRequest> _validator;

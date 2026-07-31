@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.UpdatePayment
 {
-    public class UpdatePaymentValidator : AbstractValidator<UpdatePaymentRequest>
+    internal class UpdatePaymentValidator : AbstractValidator<UpdatePaymentRequest>
     {
         public UpdatePaymentValidator()
         {
