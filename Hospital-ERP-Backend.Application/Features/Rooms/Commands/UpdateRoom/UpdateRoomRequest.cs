@@ -1,4 +1,5 @@
 ﻿using Hospital_ERP_Backend.Application.Features.Roles.Commands.UpdateRole;
+using Hospital_ERP_Backend.Domain.Enums;
 using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
@@ -9,6 +10,6 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
         public int DepartmentId { get; init; }
         public int RoomTypeId { get; init; }
         public string RoomNumber { get; init; } = null!;
-        public string Status { get; init; } = null!;
+        public RoomStatus Status { get; init; }
     }
 }

@@ -20,14 +20,8 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
                 .MaximumLength(20).WithMessage("Room number must not exceed 20 characters.");
 
             RuleFor(x => x.Status)
-                .NotEmpty().WithMessage("Status is required.")
-                .Must(BeValidStatus).WithMessage("Status must be Available, Occupied, or Maintenance.");
-        }
-
-        private bool BeValidStatus(string Status)
-        {
-            var allowed = new[] { "Available", "Occupied", "Maintenance" };
-            return allowed.Contains(Status);
+                .IsInEnum()
+                .WithMessage("Status must be Available, Occupied, or Maintenance.");
         }
     }
 }

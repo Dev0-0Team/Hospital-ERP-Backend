@@ -2,20 +2,23 @@
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
+using Microsoft.Identity.Client.Extensibility;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
 {
     internal class UpdateRoomService : IRequestHandler<UpdateRoomRequest, UpdateRoomResponse>
     {
         private readonly IValidator<UpdateRoomRequest> _validator;
+        private readonly IBaseCommandRepository<Department> _departmentRepository;
+        private readonly IBaseCommandRepository<RoomType> _roomTypeRepository;
         private readonly IBaseCommandRepository<Room> _iRoom;
-        private readonly IBaseQueryRepository<Room> _iQueryRoom;
 
-        public UpdateRoomService(IValidator<UpdateRoomRequest> validator, IBaseCommandRepository<Room> iRoom, IBaseQueryRepository<Room> iQueryRoom)
+        public UpdateRoomService(IValidator<UpdateRoomRequest> validator, IBaseCommandRepository<Room> iRoom, IBaseCommandRepository<Department> departmentRepository, IBaseCommandRepository<RoomType> roomTypeRepository)
         {
             _validator = validator;
             _iRoom = iRoom;
-            _iQueryRoom = iQueryRoom;
+            _departmentRepository = departmentRepository;
+            _roomTypeRepository= roomTypeRepository;
         }
 
         public async Task<UpdateRoomResponse> Handle(UpdateRoomRequest request, CancellationToken cancellationToken)
@@ -31,7 +34,19 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Room? existingRoom = await _iQueryRoom.GetAsync(request.Id);
+            bool isDepartmentExist = await _departmentRepository.IsExistAsync(request.DepartmentId);
+            if (!isDepartmentExist)
+            {
+                throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
+            }
+
+            bool isRoomTypeExist = await _roomTypeRepository.IsExistAsync(request.RoomTypeId);
+            if (!isRoomTypeExist)
+            {
+                throw new KeyNotFoundException($"Room Type with Id {request.RoomTypeId} not found.");
+            }
+
+            Room? existingRoom = await _iRoom.FindAsync(request.Id);
             if (existingRoom == null)
             {
                 throw new KeyNotFoundException($"Room with Id {request.Id} not found.");
@@ -40,7 +55,8 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom
             existingRoom.DepartmentId = request.DepartmentId;
             existingRoom.RoomTypeId = request.RoomTypeId;
             existingRoom.RoomNumber = request.RoomNumber;
-            existingRoom.Status = request.Status;
+            existingRoom.Status = request.Status.ToString();
+            existingRoom.UpdatedAt = DateTime.UtcNow;
 
             Room? result = await _iRoom.UpdateAsync(existingRoom);
             if (result == null)
