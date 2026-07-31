@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.DeleteMedication
 {
-    public class DeleteMedicationService : IRequestHandler<DeleteMedicationRequest, bool>
+    internal class DeleteMedicationService : IRequestHandler<DeleteMedicationRequest, bool>
     {
         private readonly IValidator<DeleteMedicationRequest> _validator;
         private readonly IBaseCommandRepository<Medication> _medicationRepository;

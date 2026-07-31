@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication
 {
-    public class CreateMedicationValidator : AbstractValidator<CreateMedicationRequest>
+    internal class CreateMedicationValidator : AbstractValidator<CreateMedicationRequest>
     {
         public CreateMedicationValidator()
         {
