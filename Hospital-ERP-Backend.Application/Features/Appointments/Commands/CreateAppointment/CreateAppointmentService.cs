@@ -43,7 +43,7 @@ namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.Create
             bool isPriorityExist = await _iPriority.IsExistAsync(request.PriorityId);
             if (isPriorityExist)
             {
-                throw new KeyNotFoundException($"Queue Priority with Id {request.DoctorId} not found.");
+                throw new KeyNotFoundException($"Queue Priority with Id {request.PriorityId} not found.");
             }
 
             Appointment appointment = new Appointment
