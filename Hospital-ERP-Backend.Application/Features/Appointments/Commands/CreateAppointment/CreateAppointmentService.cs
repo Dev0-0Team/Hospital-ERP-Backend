@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetInvoiceItem;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
@@ -9,11 +10,15 @@ namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.Create
     {
         private readonly IValidator<CreateAppointmentRequest> _validator;
         private readonly IBaseCommandRepository<Appointment> _iAppointment;
+        private readonly IBaseCommandRepository<Doctor> _iDoctor;
+        private readonly IBaseCommandRepository<QueuePriority> _iPriority;
 
-        public CreateAppointmentService(IValidator<CreateAppointmentRequest> validator, IBaseCommandRepository<Appointment> iAppointment)
+        public CreateAppointmentService(IValidator<CreateAppointmentRequest> validator, IBaseCommandRepository<Appointment> iAppointment, IBaseCommandRepository<QueuePriority> iPriority, IBaseCommandRepository<Doctor> iDoctor)
         {
             _validator = validator;
             _iAppointment = iAppointment;
+            _iPriority = iPriority;
+            _iDoctor = iDoctor;
         }
 
         public async Task<CreateAppointmentResponse> Handle(CreateAppointmentRequest request, CancellationToken cancellationToken)
@@ -29,14 +34,26 @@ namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.Create
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
+            bool isDoctorExist = await _iDoctor.IsExistAsync(request.DoctorId);
+            if (!isDoctorExist)
+            {
+                throw new KeyNotFoundException($"Doctor with Id {request.DoctorId} not found.");
+            }
+
+            bool isPriorityExist = await _iPriority.IsExistAsync(request.PriorityId);
+            if (isPriorityExist)
+            {
+                throw new KeyNotFoundException($"Queue Priority with Id {request.DoctorId} not found.");
+            }
+
             Appointment appointment = new Appointment
             {
                 PatientId = request.PatientId,
                 DoctorId = request.DoctorId,
                 PriorityId = request.PriorityId,
                 AppointmentDate = request.AppointmentDate,
-                Status = request.Status,
-                Type = request.Type
+                Status = request.Status.ToString(),
+                Type = request.Type.ToString()
             };
 
             Appointment? result = await _iAppointment.CreateAsync(appointment);

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hospital_ERP_Backend.Domain.Enums.Appointment;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.CreateAppointment
 {
@@ -12,8 +13,8 @@ namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.Create
 
         public DateTime AppointmentDate { get; set; }
 
-        public string Status { get; set; } = "Pending";
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 
-        public string Type { get; set; } = null!;
+        public AppointmentType Type { get; set; }
     }
 }
