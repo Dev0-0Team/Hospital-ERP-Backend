@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.Del
     {
         private readonly IValidator<DeleteRoomAssignmentRequest> _validator;
         private readonly IBaseCommandRepository<RoomAssignment> _iRoomAssignment;
-        private readonly IBaseQueryRepository<RoomAssignment> _iRoomAssignmentQuery;
 
-        public DeleteRoomAssignmentService(IValidator<DeleteRoomAssignmentRequest> validator, IBaseCommandRepository<RoomAssignment> iRoomAssignment, IBaseQueryRepository<RoomAssignment> iRoomAssignmentQuery)
+        public DeleteRoomAssignmentService(IValidator<DeleteRoomAssignmentRequest> validator, IBaseCommandRepository<RoomAssignment> iRoomAssignment)
         {
             _validator = validator;
             _iRoomAssignment = iRoomAssignment;
-            _iRoomAssignmentQuery = iRoomAssignmentQuery;
         }
 
         private async Task<bool> DeleteRoomAssignmentAsync(DeleteRoomAssignmentRequest request)
@@ -26,15 +24,15 @@ namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.Del
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var roomAssignment = await _iRoomAssignmentQuery.GetAsync(request.Id);
-            if (roomAssignment == null)
+            bool roomAssignment = await _iRoomAssignment.IsExistAsync(request.Id);
+            if (!roomAssignment)
             {
                 throw new KeyNotFoundException($"Room Assignment with Id {request.Id} not found.");
             }
 
             // Soft delete: sets IsDeleted = true and DeletedAt, record stays in the database
             // and is excluded from query results.
-            var isDeleted = await _iRoomAssignment.DeleteAsync(roomAssignment.Id);
+            var isDeleted = await _iRoomAssignment.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete room assignment with Id {request.Id}.");
