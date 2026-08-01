@@ -7,8 +7,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
     internal class AppointmentQueueQueryRepository : BaseQueryRepository<AppointmentQueue>
     {
-        protected override string GetAllSpName => "appointment_queue.SP_GetAllAppointmentQueues";
-        protected override string GetByIdSpName => "appointment_queue.SP_GetAppointmentQueueById";
+        protected override string GetAllSpName => "appointment_queues.SP_GetAllAppointmentQueues";
+        protected override string GetByIdSpName => "appointment_queues.SP_GetAppointmentQueueById";
 
         public AppointmentQueueQueryRepository(IOptions<MySetting> setting) : base(setting) { }
     }
