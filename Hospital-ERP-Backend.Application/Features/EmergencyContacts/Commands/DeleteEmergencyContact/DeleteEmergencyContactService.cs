@@ -8,13 +8,11 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.D
     internal class DeleteEmergencyContactService : IRequestHandler<DeleteEmergencyContactRequest, bool>
     {
         private readonly IBaseCommandRepository<EmergencyContact> _emergencyContactCommandRepo;
-        private readonly IBaseQueryRepository<EmergencyContact> _emergencyContactQueryRepo;
-
         private readonly IValidator<DeleteEmergencyContactRequest> _validator;
-        public DeleteEmergencyContactService(IBaseCommandRepository<EmergencyContact> emergencyContactCommandRepo, IBaseQueryRepository<EmergencyContact> emergencyContactQueryRepo, IValidator<DeleteEmergencyContactRequest> validator)
+
+        public DeleteEmergencyContactService(IBaseCommandRepository<EmergencyContact> emergencyContactCommandRepo, IValidator<DeleteEmergencyContactRequest> validator)
         {
             _emergencyContactCommandRepo = emergencyContactCommandRepo;
-            _emergencyContactQueryRepo = emergencyContactQueryRepo;
             _validator = validator;
         }
 
@@ -31,8 +29,8 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.D
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            EmergencyContact? emergencyContact = await _emergencyContactQueryRepo.GetAsync(request.Id);
-            if (emergencyContact == null)
+            bool emergencyContact = await _emergencyContactCommandRepo.IsExistAsync(request.Id);
+            if (!emergencyContact)
             {
                 throw new ArgumentException($"Emergency contact with ID {request.Id} not found.");
             }
