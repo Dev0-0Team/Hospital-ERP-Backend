@@ -12,7 +12,7 @@ namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.CreateAll
 
             RuleFor(x => x.AllergyName)
                 .NotEmpty().WithMessage("Please this field must be NOT empty")
-                .MaximumLength(100);
+                .MaximumLength(150).WithMessage("Allergy Name must not exceed 150 characters.");
 
             RuleFor(x => x.Severity)
                 .IsInEnum()

@@ -10,13 +10,13 @@ namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.CreateAll
     {
         private readonly IBaseCommandRepository<Allergy> _repository;
 
-        private readonly IBaseQueryRepository<Patient> _patientRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
 
         private readonly IValidator<CreateAllergyRequest> _validator;
 
         public CreateAllergyService(
             IBaseCommandRepository<Allergy> repository,
-            IBaseQueryRepository<Patient> patientRepository,
+            IBaseCommandRepository<Patient> patientRepository,
             IValidator<CreateAllergyRequest> validator)
         {
             _repository = repository;
@@ -24,9 +24,7 @@ namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.CreateAll
             _validator = validator;
         }
 
-        public async Task<CreateAllergyResponse> Handle(
-            CreateAllergyRequest request,
-            CancellationToken cancellationToken)
+        public async Task<CreateAllergyResponse> Handle(CreateAllergyRequest request, CancellationToken cancellationToken)
         {
             return await CreateAllergyAsync(request);
         }
@@ -44,13 +42,11 @@ namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.CreateAll
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Patient? patient =
-                await _patientRepository.GetAsync(request.PatientId);
+            bool patient = await _patientRepository.IsExistAsync(request.PatientId);
 
-            if (patient == null)
+            if (!patient)
             {
-                throw new KeyNotFoundException(
-                    $"Patient with Id {request.PatientId} not found.");
+                throw new KeyNotFoundException($"Patient with Id {request.PatientId} not found.");
             }
 
             Allergy allergy = new()
@@ -60,13 +56,11 @@ namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.CreateAll
                 Severity = request.Severity.ToString()
             };
 
-            Allergy? result =
-                await _repository.CreateAsync(allergy);
+            Allergy? result = await _repository.CreateAsync(allergy);
 
             if (result == null)
             {
-                throw new InvalidOperationException(
-                    "Failed to create Allergy.");
+                throw new InvalidOperationException("Failed to create Allergy.");
             }
 
             return new CreateAllergyResponse
