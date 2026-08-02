@@ -11,17 +11,16 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.Update
         private readonly IValidator<UpdateInvoiceItemRequest> _validator;
 
         private readonly IBaseCommandRepository<InvoiceItem> _repository;
-
-        private readonly IBaseQueryRepository<InvoiceItem> _queryRepository;
+        private readonly IBaseCommandRepository<Invoice> _invoiceRepository;
 
         public UpdateInvoiceItemService(
             IValidator<UpdateInvoiceItemRequest> validator,
             IBaseCommandRepository<InvoiceItem> repository,
-            IBaseQueryRepository<InvoiceItem> queryRepository)
+            IBaseCommandRepository<Invoice> invoiceRepository)
         {
             _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
+            _invoiceRepository = invoiceRepository;
         }
 
         public async Task<UpdateInvoiceItemResponse> Handle(
@@ -43,8 +42,16 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.Update
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
+            bool isInvoiceExist = await _invoiceRepository.IsExistAsync(request.InvoiceId);
+            if (!isInvoiceExist)
+            {
+                throw new KeyNotFoundException(
+                    $"Invoice with Id {request.InvoiceId} not found.");
+            }
+
+
             InvoiceItem? invoiceItem =
-                await _queryRepository.GetAsync(request.Id);
+                await _repository.FindAsync(request.Id);
 
             if (invoiceItem == null)
             {

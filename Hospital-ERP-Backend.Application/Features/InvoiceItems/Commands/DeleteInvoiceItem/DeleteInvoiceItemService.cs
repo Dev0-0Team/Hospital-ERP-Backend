@@ -12,16 +12,13 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.Delete
 
         private readonly IBaseCommandRepository<InvoiceItem> _repository;
 
-        private readonly IBaseQueryRepository<InvoiceItem> _queryRepository;
 
         public DeleteInvoiceItemService(
             IValidator<DeleteInvoiceItemRequest> validator,
-            IBaseCommandRepository<InvoiceItem> repository,
-            IBaseQueryRepository<InvoiceItem> queryRepository)
+            IBaseCommandRepository<InvoiceItem> repository)
         {
             _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
         }
 
         public async Task<bool> Handle(
@@ -43,17 +40,17 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.Delete
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            InvoiceItem? invoiceItem =
-                await _queryRepository.GetAsync(request.Id);
+            bool invoiceItem =
+                await _repository.IsExistAsync(request.Id);
 
-            if (invoiceItem == null)
+            if (!invoiceItem)
             {
                 throw new KeyNotFoundException(
                     $"Invoice Item with Id {request.Id} not found.");
             }
 
             bool isDeleted =
-                await _repository.DeleteAsync(invoiceItem.Id);
+                await _repository.DeleteAsync(request.Id);
 
             if (!isDeleted)
             {
