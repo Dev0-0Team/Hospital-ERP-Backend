@@ -16,7 +16,7 @@ namespace Hospital_ERP_Backend.Application.Features.Allergies.Commands.UpdateAll
 
             RuleFor(x => x.AllergyName)
                 .NotEmpty()
-                .MaximumLength(100);
+                .MaximumLength(150).WithMessage("Allergy Name must not exceed 150 characters.");
 
             RuleFor(x => x.Severity)
                 .IsInEnum()
