@@ -8,14 +8,17 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.Create
     internal class CreateInvoiceItemService : IRequestHandler<CreateInvoiceItemRequest, CreateInvoiceItemResponse>
     {
         private readonly IBaseCommandRepository<InvoiceItem> _repository;
+        private readonly IBaseCommandRepository<Invoice> _invoiceRepository;
         private readonly IValidator<CreateInvoiceItemRequest> _validator;
 
         public CreateInvoiceItemService(
             IBaseCommandRepository<InvoiceItem> repository,
-            IValidator<CreateInvoiceItemRequest> validator)
+            IValidator<CreateInvoiceItemRequest> validator,
+            IBaseCommandRepository<Invoice> invoiceRepository)
         {
             _repository = repository;
             _validator = validator;
+            _invoiceRepository = invoiceRepository;
         }
 
         public async Task<CreateInvoiceItemResponse> Handle(
@@ -32,6 +35,13 @@ namespace Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.Create
 
             if (!validationResult.IsValid)
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
+
+            bool isInvoiceExist = await _invoiceRepository.IsExistAsync(request.InvoiceId);
+            if (!isInvoiceExist)
+            {
+                throw new KeyNotFoundException(
+                    $"Invoice Item with Id {request.InvoiceId} not found.");
+            }
 
             InvoiceItem invoiceItem = new()
             {
