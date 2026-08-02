@@ -8,8 +8,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
     internal class PatientQueryRepository : BaseQueryRepository<Patient>
     {
-        protected override string GetAllSpName => "patients.SP_GetPatientById";
-        protected override string GetByIdSpName => "patients.SP_GetAllPatients";
+        protected override string GetAllSpName => "patients.SP_GetAllPatients";
+        protected override string GetByIdSpName => "patients.SP_GetPatientById";
 
         public PatientQueryRepository(IOptions<MySetting> setting) : base(setting) { }
     }

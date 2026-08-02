@@ -8,16 +8,13 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePati
     internal class UpdatePatientService : IRequestHandler<UpdatePatientRequest, UpdatePatientResponse>
     {
         private readonly IBaseCommandRepository<Patient> _repository;
-        private readonly IBaseQueryRepository<Person> _personRepository;
-        private readonly IBaseQueryRepository<Patient> _queryRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
         private readonly IValidator<UpdatePatientRequest> _validator;
 
-        public UpdatePatientService(IBaseCommandRepository<Patient> repository, IBaseQueryRepository<Person> personRepository,
-            IBaseQueryRepository<Patient> queryRepository, IValidator<UpdatePatientRequest> validator)
+        public UpdatePatientService(IBaseCommandRepository<Patient> repository, IBaseCommandRepository<Person> personRepository, IValidator<UpdatePatientRequest> validator)
         {
             _repository = repository;
             _personRepository = personRepository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -35,21 +32,25 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePati
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Patient? patient = await _queryRepository.GetAsync(request.Id);
+            Patient? patient = await _repository.FindAsync(request.Id);
             if (patient == null)
             {
                 throw new KeyNotFoundException($"Patient with Id {request.Id} not found.");
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
             patient.PersonId = request.PersonId;
-            patient.BloodType = request.BloodType;
+            patient.BloodType = request.BloodType.HasValue ?
+                request.BloodType.Value.ToString()
+                    .Replace("Positive", "+")
+                    .Replace("Negative", "-")
+                    : null;
             patient.UpdatedAt = DateTime.UtcNow;
 
             Patient? result = await _repository.UpdateAsync(patient);
