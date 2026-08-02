@@ -9,13 +9,14 @@ namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.Upd
     {
         private readonly IValidator<UpdateRoomAssignmentRequest> _validator;
         private readonly IBaseCommandRepository<RoomAssignment> _iRoomAssignment;
-        private readonly IBaseQueryRepository<RoomAssignment> _iQueryRoomAssignment;
-
-        public UpdateRoomAssignmentService(IValidator<UpdateRoomAssignmentRequest> validator, IBaseCommandRepository<RoomAssignment> iRoomAssignment, IBaseQueryRepository<RoomAssignment> iQueryRoomAssignment)
+        private readonly IBaseCommandRepository<Patient> _iPatient;
+        private readonly IBaseCommandRepository<Bed> _iBed;
+        public UpdateRoomAssignmentService(IValidator<UpdateRoomAssignmentRequest> validator, IBaseCommandRepository<RoomAssignment> iRoomAssignment, IBaseCommandRepository<Bed> iBed, IBaseCommandRepository<Patient> iPatient)
         {
             _validator = validator;
             _iRoomAssignment = iRoomAssignment;
-            _iQueryRoomAssignment = iQueryRoomAssignment;
+            _iBed = iBed;
+            _iPatient = iPatient;
         }
 
         public async Task<UpdateRoomAssignmentResponse> Handle(UpdateRoomAssignmentRequest request, CancellationToken cancellationToken)
@@ -31,7 +32,19 @@ namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.Upd
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            RoomAssignment? existingRoomAssignment = await _iQueryRoomAssignment.GetAsync(request.Id);
+            bool isPatientExist = await _iPatient.IsExistAsync(request.PatientId);
+            if (!isPatientExist)
+            {
+                throw new KeyNotFoundException($"Patient with Id {request.PatientId} not found.");
+            }
+
+            bool isBedExist = await _iBed.IsExistAsync(request.BedId);
+            if (!isPatientExist)
+            {
+                throw new KeyNotFoundException($"Bed with Id {request.BedId} not found.");
+            }
+
+            RoomAssignment? existingRoomAssignment = await _iRoomAssignment.FindAsync(request.Id);
             if (existingRoomAssignment == null)
             {
                 throw new KeyNotFoundException($"Room Assignment with Id {request.Id} not found.");
@@ -41,6 +54,7 @@ namespace Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.Upd
             existingRoomAssignment.BedId = request.BedId;
             existingRoomAssignment.AdmittedAt = request.AdmittedAt;
             existingRoomAssignment.DischargedAt = request.DischargedAt;
+            existingRoomAssignment.UpdatedAt = DateTime.UtcNow;
 
             RoomAssignment? result = await _iRoomAssignment.UpdateAsync(existingRoomAssignment);
             if (result == null)
