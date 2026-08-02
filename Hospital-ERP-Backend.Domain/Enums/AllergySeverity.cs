@@ -2,8 +2,8 @@
 {
     public enum AllergySeverity
     {
-        Severe,
-        Moderate,
-        Mild
+        Severe = 3,
+        Moderate = 2,
+        Mild = 1
     }
 }
