@@ -10,14 +10,14 @@ namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.Upd
     {
         private readonly IValidator<UpdateChronicDiseaseRequest> _validator;
         private readonly IBaseCommandRepository<ChronicDisease> _chronicDiseaseRepository;
-        private readonly IBaseQueryRepository<ChronicDisease> _chronicDiseaseQueryRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
 
         public UpdateChronicDiseaseService(IValidator<UpdateChronicDiseaseRequest> validator, IBaseCommandRepository<ChronicDisease> chronicDiseaseRepository,
-            IBaseQueryRepository<ChronicDisease> chronicDiseaseQueryRepository)
+            IBaseCommandRepository<Patient> patientRepository)
         {
             _validator = validator;
             _chronicDiseaseRepository = chronicDiseaseRepository;
-            _chronicDiseaseQueryRepository = chronicDiseaseQueryRepository;
+            _patientRepository = patientRepository;
         }
 
         public async Task<UpdateChronicDiseaseResponse> Handle(UpdateChronicDiseaseRequest request, CancellationToken cancellationToken)
@@ -34,7 +34,13 @@ namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.Upd
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            ChronicDisease? chronicDisease = await _chronicDiseaseQueryRepository.GetAsync(request.Id);
+            bool isPatientExist = await _patientRepository.IsExistAsync(request.PatientId);
+            if (!isPatientExist)
+            {
+                throw new KeyNotFoundException($"Patient with id {request.Id} not found");
+            }
+
+            ChronicDisease? chronicDisease = await _chronicDiseaseRepository.FindAsync(request.Id);
 
             if (chronicDisease == null)
             {
@@ -43,7 +49,7 @@ namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.Upd
 
             chronicDisease.PatientId = request.PatientId;
             chronicDisease.DiseaseName = request.DiseaseName;
-            chronicDisease.UpdatedAt = DateTime.Now;
+            chronicDisease.UpdatedAt = DateTime.UtcNow;
 
             var result = await _chronicDiseaseRepository.UpdateAsync(chronicDisease);
 
