@@ -9,12 +9,14 @@ namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.Cre
     {
 
         private readonly IBaseCommandRepository<ChronicDisease> _chronicDiseaseCommandRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
         private readonly IValidator<CreateChronicDiseaseRequest> _validator;
 
-        public CreateChronicDiseaseService(IBaseCommandRepository<ChronicDisease> chronicDiseaseCommandRepository, IValidator<CreateChronicDiseaseRequest> validator)
+        public CreateChronicDiseaseService(IBaseCommandRepository<ChronicDisease> chronicDiseaseCommandRepository,IBaseCommandRepository<Patient> patientRepository ,IValidator<CreateChronicDiseaseRequest> validator)
         {
             _chronicDiseaseCommandRepository = chronicDiseaseCommandRepository;
             _validator = validator;
+            _patientRepository = patientRepository;
         }
         public async Task<CreateChronicDiseaseResponse> Handle(CreateChronicDiseaseRequest request, CancellationToken cancellationToken)
         {
@@ -27,6 +29,12 @@ namespace Hospital_ERP_Backend.Application.Features.ChronicDiseases.Commands.Cre
             if (!validationResult.IsValid)
             {
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
+            }
+
+            bool isPatientExist = await _patientRepository.IsExistAsync(request.PatientId);
+            if (!isPatientExist)
+            {
+                throw new KeyNotFoundException($"Patient with id {request.PatientId} not found");
             }
 
             var chronicDisease = new ChronicDisease
