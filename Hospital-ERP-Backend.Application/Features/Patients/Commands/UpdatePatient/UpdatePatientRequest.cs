@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hospital_ERP_Backend.Domain.Enums;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient
 {
@@ -6,6 +7,6 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePati
     {
         public int Id { get; set; }
         public int PersonId { get; set; }
-        public string? BloodType { get; set; }
+        public PatientBloodType? BloodType { get; set; }
     }
 }
