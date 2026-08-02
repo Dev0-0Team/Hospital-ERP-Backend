@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hospital_ERP_Backend.Domain.Enums;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue
 {
@@ -12,6 +13,6 @@ namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.U
 
         public DateTime EstimatedTime { get; set; }
 
-        public string Status { get; set; } = null!;
+        public AppointmentQueueStatus Status { get; set; }
     }
 }

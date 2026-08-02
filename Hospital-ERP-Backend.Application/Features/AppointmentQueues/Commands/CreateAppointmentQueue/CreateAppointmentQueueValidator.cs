@@ -16,8 +16,7 @@ namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.C
                 .GreaterThan(DateTime.Now).WithMessage("Estimated time must be in the future.");
 
             RuleFor(x => x.Status)
-                .NotEmpty().WithMessage("Status is required.")
-                .MaximumLength(20).WithMessage("Status must not exceed 20 characters.");
+                .IsInEnum().WithMessage("invalid Status.");
         }
     }
 }
