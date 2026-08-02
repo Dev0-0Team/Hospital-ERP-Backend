@@ -8,20 +8,17 @@ namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.Upda
     internal class UpdateMedicalRecordService : IRequestHandler<UpdateMedicalRecordRequest, UpdateMedicalRecordResponse>
     {
         private readonly IBaseCommandRepository<MedicalRecord> _repository;
-        private readonly IBaseQueryRepository<MedicalRecord> _queryRepository;
-        private readonly IBaseQueryRepository<Patient> _patientRepository;
-        private readonly IBaseQueryRepository<Doctor> _doctorRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
+        private readonly IBaseCommandRepository<Doctor> _doctorRepository;
         private readonly IValidator<UpdateMedicalRecordRequest> _validator;
 
         public UpdateMedicalRecordService(
             IBaseCommandRepository<MedicalRecord> repository,
-            IBaseQueryRepository<MedicalRecord> queryRepository,
-            IBaseQueryRepository<Patient> patientRepository,
-            IBaseQueryRepository<Doctor> doctorRepository,
+            IBaseCommandRepository<Patient> patientRepository,
+            IBaseCommandRepository<Doctor> doctorRepository,
             IValidator<UpdateMedicalRecordRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _patientRepository = patientRepository;
             _doctorRepository = doctorRepository;
             _validator = validator;
@@ -41,20 +38,20 @@ namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.Upda
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            MedicalRecord? medicalRecord = await _queryRepository.GetAsync(request.Id);
+            MedicalRecord? medicalRecord = await _repository.FindAsync(request.Id);
             if (medicalRecord == null)
             {
                 throw new KeyNotFoundException($"Medical Record with Id {request.Id} not found.");
             }
 
-            Patient? patient = await _patientRepository.GetAsync(request.PatientId);
-            if (patient == null)
+            bool patient = await _patientRepository.IsExistAsync(request.PatientId);
+            if (!patient)
             {
                 throw new KeyNotFoundException($"Patient with Id {request.PatientId} not found.");
             }
 
-            Doctor? doctor = await _doctorRepository.GetAsync(request.DoctorId);
-            if (doctor == null)
+            bool doctor = await _doctorRepository.IsExistAsync(request.DoctorId);
+            if (!doctor)
             {
                 throw new KeyNotFoundException($"Doctor with Id {request.DoctorId} not found.");
             }

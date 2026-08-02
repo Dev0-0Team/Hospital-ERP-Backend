@@ -8,14 +8,14 @@ namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.Crea
     internal class CreateMedicalRecordService : IRequestHandler<CreateMedicalRecordRequest, CreateMedicalRecordResponse>
     {
         private readonly IBaseCommandRepository<MedicalRecord> _repository;
-        private readonly IBaseQueryRepository<Patient> _patientRepository;
-        private readonly IBaseQueryRepository<Doctor> _doctorRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
+        private readonly IBaseCommandRepository<Doctor> _doctorRepository;
         private readonly IValidator<CreateMedicalRecordRequest> _validator;
 
         public CreateMedicalRecordService(
             IBaseCommandRepository<MedicalRecord> repository,
-            IBaseQueryRepository<Patient> patientRepository,
-            IBaseQueryRepository<Doctor> doctorRepository,
+            IBaseCommandRepository<Patient> patientRepository,
+            IBaseCommandRepository<Doctor> doctorRepository,
             IValidator<CreateMedicalRecordRequest> validator)
         {
             _repository = repository;
@@ -38,14 +38,14 @@ namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.Crea
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Patient? patient = await _patientRepository.GetAsync(request.PatientId);
-            if (patient == null)
+            bool patient = await _patientRepository.IsExistAsync(request.PatientId);
+            if (!patient)
             {
                 throw new KeyNotFoundException($"Patient with Id {request.PatientId} not found.");
             }
 
-            Doctor? doctor = await _doctorRepository.GetAsync(request.DoctorId);
-            if (doctor == null)
+            bool doctor = await _doctorRepository.IsExistAsync(request.DoctorId);
+            if (!doctor)
             {
                 throw new KeyNotFoundException($"Doctor with Id {request.DoctorId} not found.");
             }

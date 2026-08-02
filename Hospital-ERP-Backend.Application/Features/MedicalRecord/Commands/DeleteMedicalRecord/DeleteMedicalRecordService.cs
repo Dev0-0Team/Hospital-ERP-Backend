@@ -8,16 +8,12 @@ namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.Dele
     internal class DeleteMedicalRecordService : IRequestHandler<DeleteMedicalRecordRequest, bool>
     {
         private readonly IBaseCommandRepository<MedicalRecord> _repository;
-        private readonly IBaseQueryRepository<MedicalRecord> _queryRepository;
         private readonly IValidator<DeleteMedicalRecordRequest> _validator;
 
         public DeleteMedicalRecordService(
-            IBaseCommandRepository<MedicalRecord> repository,
-            IBaseQueryRepository<MedicalRecord> queryRepository,
-            IValidator<DeleteMedicalRecordRequest> validator)
+            IBaseCommandRepository<MedicalRecord> repository, IValidator<DeleteMedicalRecordRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -35,9 +31,9 @@ namespace Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.Dele
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            MedicalRecord? medicalRecord = await _queryRepository.GetAsync(request.Id);
+            bool medicalRecord = await _repository.IsExistAsync(request.Id);
 
-            if (medicalRecord == null)
+            if (!medicalRecord)
             {
                 throw new KeyNotFoundException($"Medical Record with Id {request.Id} not found.");
             }
