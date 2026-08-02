@@ -22,12 +22,12 @@ namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.Update
                 .GreaterThan(DateTime.Now).WithMessage("Appointment date must be in the future.");
 
             RuleFor(x => x.Status)
-                .NotEmpty().WithMessage("Status is required.")
-                .MaximumLength(20).WithMessage("Status must not exceed 20 characters.");
+                .IsInEnum()
+                .WithMessage("invalid Status");
 
             RuleFor(x => x.Type)
-                .NotEmpty().WithMessage("Appointment type is required.")
-                .MaximumLength(20).WithMessage("Appointment type must not exceed 20 characters.");
+                .IsInEnum()
+                .WithMessage("invalid Type");
         }
     }
 }
