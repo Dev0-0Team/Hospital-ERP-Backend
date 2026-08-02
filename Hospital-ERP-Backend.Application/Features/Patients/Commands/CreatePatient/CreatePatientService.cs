@@ -9,11 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePati
     internal class CreatePatientService : IRequestHandler<CreatePatientRequest, CreatePatientResponse>
     {
         private readonly IBaseCommandRepository<Patient> _repository;
-        private readonly IBaseQueryRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
         private readonly IValidator<CreatePatientRequest> _validator;
 
         public CreatePatientService
-            (IBaseCommandRepository<Patient> repository, IBaseQueryRepository<Person> personRepository, 
+            (IBaseCommandRepository<Patient> repository, IBaseCommandRepository<Person> personRepository, 
             IValidator<CreatePatientRequest> validator)
         {
             _repository = repository;
@@ -35,9 +35,9 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePati
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Person? person = await _personRepository.GetAsync(request.PersonId);
+            bool person = await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
@@ -45,7 +45,10 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePati
             Patient nurse = new()
             {
                 PersonId = request.PersonId,
-                BloodType = request.BloodType,
+                BloodType = request.BloodType.HasValue ? request.BloodType.Value.ToString()
+                            .Replace("Positive", "+")
+                            .Replace("Negative", "-")
+                            : null,
                 CreatedAt = DateTime.UtcNow
             };
 
