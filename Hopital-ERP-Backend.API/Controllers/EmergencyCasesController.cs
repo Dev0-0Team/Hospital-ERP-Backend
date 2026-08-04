@@ -56,10 +56,17 @@ namespace Hospital_ERP_Backend.API.Controllers
         {
             var response = await _sender.Send(request);
 
-            return CreatedAtRoute(
-                "GetEmergencyCaseByIdAsync",
-                new { ID = response.Id },
-                response);
+            //return CreatedAtRoute(
+            //    "GetEmergencyCaseByIdAsync",
+            //    new { ID = response.Id },
+            //    response);
+
+
+            return CreateResponse<CreateEmergencyCasesResponse>(
+                response,
+                StatusCodes.Status200OK,
+                "Emergency Case created successfully!"
+                );
         }
 
         [HttpPut(Name = "UpdateEmergencyCasesAsync")]
