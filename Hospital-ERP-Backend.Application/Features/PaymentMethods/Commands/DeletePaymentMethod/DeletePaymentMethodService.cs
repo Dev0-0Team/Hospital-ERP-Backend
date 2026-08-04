@@ -12,13 +12,11 @@ namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.Dele
     {
         private readonly IBaseCommandRepository<PaymentMethod> _repository;
         private readonly IValidator<DeletePaymentMethodRequest> _validator;
-        private readonly IBaseQueryRepository<PaymentMethod> _queryRepository;
 
-        public DeletePaymentMethodService(IBaseCommandRepository<PaymentMethod> repository, IValidator<DeletePaymentMethodRequest> validator, IBaseQueryRepository<PaymentMethod> queryRepository)
+        public DeletePaymentMethodService(IBaseCommandRepository<PaymentMethod> repository, IValidator<DeletePaymentMethodRequest> validator)
         {
             _repository = repository;
             _validator = validator;
-            _queryRepository = queryRepository;
         }
 
         public async Task<bool> Handle(DeletePaymentMethodRequest request, CancellationToken cancellationToken)
@@ -34,9 +32,9 @@ namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.Dele
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            PaymentMethod? isFound = await _queryRepository.GetAsync(request.Id);
+            bool isFound = await _repository.IsExistAsync(request.Id);
 
-            if (isFound == null)
+            if (!isFound)
             {
                 throw new KeyNotFoundException($"Payment method with Id {request.Id} not found.");
             }
