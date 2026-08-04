@@ -10,14 +10,17 @@ namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.UpdatePaym
     internal class UpdatePaymentService : IRequestHandler<UpdatePaymentRequest, UpdatePaymentResponse>
     {
         private readonly IBaseCommandRepository<Payment> _repository;
-        private readonly IBaseQueryRepository<Payment> _queryRepository;
+        private readonly IBaseCommandRepository<Invoice> _invoiceRepository;
+        private readonly IBaseCommandRepository<PaymentMethod> _paymentMethodRepository;
         private readonly IValidator<UpdatePaymentRequest> _validator;
 
-        public UpdatePaymentService(IBaseCommandRepository<Payment> repository, IBaseQueryRepository<Payment> queryRepository, IValidator<UpdatePaymentRequest> validator)
+        public UpdatePaymentService(IBaseCommandRepository<Payment> repository, IValidator<UpdatePaymentRequest> validator ,
+         IBaseCommandRepository<Invoice> invoiceRepository, IBaseCommandRepository<PaymentMethod> paymentMethodRepository)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
+            _paymentMethodRepository = paymentMethodRepository;
+            _invoiceRepository = invoiceRepository;
         }
 
         public async Task<UpdatePaymentResponse> Handle(UpdatePaymentRequest request, CancellationToken cancellationToken)
@@ -33,7 +36,20 @@ namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.UpdatePaym
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var payment = await _queryRepository.GetAsync(request.Id);
+            bool isInvoiceExist = await _invoiceRepository.IsExistAsync(request.InvoiceId);
+            if (!isInvoiceExist)
+            {
+                throw new KeyNotFoundException($"Invoice with Id {request.InvoiceId} not found.");
+            }
+
+            bool isPaymentMethodExist = await _paymentMethodRepository.IsExistAsync(request.PaymentMethodId);
+            if (!isPaymentMethodExist)
+            {
+                throw new KeyNotFoundException($"Payment method with Id {request.PaymentMethodId} not found.");
+            }
+
+
+            var payment = await _repository.FindAsync(request.Id);
             if (payment == null)
             {
                 throw new KeyNotFoundException($"Payment with Id {request.Id} not found.");
@@ -43,6 +59,7 @@ namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.UpdatePaym
             payment.PaymentMethodId = request.PaymentMethodId;
             payment.Amount = request.Amount;
             payment.PaidAt = request.PaidAt;
+            payment.UpdatedAt = DateTime.UtcNow;
 
             Payment? result = await _repository.UpdateAsync(payment);
             if (result == null)
