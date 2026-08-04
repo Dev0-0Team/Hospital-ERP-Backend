@@ -7,8 +7,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
     internal class MedicationQueryRepository : BaseQueryRepository<Medication>
     {
-        protected override string GetAllSpName => "medication.SP_GetAllMedications";
-        protected override string GetByIdSpName => "medication.SP_GetMedicationById";
+        protected override string GetAllSpName => "medications.SP_GetAllMedications";
+        protected override string GetByIdSpName => "medications.SP_GetMedicationById";
         public MedicationQueryRepository(IOptions<MySetting> setting) : base(setting) { }
 
     }
