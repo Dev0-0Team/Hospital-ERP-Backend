@@ -8,7 +8,7 @@ namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateM
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Medication name is required.")
-                .MaximumLength(100);
+                .MaximumLength(255);
 
             RuleFor(x => x.DosageForm)
                 .NotEmpty().WithMessage("Dosage form is required.")
