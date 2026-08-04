@@ -9,24 +9,17 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Delet
         : IRequestHandler<DeleteNotificationRequest, bool>
     {
         private readonly IValidator<DeleteNotificationRequest> _validator;
-
         private readonly IBaseCommandRepository<Notification> _repository;
-
-        private readonly IBaseQueryRepository<Notification> _queryRepository;
 
         public DeleteNotificationService(
             IValidator<DeleteNotificationRequest> validator,
-            IBaseCommandRepository<Notification> repository,
-            IBaseQueryRepository<Notification> queryRepository)
+            IBaseCommandRepository<Notification> repository)
         {
             _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
         }
 
-        public async Task<bool> Handle(
-            DeleteNotificationRequest request,
-            CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteNotificationRequest request, CancellationToken cancellationToken)
         {
             return await DeleteNotificationAsync(request);
         }
@@ -44,22 +37,20 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Delet
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Notification? notification =
-                await _queryRepository.GetAsync(request.Id);
+            bool notification =
+                await _repository.IsExistAsync(request.Id);
 
-            if (notification == null)
+            if (!notification)
             {
-                throw new KeyNotFoundException(
-                    $"Notification with Id {request.Id} not found.");
+                throw new KeyNotFoundException($"Notification with Id {request.Id} not found.");
             }
 
             bool isDeleted =
-                await _repository.DeleteAsync(notification.Id);
+                await _repository.DeleteAsync(request.Id);
 
             if (!isDeleted)
             {
-                throw new InvalidOperationException(
-                    $"Failed to delete Notification with Id {request.Id}.");
+                throw new InvalidOperationException($"Failed to delete Notification with Id {request.Id}.");
             }
 
             return isDeleted;

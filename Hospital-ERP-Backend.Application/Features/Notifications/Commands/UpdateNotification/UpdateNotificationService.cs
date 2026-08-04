@@ -12,30 +12,25 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Updat
 
         private readonly IBaseCommandRepository<Notification> _repository;
 
-        private readonly IBaseQueryRepository<Notification> _queryRepository;
-
+        private readonly IBaseCommandRepository<User> _userRepository;
         public UpdateNotificationService(
             IValidator<UpdateNotificationRequest> validator,
             IBaseCommandRepository<Notification> repository,
-            IBaseQueryRepository<Notification> queryRepository)
+            IBaseCommandRepository<User> userRepository)
         {
-            _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
+            _validator = validator;
+            _userRepository = userRepository;
         }
 
-        public async Task<UpdateNotificationResponse> Handle(
-            UpdateNotificationRequest request,
-            CancellationToken cancellationToken)
+        public async Task<UpdateNotificationResponse> Handle(UpdateNotificationRequest request, CancellationToken cancellationToken)
         {
             return await UpdateNotificationAsync(request);
         }
 
-        private async Task<UpdateNotificationResponse> UpdateNotificationAsync(
-            UpdateNotificationRequest request)
+        private async Task<UpdateNotificationResponse> UpdateNotificationAsync(UpdateNotificationRequest request)
         {
-            var validationResult =
-                await _validator.ValidateAsync(request);
+            var validationResult = await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
@@ -44,13 +39,17 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Updat
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Notification? notification =
-                await _queryRepository.GetAsync(request.Id);
+            bool isUserExist = await _userRepository.IsExistAsync(request.UserId);
+            if (!isUserExist)
+            {
+                throw new KeyNotFoundException($"User with Id {request.UserId} not found.");
+            }
+            
+            Notification? notification = await _repository.FindAsync(request.Id);
 
             if (notification == null)
             {
-                throw new KeyNotFoundException(
-                    $"Notification with Id {request.Id} not found.");
+                throw new KeyNotFoundException($"Notification with Id {request.Id} not found.");
             }
 
             notification.UserId = request.UserId;

@@ -10,15 +10,17 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Creat
             CreateNotificationResponse>
     {
         private readonly IBaseCommandRepository<Notification> _repository;
-
+        private readonly IBaseCommandRepository<User> _userRepository;
         private readonly IValidator<CreateNotificationRequest> _validator;
 
         public CreateNotificationService(
             IBaseCommandRepository<Notification> repository,
-            IValidator<CreateNotificationRequest> validator)
+            IValidator<CreateNotificationRequest> validator,
+            IBaseCommandRepository<User> userRepository)
         {
             _repository = repository;
             _validator = validator;
+            _userRepository = userRepository;
         }
 
         public async Task<CreateNotificationResponse> Handle(
@@ -28,12 +30,9 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Creat
             return await CreateNotificationAsync(request);
         }
 
-        private async Task<CreateNotificationResponse>
-            CreateNotificationAsync(
-            CreateNotificationRequest request)
+        private async Task<CreateNotificationResponse> CreateNotificationAsync(CreateNotificationRequest request)
         {
-            var validationResult =
-                await _validator.ValidateAsync(request);
+            var validationResult = await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
@@ -42,21 +41,24 @@ namespace Hospital_ERP_Backend.Application.Features.Notifications.Commands.Creat
                     validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
+            bool isUserExist = await _userRepository.IsExistAsync(request.UserId);
+            if (!isUserExist)
+            {
+                throw new KeyNotFoundException($"User with Id {request.UserId} not found.");
+            }
+
             Notification notification = new()
             {
                 UserId = request.UserId,
                 Title = request.Title,
-                Body = request.Body,
-                IsRead = request.IsRead
+                Body = request.Body
             };
 
-            Notification? result =
-                await _repository.CreateAsync(notification);
+            Notification? result = await _repository.CreateAsync(notification);
 
             if (result == null)
             {
-                throw new InvalidOperationException(
-                    "Failed to create Notification.");
+                throw new InvalidOperationException("Failed to create Notification.");
             }
 
             return new CreateNotificationResponse
