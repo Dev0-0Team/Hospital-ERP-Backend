@@ -9,16 +9,12 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyCases.Commands.Upda
     {
         private readonly IValidator<UpdateEmergencyCasesRequest> _validator;
         private readonly IBaseCommandRepository<EmergencyCase> _commandRepository;
-        private readonly IBaseQueryRepository<EmergencyCase> _queryRepository;
 
         public UpdateEmergencyCasesService(
             IValidator<UpdateEmergencyCasesRequest> validator,
-            IBaseCommandRepository<EmergencyCase> commandRepository,
-            IBaseQueryRepository<EmergencyCase> queryRepository)
-        {
+            IBaseCommandRepository<EmergencyCase> commandRepository)        {
             _validator = validator;
             _commandRepository = commandRepository;
-            _queryRepository = queryRepository;
         }
 
         public async Task<UpdateEmergencyCasesResponse> Handle(UpdateEmergencyCasesRequest request, CancellationToken cancellationToken)
@@ -35,7 +31,7 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyCases.Commands.Upda
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            EmergencyCase? emergencyCase = await _queryRepository.GetAsync(request.Id);
+            EmergencyCase? emergencyCase = await _commandRepository.FindAsync(request.Id);
 
             if (emergencyCase == null)
             {
