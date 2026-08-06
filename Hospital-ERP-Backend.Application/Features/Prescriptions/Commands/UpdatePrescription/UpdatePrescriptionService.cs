@@ -8,14 +8,12 @@ namespace Hospital_ERP_Backend.Application.Features.Prescriptions.Commands.Updat
     internal class UpdatePrescriptionService : IRequestHandler<UpdatePrescriptionRequest, UpdatePrescriptionResponse>
     {
         private readonly IBaseCommandRepository<Prescription> _repository;
-        private readonly IBaseQueryRepository<Prescription> _queryRepository;
         private readonly IValidator<UpdatePrescriptionRequest> _validator;
 
-        public UpdatePrescriptionService(IBaseCommandRepository<Prescription> repository, IBaseQueryRepository<Prescription> queryRepository,
+        public UpdatePrescriptionService(IBaseCommandRepository<Prescription> repository,
             IValidator<UpdatePrescriptionRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -33,7 +31,7 @@ namespace Hospital_ERP_Backend.Application.Features.Prescriptions.Commands.Updat
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Prescription? prescription = await _queryRepository.GetAsync(request.Id);
+            Prescription? prescription = await _repository.FindAsync(request.Id);
 
             if (prescription == null)
             {
