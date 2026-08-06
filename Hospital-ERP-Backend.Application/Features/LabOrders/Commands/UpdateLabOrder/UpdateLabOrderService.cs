@@ -11,8 +11,6 @@ namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLab
 
         private readonly IBaseCommandRepository<LabOrder> _repository;
 
-        private readonly IBaseQueryRepository<LabOrder> _queryRepository;
-
         public UpdateLabOrderService(
             IValidator<UpdateLabOrderRequest> validator,
             IBaseCommandRepository<LabOrder> repository,
@@ -20,7 +18,6 @@ namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLab
         {
             _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
         }
 
         public async Task<UpdateLabOrderResponse> Handle(
@@ -43,7 +40,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLab
             }
 
             LabOrder? labOrder =
-                await _queryRepository.GetAsync(request.Id);
+                await _repository.FindAsync(request.Id);
 
             if (labOrder == null)
             {
