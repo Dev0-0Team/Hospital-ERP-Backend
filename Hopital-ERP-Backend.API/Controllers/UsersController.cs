@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser;
 using Hospital_ERP_Backend.Application.Features.Users.Commands.DeleteUser;
 using Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.Users.Queries.GetUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Users")]
     [ApiController]
@@ -51,7 +50,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetUserByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetUserByID", new { ID = success!.Id },
+                new ApiResponse<CreateUserResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "User Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateUserAsync")]

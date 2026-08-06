@@ -6,17 +6,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerson
 {
-    public class UpdatePersonService : IRequestHandler<UpdatePersonRequest, UpdatePersonResponse>
+    internal class UpdatePersonService : IRequestHandler<UpdatePersonRequest, UpdatePersonResponse>
     {
         private readonly IValidator<UpdatePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
-        private readonly IBaseQueryRepository<Person> _iQueryPerson;
 
-        public UpdatePersonService(IValidator<UpdatePersonRequest> validator, IBaseCommandRepository<Person> iPerson, IBaseQueryRepository<Person> iQueryPerson)
+        public UpdatePersonService(IValidator<UpdatePersonRequest> validator, IBaseCommandRepository<Person> iPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
-            _iQueryPerson = iQueryPerson;
         }
 
         public async Task<UpdatePersonResponse> Handle(UpdatePersonRequest request, CancellationToken cancellationToken)
@@ -33,17 +31,17 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.UpdatePerso
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
             // Retrieve the existing person from the database
-            Person? existingPerson = await _iQueryPerson.GetAsync(request.Id);
+            Person? existingPerson = await _iPerson.FindAsync(request.Id);
             if (existingPerson == null)
             {
                 throw new KeyNotFoundException($"Person with Id {request.Id} not found.");
             }
             existingPerson.FullName = request.FullName;
             existingPerson.Dob = request.Dob;
-            existingPerson.Gender = request.Gender;
+            existingPerson.Gender = request.Gender.ToString();
             existingPerson.Phone = request.Phone;
             existingPerson.Address = request.Address;
-            existingPerson.UpdatedAt = DateTime.Now;
+            existingPerson.UpdatedAt = DateTime.UtcNow;
 
             Person? result = await _iPerson.UpdateAsync(existingPerson);
 

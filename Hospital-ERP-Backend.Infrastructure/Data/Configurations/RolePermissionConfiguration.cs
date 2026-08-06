@@ -19,10 +19,10 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
 
             // Columns
             builder.Property(x => x.RoleId)
-                .IsRequired();
+                .HasColumnName("role_id");
 
             builder.Property(x => x.PermissionId)
-                .IsRequired();
+                .HasColumnName("permission_id");
 
             builder.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             builder.Property(e => e.CreatedAt)

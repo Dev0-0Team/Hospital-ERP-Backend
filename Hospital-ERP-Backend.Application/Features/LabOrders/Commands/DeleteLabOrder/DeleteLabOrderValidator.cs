@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.DeleteLabOrder
 {
-    public class DeleteLabOrderValidator : AbstractValidator<DeleteLabOrderRequest>
+    internal class DeleteLabOrderValidator : AbstractValidator<DeleteLabOrderRequest>
     {
         public DeleteLabOrderValidator()
         {

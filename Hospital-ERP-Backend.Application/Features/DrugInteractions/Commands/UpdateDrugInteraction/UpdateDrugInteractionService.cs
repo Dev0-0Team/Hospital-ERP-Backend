@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.UpdateDrugInteraction
 {
-    public class UpdateDrugInteractionService : IRequestHandler<UpdateDrugInteractionRequest, UpdateDrugInteractionResponse>
+    internal class UpdateDrugInteractionService : IRequestHandler<UpdateDrugInteractionRequest, UpdateDrugInteractionResponse>
     {
         private readonly IBaseCommandRepository<DrugInteraction> _repository;
         private readonly IBaseQueryRepository<DrugInteraction> _queryRepository;

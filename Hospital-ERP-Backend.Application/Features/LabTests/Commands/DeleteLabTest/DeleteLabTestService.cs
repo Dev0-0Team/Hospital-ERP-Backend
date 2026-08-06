@@ -5,16 +5,14 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.DeleteLabTest
 {
-    public class DeleteLabTestService : IRequestHandler<DeleteLabTestRequest, bool>
+    internal class DeleteLabTestService : IRequestHandler<DeleteLabTestRequest, bool>
     {
         private readonly IBaseCommandRepository<LabTest> _labTestCommandRepo;
-        private readonly IBaseQueryRepository<LabTest> _labTestQueryRepo;
-
         private readonly IValidator<DeleteLabTestRequest> _validator;
-        public DeleteLabTestService(IBaseCommandRepository<LabTest> labTestCommandRepo, IBaseQueryRepository<LabTest> labTestQueryRepo, IValidator<DeleteLabTestRequest> validator)
+
+        public DeleteLabTestService(IBaseCommandRepository<LabTest> labTestCommandRepo, IValidator<DeleteLabTestRequest> validator)
         {
             _labTestCommandRepo = labTestCommandRepo;
-            _labTestQueryRepo = labTestQueryRepo;
             _validator = validator;
         }
 
@@ -31,8 +29,8 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.DeleteLabT
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            LabTest? labTest = await _labTestQueryRepo.GetAsync(request.Id);
-            if (labTest == null)
+            bool labTest = await _labTestCommandRepo.IsExistAsync(request.Id);
+            if (!labTest)
             {
                 throw new ArgumentException($"Lab test with ID {request.Id} not found.");
             }

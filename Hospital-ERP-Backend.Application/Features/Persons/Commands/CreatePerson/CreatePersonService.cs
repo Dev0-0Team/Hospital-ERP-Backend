@@ -5,17 +5,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
-    public class CreatePersonService : IRequestHandler<CreatePersonRequest, CreatePersonResponse>
+    internal class CreatePersonService : IRequestHandler<CreatePersonRequest, CreatePersonResponse>
     {
         private readonly IValidator<CreatePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
-        private readonly IBaseQueryRepository<Person> _iQueryPerson;
 
-        public CreatePersonService(IValidator<CreatePersonRequest> validator, IBaseCommandRepository<Person> iPerson, IBaseQueryRepository<Person> iQueryPerson)
+        public CreatePersonService(IValidator<CreatePersonRequest> validator, IBaseCommandRepository<Person> iPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
-            _iQueryPerson = iQueryPerson;
         }
 
         public async Task<CreatePersonResponse> Handle(CreatePersonRequest request, CancellationToken cancellationToken)
@@ -36,9 +34,10 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
             {
                 FullName = request.FullName,
                 Dob = request.Dob,
-                Gender = request.Gender,
+                Gender = request.Gender.ToString(),
                 Phone = request.Phone,
-                Address = request.Address
+                Address = request.Address,
+                CreatedAt = DateTime.UtcNow
             };
 
             Person? result = await _iPerson.CreateAsync(createPerson);

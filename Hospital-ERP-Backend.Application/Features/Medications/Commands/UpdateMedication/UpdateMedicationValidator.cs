@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.UpdateMedication
 {
-    public class UpdateMedicationValidator : AbstractValidator<UpdateMedicationRequest>
+    internal class UpdateMedicationValidator : AbstractValidator<UpdateMedicationRequest>
     {
         public UpdateMedicationValidator()
         {
@@ -11,7 +11,7 @@ namespace Hospital_ERP_Backend.Application.Features.Medications.Commands.UpdateM
 
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Medication name is required.")
-                .MaximumLength(100).WithMessage("Medication name cannot exceed 100 characters.");
+                .MaximumLength(255).WithMessage("Medication name cannot exceed 255 characters.");
 
             RuleFor(x => x.DosageForm)
                 .NotEmpty().WithMessage("Dosage form is required.")

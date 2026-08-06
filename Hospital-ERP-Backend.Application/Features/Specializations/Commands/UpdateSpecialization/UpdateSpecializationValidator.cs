@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization
 {
-    public class UpdateSpecializationValidator : AbstractValidator<UpdateSpecializationRequest>
+    internal class UpdateSpecializationValidator : AbstractValidator<UpdateSpecializationRequest>
     {
         public UpdateSpecializationValidator()
         {

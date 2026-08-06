@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.DeleteRadiologyReport
 {
-    public class DeleteRadiologyReportValidator : AbstractValidator<DeleteRadiologyReportRequest>
+    internal class DeleteRadiologyReportValidator : AbstractValidator<DeleteRadiologyReportRequest>
     {
         public DeleteRadiologyReportValidator()
         {

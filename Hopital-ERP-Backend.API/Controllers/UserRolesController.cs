@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Commands.CreateUserRole;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Commands.DeleteUserRole;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUserRole;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetUserRoles;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/UserRoles")]
     [ApiController]
@@ -51,7 +50,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetUserRoleByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetUserRoleByID", new { ID = success!.Id },
+                new ApiResponse<CreateUserRoleResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "User Role Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateUserRoleAsync")]

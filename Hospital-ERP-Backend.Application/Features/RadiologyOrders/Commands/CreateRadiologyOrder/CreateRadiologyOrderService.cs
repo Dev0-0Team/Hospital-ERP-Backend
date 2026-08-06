@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.CreateRadiologyOrder
 {
-    public class CreateRadiologyOrderService
+    internal class CreateRadiologyOrderService
         : IRequestHandler<CreateRadiologyOrderRequest, CreateRadiologyOrderResponse>
     {
         private readonly IBaseCommandRepository<RadiologyOrder> _repository;

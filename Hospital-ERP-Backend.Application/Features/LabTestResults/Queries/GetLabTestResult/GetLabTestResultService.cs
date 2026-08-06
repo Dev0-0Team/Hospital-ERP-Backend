@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTestResults.Queries.GetLabTestResult
 {
-    public class GetLabTestResultService
+    internal class GetLabTestResultService
         : IRequestHandler<GetLabTestResultRequest, GetLabTestResultResponse>
     {
         private readonly IBaseQueryRepository<LabTestResult> _repository;

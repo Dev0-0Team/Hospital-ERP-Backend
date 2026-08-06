@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
 {
-    public class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
+    internal class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
     {
         public UpdateUserValidator()
         {
@@ -23,14 +23,8 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.UpdateUser
                 .WithMessage($"Password must be at most {char.MaxValue} characters long");
 
             RuleFor(x => x.Status)
-                .NotEmpty()
-                .Must(BeValidStatus)
-                .WithMessage("Status must be Active or InActive");
-        }
-        private bool BeValidStatus(string Status)
-        {
-            var allowed = new[] { "Active", "InActive" };
-            return allowed.Contains(Status);
+                .IsInEnum()
+                .WithMessage("Invalid User Status");
         }
     }
 }

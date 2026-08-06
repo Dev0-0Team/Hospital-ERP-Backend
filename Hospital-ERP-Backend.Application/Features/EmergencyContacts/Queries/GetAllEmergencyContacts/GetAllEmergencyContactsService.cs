@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Queries.GetAllEmergencyContacts
 {
-    public class GetAllEmergencyContactsService : IRequestHandler<GetAllEmergencyContactsRequest, IEnumerable<GetAllEmergencyContactsResponse>>
+    internal class GetAllEmergencyContactsService : IRequestHandler<GetAllEmergencyContactsRequest, IEnumerable<GetAllEmergencyContactsResponse>>
     {
         private readonly IBaseQueryRepository<EmergencyContact> _emergencyContactQueryRepository;
 

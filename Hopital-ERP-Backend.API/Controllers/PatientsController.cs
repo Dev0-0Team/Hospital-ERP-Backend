@@ -1,10 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed;
-using Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed;
-using Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed;
-using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetAllBeds;
-using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetBed;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.Patients.Commands.CreatePatient;
 using Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient;
 using Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient;
@@ -13,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.Patients.Queries.GetPatient;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Patients")]
     [ApiController]
@@ -53,7 +47,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreatePatientResponse>>> CreateAsync([FromBody] CreatePatientRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetPatientByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetPatientByID", new { ID = success!.Id },
+                new ApiResponse<CreatePatientResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Patient Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdatePatientAsync")]

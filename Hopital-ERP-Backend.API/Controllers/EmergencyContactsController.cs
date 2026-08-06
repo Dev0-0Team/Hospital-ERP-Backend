@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.CreateEmergencyContact;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.CreateEmergencyContact;
 using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.DeleteEmergencyContact;
 using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.UpdateEmergencyContact;
 using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Queries.GetAllEmergencyContacts;
@@ -64,7 +65,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = success.Id
                 },
-                success);
+                new ApiResponse<CreateEmergencyContactResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Emergency Contact Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateEmergencyContactAsync")]

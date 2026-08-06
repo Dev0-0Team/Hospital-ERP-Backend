@@ -5,16 +5,6 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Upd
     public class UpdateDoctorScheduleValidator
         : AbstractValidator<UpdateDoctorScheduleRequest>
     {
-        private readonly string[] _days =
-        {
-            "Saturday",
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday"
-        };
 
         public UpdateDoctorScheduleValidator()
         {
@@ -27,14 +17,13 @@ namespace Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.Upd
                 .WithMessage("Doctor Id must be greater than zero.");
 
             RuleFor(x => x.DayOfWeek)
-                .NotEmpty()
-                .WithMessage("Day Of Week is required.")
-                .Must(day => _days.Contains(day))
-                .WithMessage("Day Of Week must be a valid day.");
+                .IsInEnum()
+                .WithMessage("Invalid day of week.");
 
             RuleFor(x => x)
+                .NotEmpty().WithMessage("Start Time and End Time is Required.")
                 .Must(x => x.StartTime < x.EndTime)
-                .WithMessage("Start Time must be less than End Time.");
+                .WithMessage("Start time must be before end time.");
         }
     }
 }

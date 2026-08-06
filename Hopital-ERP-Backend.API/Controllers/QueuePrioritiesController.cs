@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.DeleteQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetQueue
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/QueuePriorities")]
     [ApiController]
@@ -48,7 +47,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateQueuePriorityResponse>>> CreateAsync([FromBody] CreateQueuePriorityRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetQueuePriorityByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetQueuePriorityByID", new { ID = success!.Id },
+                new ApiResponse<CreateQueuePriorityResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "bed Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateQueuePriorityAsync")]

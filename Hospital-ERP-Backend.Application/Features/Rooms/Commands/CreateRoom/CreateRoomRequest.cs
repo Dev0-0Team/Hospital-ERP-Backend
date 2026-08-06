@@ -1,4 +1,5 @@
 ﻿using Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole;
+using Hospital_ERP_Backend.Domain.Enums;
 using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom
@@ -8,6 +9,6 @@ namespace Hospital_ERP_Backend.Application.Features.Rooms.Commands.CreateRoom
         public int DepartmentId { get; set; }
         public int RoomTypeId { get; set; }
         public string RoomNumber { get; set; } = null!;
-        public string Status { get; set; } = null!;
+        public RoomStatus Status { get; set; }
     }
 }

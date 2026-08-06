@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabTest
 {
-    public class UpdateLabTestValidator : AbstractValidator<UpdateLabTestRequest>
+    internal class UpdateLabTestValidator : AbstractValidator<UpdateLabTestRequest>
     {
         public UpdateLabTestValidator()
         {
@@ -11,11 +11,11 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabT
 
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required.")
-                .MaximumLength(255).WithMessage("Name must not exceed 255 characters.");
+                .MaximumLength(150).WithMessage("Name must not exceed 150 characters.");
 
             RuleFor(x => x.NormalRange)
                 .NotEmpty().WithMessage("Normal range is required.")
-                .MaximumLength(255).WithMessage("Normal range must not exceed 255 characters.");
+                .MaximumLength(100).WithMessage("Normal range must not exceed 100 characters.");
         }
     }
 }

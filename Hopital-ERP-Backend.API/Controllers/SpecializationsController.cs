@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
+﻿using Hospital_ERP_Backend.Application.Features.Specializations.Commands.CreateSpecialization;
 using Hospital_ERP_Backend.Application.Features.Specializations.Commands.DeleteSpecialization;
 using Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization;
 using Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetAllSpecializations;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetSpeci
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Specializations")]
     [ApiController]
@@ -48,7 +46,15 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateSpecializationResponse>>> CreateAsync([FromBody] CreateSpecializationRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetSpecializationByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute
+                ("GetSpecializationByID",
+                new { ID = success!.Id },
+                new ApiResponse<CreateSpecializationResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Specialization Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateSpecializationAsync")]

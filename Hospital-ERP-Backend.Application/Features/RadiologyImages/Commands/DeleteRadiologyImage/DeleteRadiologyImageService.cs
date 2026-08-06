@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.DeleteRadiologyImage
 {
-    public class DeleteRadiologyImageService
+    internal class DeleteRadiologyImageService
     : IRequestHandler<DeleteRadiologyImageRequest, bool>
     {
         private readonly IBaseCommandRepository<RadiologyImage> _repository;

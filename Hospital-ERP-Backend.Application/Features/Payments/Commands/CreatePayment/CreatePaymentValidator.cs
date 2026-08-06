@@ -3,7 +3,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Commands.CreatePayment
 {
-    public class CreatePaymentValidator : AbstractValidator<CreatePaymentRequest>
+    internal class CreatePaymentValidator : AbstractValidator<CreatePaymentRequest>
     {
         public CreatePaymentValidator()
         {

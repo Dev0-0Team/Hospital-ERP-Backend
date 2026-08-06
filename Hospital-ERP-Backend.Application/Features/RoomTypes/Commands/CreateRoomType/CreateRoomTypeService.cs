@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.CreateRoomType
 {
-    public class CreateRoomTypeService : IRequestHandler<CreateRoomTypeRequest, CreateRoomTypeResponse>
+    internal class CreateRoomTypeService : IRequestHandler<CreateRoomTypeRequest, CreateRoomTypeResponse>
     {
         private readonly IValidator<CreateRoomTypeRequest> _validator;
         private readonly IBaseCommandRepository<RoomType> _iRoomType;

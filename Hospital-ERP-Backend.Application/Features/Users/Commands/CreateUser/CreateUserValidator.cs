@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Domain.Entities;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserRequest>
+    internal class CreateUserValidator : AbstractValidator<CreateUserRequest>
     {
         public CreateUserValidator()
         {
@@ -20,15 +21,8 @@ namespace Hospital_ERP_Backend.Application.Features.Users.Commands.CreateUser
                 .WithMessage($"Password must be at most {char.MaxValue} characters long");
 
             RuleFor(x => x.Status)
-                .NotEmpty()
-                .Must(BeValidStatus)
-                .WithMessage("Status must be Active or InActive");
-        }
-
-        private bool BeValidStatus(string Status)
-        {
-            var allowed = new[] { "Active", "InActive"};
-            return allowed.Contains(Status);
+                .IsInEnum()
+                .WithMessage("Invalid Person Gender");
         }
     }
 }

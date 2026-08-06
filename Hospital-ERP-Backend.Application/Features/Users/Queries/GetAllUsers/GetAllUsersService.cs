@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetAllUsers
 {
-    public class GetAllUsersService : IRequestHandler<GetAllUsersRequest, IEnumerable<GetAllUsersResponse>>
+    internal class GetAllUsersService : IRequestHandler<GetAllUsersRequest, IEnumerable<GetAllUsersResponse>>
     {
         private readonly IValidator<GetAllUsersRequest> _validator;
         private readonly IBaseQueryRepository<User> _iUser;

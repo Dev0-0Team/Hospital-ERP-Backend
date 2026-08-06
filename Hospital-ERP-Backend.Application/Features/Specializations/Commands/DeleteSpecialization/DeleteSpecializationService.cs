@@ -6,19 +6,17 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.DeleteSpecialization
 {
-    public class DeleteSpecializationService : IRequestHandler<DeleteSpecializationRequest, bool>
+    internal class DeleteSpecializationService : IRequestHandler<DeleteSpecializationRequest, bool>
     {
         private readonly IBaseCommandRepository<Specialization> _repository;
         private readonly IValidator<DeleteSpecializationRequest> _validator;
-        private readonly IBaseQueryRepository<Specialization> _queryRepository;
 
         public DeleteSpecializationService
-            (IBaseCommandRepository<Specialization> repository, IBaseQueryRepository<Specialization> queryRepository,
+            (IBaseCommandRepository<Specialization> repository,
             IValidator<DeleteSpecializationRequest> validator)
         {
             _repository = repository;
             _validator = validator;
-            _queryRepository = queryRepository;
         }
 
         public async Task<bool> Handle(DeleteSpecializationRequest request, CancellationToken cancellationToken)
@@ -34,12 +32,12 @@ namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.Del
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Specialization? specialization = await _queryRepository.GetAsync(request.Id);
-            if (specialization == null)
+            bool specialization = await _repository.IsExistAsync(request.Id);
+            if (!specialization)
             {
                 throw new KeyNotFoundException($"Specialization with Id {request.Id} not found.");
             }
-            var isDeleted = await _repository.DeleteAsync(specialization.Id);
+            var isDeleted = await _repository.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete Specialization with Id {request.Id}.");

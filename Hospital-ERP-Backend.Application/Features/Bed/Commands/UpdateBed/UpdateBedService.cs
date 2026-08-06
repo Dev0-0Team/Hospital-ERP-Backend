@@ -5,17 +5,14 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed
 {
-    public class UpdateBedService : IRequestHandler<UpdateBedRequest, UpdateBedResponse>
+    internal class UpdateBedService : IRequestHandler<UpdateBedRequest, UpdateBedResponse>
     {
         private readonly IValidator<UpdateBedRequest> _validator;
         private readonly IBaseCommandRepository<Bed> _iBed;
-        private readonly IBaseQueryRepository<Bed> _iQueryBed;
-
-        public UpdateBedService(IValidator<UpdateBedRequest> validator, IBaseCommandRepository<Bed> iBed, IBaseQueryRepository<Bed> iQueryBed)
+        public UpdateBedService(IValidator<UpdateBedRequest> validator, IBaseCommandRepository<Bed> iBed)
         {
             _validator = validator;
             _iBed = iBed;
-            _iQueryBed = iQueryBed;
         }
 
         public async Task<UpdateBedResponse> Handle(UpdateBedRequest request, CancellationToken cancellationToken)
@@ -31,7 +28,7 @@ namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Bed? existingBed = await _iQueryBed.GetAsync(request.Id);
+            Bed? existingBed = await _iBed.FindAsync(request.Id);
             if (existingBed == null)
             {
                 throw new KeyNotFoundException($"Bed with Id {request.Id} not found.");
@@ -39,7 +36,7 @@ namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed
 
             existingBed.RoomId = request.RoomId;
             existingBed.BedNumber = request.BedNumber;
-            existingBed.Status = request.Status;
+            existingBed.Status = request.Status.ToString();
 
             Bed? result = await _iBed.UpdateAsync(existingBed);
             if (result == null)

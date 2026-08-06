@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePatient
 {
-    public class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
+    internal class UpdatePatientValidator : AbstractValidator<UpdatePatientRequest>
     {
         public UpdatePatientValidator()
         {
@@ -15,7 +15,7 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.UpdatePati
                 .GreaterThan(0).WithMessage("Person ID must be greater than 0.");
 
             RuleFor(x => x.BloodType)
-                .MaximumLength(10).WithMessage("Blood type must not exceed 50 characters.");
+                .IsInEnum().WithMessage("invalid blood Type.");
         }
     }
-}
+}   

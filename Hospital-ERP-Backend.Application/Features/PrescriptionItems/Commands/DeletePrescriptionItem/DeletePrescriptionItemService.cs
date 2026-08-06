@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.PrescriptionItems.Commands.DeletePrescriptionItem
 {
-    public class DeletePrescriptionItemService : IRequestHandler<DeletePrescriptionItemRequest, bool>
+    internal class DeletePrescriptionItemService : IRequestHandler<DeletePrescriptionItemRequest, bool>
     {
         private readonly IValidator<DeletePrescriptionItemRequest> _validator;
 

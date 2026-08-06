@@ -5,19 +5,19 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.UpdateEmergencyContact
 {
-    public class UpdateEmergencyContactService
+    internal class UpdateEmergencyContactService
         : IRequestHandler<UpdateEmergencyContactRequest, UpdateEmergencyContactResponse>
     {
         private readonly IValidator<UpdateEmergencyContactRequest> _validator;
         private readonly IBaseCommandRepository<EmergencyContact> _emergencyContactRepository;
-        private readonly IBaseQueryRepository<EmergencyContact> _emergencyContactQueryRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
 
         public UpdateEmergencyContactService(IValidator<UpdateEmergencyContactRequest> validator, IBaseCommandRepository<EmergencyContact> emergencyContactRepository,
-            IBaseQueryRepository<EmergencyContact> emergencyContactQueryRepository)
+            IBaseCommandRepository<Patient> patientRepository)
         {
             _validator = validator;
             _emergencyContactRepository = emergencyContactRepository;
-            _emergencyContactQueryRepository = emergencyContactQueryRepository;
+            _patientRepository = patientRepository;
         }
 
         public async Task<UpdateEmergencyContactResponse> Handle(UpdateEmergencyContactRequest request, CancellationToken cancellationToken)
@@ -34,7 +34,14 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.U
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            EmergencyContact? emergencyContact = await _emergencyContactQueryRepository.GetAsync(request.Id);
+            bool isEmergencyContactExist = await _patientRepository.IsExistAsync(request.PatientId);
+            if (!isEmergencyContactExist)
+            {
+                throw new KeyNotFoundException($"Patient with id {request.PatientId} not found");
+            }
+
+
+            EmergencyContact? emergencyContact = await _emergencyContactRepository.FindAsync(request.Id);
 
             if (emergencyContact == null)
             {
@@ -45,7 +52,7 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.U
             emergencyContact.Name = request.Name;
             emergencyContact.Phone = request.Phone;
             emergencyContact.Relationship = request.Relationship;
-            emergencyContact.UpdatedAt = DateTime.Now;
+            emergencyContact.UpdatedAt = DateTime.UtcNow;
 
             var result = await _emergencyContactRepository.UpdateAsync(emergencyContact);
 

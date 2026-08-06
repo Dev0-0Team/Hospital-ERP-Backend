@@ -1,24 +1,19 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using Microsoft.Identity.Client;
-using System.Security;
 
 
 namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.UpdatePaymentMethod
 {
-    public class UpdatePaymentMethodService : IRequestHandler<UpdatePaymentMethodRequest, UpdatePaymentMethodResponse>
+    internal class UpdatePaymentMethodService : IRequestHandler<UpdatePaymentMethodRequest, UpdatePaymentMethodResponse>
     {
         private readonly IBaseCommandRepository<PaymentMethod> _repository;
-        private readonly IBaseQueryRepository<PaymentMethod> _queryRepository;
         private readonly IValidator<UpdatePaymentMethodRequest> _validator;
 
-        public UpdatePaymentMethodService(IBaseCommandRepository<PaymentMethod> repository,IBaseQueryRepository<PaymentMethod> queryRepository ,IValidator<UpdatePaymentMethodRequest> validator)
+        public UpdatePaymentMethodService(IBaseCommandRepository<PaymentMethod> repository, IValidator<UpdatePaymentMethodRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -35,7 +30,7 @@ namespace Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.Upda
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var paymentMethod = await _queryRepository.GetAsync(request.Id);
+            PaymentMethod? paymentMethod = await _repository.FindAsync(request.Id);
             if (paymentMethod == null)
             {
                 throw new KeyNotFoundException($"Payment method with Id {request.Id} not found.");

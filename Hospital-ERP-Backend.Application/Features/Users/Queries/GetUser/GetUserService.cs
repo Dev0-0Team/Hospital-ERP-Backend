@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Users.Queries.GetUser
 {
-    public class GetUserService : IRequestHandler<GetUserRequest, GetUserResponse>
+    internal class GetUserService : IRequestHandler<GetUserRequest, GetUserResponse>
     {
         private readonly IValidator<GetUserRequest> _validator;
         private readonly IBaseQueryRepository<User> _iUser;

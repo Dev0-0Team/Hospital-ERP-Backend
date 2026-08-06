@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.CreateLabTest
 {
-    public class CreateLabTestService : IRequestHandler<CreateLabTestRequest, CreateLabTestResponse>
+    internal class CreateLabTestService : IRequestHandler<CreateLabTestRequest, CreateLabTestResponse>
     {
 
         private readonly IBaseCommandRepository<LabTest> _labTestCommandRepository;

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.DeleteDrugInteraction
 {
-    public class DeleteDrugInteractionService : IRequestHandler<DeleteDrugInteractionRequest, bool>
+    internal class DeleteDrugInteractionService : IRequestHandler<DeleteDrugInteractionRequest, bool>
     {
         private readonly IBaseCommandRepository<DrugInteraction> _repository;
         private readonly IBaseQueryRepository<DrugInteraction> _queryRepository;

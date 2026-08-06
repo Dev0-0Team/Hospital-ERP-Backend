@@ -65,7 +65,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateMedicationInventoryResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Medication Inventroy Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateMedicationInventoryAsync")]

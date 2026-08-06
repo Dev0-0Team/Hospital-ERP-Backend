@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Queries.GetRadiologyImage
 {
-    public class GetRadiologyImageValidator
+    internal class GetRadiologyImageValidator
         : AbstractValidator<GetRadiologyImageRequest>
     {
         public GetRadiologyImageValidator()

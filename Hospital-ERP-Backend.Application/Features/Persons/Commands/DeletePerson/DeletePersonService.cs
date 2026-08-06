@@ -7,17 +7,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerson
 {
-    public class DeletePersonService : IRequestHandler<DeletePersonRequest, bool>
+    internal class DeletePersonService : IRequestHandler<DeletePersonRequest, bool>
     {
         private readonly IValidator<DeletePersonRequest> _validator;
         private readonly IBaseCommandRepository<Person> _iPerson;
-        private readonly IBaseQueryRepository<Person> _iPersonQuery;
 
-        public DeletePersonService(IValidator<DeletePersonRequest> validator, IBaseCommandRepository<Person> iPerson, IBaseQueryRepository<Person> iPersonQuery)
+        public DeletePersonService(IValidator<DeletePersonRequest> validator, IBaseCommandRepository<Person> iPerson)
         {
             _validator = validator;
             _iPerson = iPerson;
-            _iPersonQuery = iPersonQuery;
         }
 
         public async Task<bool> Handle(DeletePersonRequest request, CancellationToken cancellationToken)
@@ -32,12 +30,12 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.DeletePerso
             {
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
-            var person = await _iPersonQuery.GetAsync(request.Id);
-            if (person == null)
+            bool person = await _iPerson.IsExistAsync(request.Id);
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.Id} not found.");
             }
-            var isDeleted = await _iPerson.DeleteAsync(person.Id);
+            var isDeleted = await _iPerson.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete person with Id {request.Id}.");

@@ -5,19 +5,16 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.DeleteDoctor
 {
-    public class DeleteDoctorService : IRequestHandler<DeleteDoctorRequest, bool>
+    internal class DeleteDoctorService : IRequestHandler<DeleteDoctorRequest, bool>
     {
         private readonly IBaseCommandRepository<Doctor> _commandRepository;
-        private readonly IBaseQueryRepository<Doctor> _queryRepository;
         private readonly IValidator<DeleteDoctorRequest> _validator;
 
         public DeleteDoctorService(
             IBaseCommandRepository<Doctor> commandRepository,
-            IBaseQueryRepository<Doctor> queryRepository,
             IValidator<DeleteDoctorRequest> validator)
         {
             _commandRepository = commandRepository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -31,14 +28,14 @@ namespace Hospital_ERP_Backend.Application.Features.Doctors.Commands.DeleteDocto
                     string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Doctor? doctor = await _queryRepository.GetAsync(request.Id);
+            bool doctor = await _commandRepository.IsExistAsync(request.Id);
 
-            if (doctor == null)
+            if (!doctor)
             {
                 throw new KeyNotFoundException($"Doctor with Id {request.Id} not found.");
             }
 
-            bool result = await _commandRepository.DeleteAsync(doctor.Id);
+            bool result = await _commandRepository.DeleteAsync(request.Id);
 
             if (!result)
             {

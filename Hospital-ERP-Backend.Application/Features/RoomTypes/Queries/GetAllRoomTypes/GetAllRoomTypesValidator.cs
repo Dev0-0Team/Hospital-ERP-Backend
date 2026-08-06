@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Queries.GetAllRoomTypes
 {
-    public class GetAllRoomTypesValidator : AbstractValidator<GetAllRoomTypesRequest>
+    internal class GetAllRoomTypesValidator : AbstractValidator<GetAllRoomTypesRequest>
     {
         public GetAllRoomTypesValidator()
         {

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hospital_ERP_Backend.Domain.Enums;
+using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed
 {
@@ -6,6 +7,6 @@ namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed
     {
         public int RoomId { get; set; }
         public string BedNumber { get; set; } = null!;
-        public string Status { get; set; } = null!;
+        public BedStatus Status { get; set; } 
     }
 }

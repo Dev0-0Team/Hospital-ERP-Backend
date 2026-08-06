@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermission
 {
-    public class GetPermissionValidator : AbstractValidator<GetPermissionRequest>
+    internal class GetPermissionValidator : AbstractValidator<GetPermissionRequest>
     {
         public GetPermissionValidator()
         {

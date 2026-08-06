@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRolePermission
 {
-    public class UpdateRolePermissionValidator : AbstractValidator<UpdateRolePermissionRequest>
+    internal class UpdateRolePermissionValidator : AbstractValidator<UpdateRolePermissionRequest>
     {
         public UpdateRolePermissionValidator()
         {

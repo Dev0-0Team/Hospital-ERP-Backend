@@ -2,7 +2,7 @@
 {
     public enum DoctorScheduleDayOfWeek
     {
-        Saturday,
+        Saturday =1,
         Sunday,
         Monday,
         Tuesday,

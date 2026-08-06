@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole
 {
-    public class CreateRoleValidator : AbstractValidator<CreateRoleRequest>
+    internal class CreateRoleValidator : AbstractValidator<CreateRoleRequest>
     {
         public CreateRoleValidator()
         {

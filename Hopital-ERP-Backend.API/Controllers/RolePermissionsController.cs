@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.CreateRolePermission;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.DeleteRolePermission;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRolePermission;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRolePer
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RolePermissions")]
     [ApiController]
@@ -52,7 +51,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetRolePermissionByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetRolePermissionByID", new { ID = success!.Id },
+                new ApiResponse<CreateRolePermissionResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Role Permission Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateRolePermissionAsync")]

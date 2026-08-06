@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetAllSpecializations
 {
-    public class GetAllSpecializationsService : IRequestHandler<GetAllSpecializationsRequest, IEnumerable<GetAllSpecializationsResponse>>
+    internal class GetAllSpecializationsService : IRequestHandler<GetAllSpecializationsRequest, IEnumerable<GetAllSpecializationsResponse>>
     {
         private readonly IBaseQueryRepository<Specialization> _repository;
         private readonly IValidator<GetAllSpecializationsRequest> _validator;

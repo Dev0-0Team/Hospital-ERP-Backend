@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using Hospital_ERP_Backend.Domain.Enums;
 
 namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerson
 {
-    public class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
+    internal class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
     {
         public CreatePersonValidator() 
         {
@@ -19,9 +20,8 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
 
             // Gender
             RuleFor(x => x.Gender)
-                .NotEmpty()
-                .Must(BeValidGender)
-                .WithMessage("Gender must be Male, Female, or Other");
+                .IsInEnum()
+                .WithMessage("Invalid Person Gender");
 
             // Phone
             RuleFor(x => x.Phone)
@@ -34,12 +34,6 @@ namespace Hospital_ERP_Backend.Application.Features.Persons.Commands.CreatePerso
                 .MaximumLength(250)
                 .When(x => x.Address != null)
                 .WithMessage("Address must be at most 250 characters long");
-        }
-
-        private bool BeValidGender(string gender)
-        {
-            var allowed = new[] { "Male", "Female", "Other" };
-            return allowed.Contains(gender);
         }
     }
 }

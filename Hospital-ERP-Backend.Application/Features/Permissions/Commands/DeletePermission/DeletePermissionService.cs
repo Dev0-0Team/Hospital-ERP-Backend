@@ -5,17 +5,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermission
 {
-    public class DeletePermissionService : IRequestHandler<DeletePermissionRequest, bool>
+    internal class DeletePermissionService : IRequestHandler<DeletePermissionRequest, bool>
     {
         private readonly IBaseCommandRepository<Permission> _iPermission;
         private readonly IValidator<DeletePermissionRequest> _validator;
-        private readonly IBaseQueryRepository<Permission> _iQueryPermission;
 
-        public DeletePermissionService(IBaseCommandRepository<Permission> iPermission, IValidator<DeletePermissionRequest> validator, IBaseQueryRepository<Permission> iQueryPermission)
+        public DeletePermissionService(IBaseCommandRepository<Permission> iPermission, IValidator<DeletePermissionRequest> validator)
         {
             _iPermission = iPermission;
             _validator = validator;
-            _iQueryPermission = iQueryPermission;
         }
         
         public async Task<bool> Handle(DeletePermissionRequest request, CancellationToken cancellationToken)
@@ -30,12 +28,12 @@ namespace Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeleteP
             {
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
-            Permission? permission = await _iQueryPermission.GetAsync(request.Id);
-            if (permission == null)
+            bool permission = await _iPermission.IsExistAsync(request.Id);
+            if (!permission)
             {
                 throw new KeyNotFoundException($"Permission with Id {request.Id} not found.");
             }
-            var isDeleted = await _iPermission.DeleteAsync(permission.Id);
+            var isDeleted = await _iPermission.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete permission with Id {request.Id}.");

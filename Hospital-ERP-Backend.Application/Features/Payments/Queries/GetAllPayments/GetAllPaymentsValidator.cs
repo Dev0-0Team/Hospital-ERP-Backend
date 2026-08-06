@@ -3,7 +3,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Payments.Queries.GetAllPayments
 {
-    public class GetAllPaymentsValidator : AbstractValidator<GetAllPaymentsRequest>
+    internal class GetAllPaymentsValidator : AbstractValidator<GetAllPaymentsRequest>
     {
         public GetAllPaymentsValidator()
         {

@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetNurse;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Queries.GetPatient
 {
-    public class GetPatientService : IRequestHandler<GetPatientRequest, GetPatientResponse>
+    internal class GetPatientService : IRequestHandler<GetPatientRequest, GetPatientResponse>
     {
 
         private readonly IBaseQueryRepository<Patient> _repository;

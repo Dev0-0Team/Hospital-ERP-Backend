@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient
 {
-    public class DeletePatientValidator : AbstractValidator<DeletePatientRequest>
+    internal class DeletePatientValidator : AbstractValidator<DeletePatientRequest>
     {
         public DeletePatientValidator()
         {

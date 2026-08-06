@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class PaymentQueryRepository : BaseQueryRepository<Payment>
+    internal class PaymentQueryRepository : BaseQueryRepository<Payment>
     {
         protected override string GetAllSpName => "payments.SP_GetAllPayments";
         protected override string GetByIdSpName => "payments.SP_GetPaymentById";

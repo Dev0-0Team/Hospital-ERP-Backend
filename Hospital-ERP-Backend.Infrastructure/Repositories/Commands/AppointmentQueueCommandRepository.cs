@@ -5,7 +5,7 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class AppointmentQueueCommandRepository : BaseCommandRepository<AppointmentQueue>
+    internal class AppointmentQueueCommandRepository : BaseCommandRepository<AppointmentQueue>
     {
         public AppointmentQueueCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
     }

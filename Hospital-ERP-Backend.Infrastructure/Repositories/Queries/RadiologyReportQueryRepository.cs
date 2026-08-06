@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
 {
-    public class RadiologyReportQueryRepository : BaseQueryRepository<RadiologyReport>
+    internal class RadiologyReportQueryRepository : BaseQueryRepository<RadiologyReport>
     {
         protected override string GetAllSpName => "radiology_reports.SP_GetAllRadiologyReports";
         protected override string GetByIdSpName => "radiology_reports.SP_GetRadiologyReportById";

@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Prescriptions.Commands.UpdatePrescription
 {
-    public class UpdatePrescriptionValidator : AbstractValidator<UpdatePrescriptionRequest>
+    internal class UpdatePrescriptionValidator : AbstractValidator<UpdatePrescriptionRequest>
     {
         public UpdatePrescriptionValidator()
         {

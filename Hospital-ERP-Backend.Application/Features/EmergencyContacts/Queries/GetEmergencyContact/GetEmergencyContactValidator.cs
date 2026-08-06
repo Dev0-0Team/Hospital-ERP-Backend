@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Queries.GetEmergencyContact
 {
-    public class GetEmergencyContactValidator : AbstractValidator<GetEmergencyContactRequest>
+    internal class GetEmergencyContactValidator : AbstractValidator<GetEmergencyContactRequest>
     {
 
         public GetEmergencyContactValidator()

@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication;
 using Hospital_ERP_Backend.Application.Features.Medications.Commands.DeleteMedication;
 using Hospital_ERP_Backend.Application.Features.Medications.Commands.UpdateMedication;
 using Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMedications;
@@ -58,7 +59,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = success.Id
                 },
-                success);
+                new ApiResponse<CreateMedicationResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Medication Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateMedicationAsync")]

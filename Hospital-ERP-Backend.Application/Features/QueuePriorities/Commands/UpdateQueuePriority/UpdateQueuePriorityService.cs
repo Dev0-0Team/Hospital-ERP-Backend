@@ -5,17 +5,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority
 {
-    public class UpdateQueuePriorityService : IRequestHandler<UpdateQueuePriorityRequest, UpdateQueuePriorityResponse>
+    internal class UpdateQueuePriorityService : IRequestHandler<UpdateQueuePriorityRequest, UpdateQueuePriorityResponse>
     {
         private readonly IValidator<UpdateQueuePriorityRequest> _validator;
         private readonly IBaseCommandRepository<QueuePriority> _iQueuePriority;
-        private readonly IBaseQueryRepository<QueuePriority> _iQueryQueuePriority;
 
-        public UpdateQueuePriorityService(IValidator<UpdateQueuePriorityRequest> validator, IBaseCommandRepository<QueuePriority> iQueuePriority, IBaseQueryRepository<QueuePriority> iQueryQueuePriority)
+        public UpdateQueuePriorityService(IValidator<UpdateQueuePriorityRequest> validator, IBaseCommandRepository<QueuePriority> iQueuePriority)
         {
             _validator = validator;
             _iQueuePriority = iQueuePriority;
-            _iQueryQueuePriority = iQueryQueuePriority;
         }
 
         public async Task<UpdateQueuePriorityResponse> Handle(UpdateQueuePriorityRequest request, CancellationToken cancellationToken)
@@ -32,7 +30,7 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.Upd
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            QueuePriority? existingQueuePriority = await _iQueryQueuePriority.GetAsync(request.Id);
+            QueuePriority? existingQueuePriority = await _iQueuePriority.FindAsync(request.Id);
             if (existingQueuePriority == null)
             {
                 throw new KeyNotFoundException($"Queue priority with Id {request.Id} not found.");

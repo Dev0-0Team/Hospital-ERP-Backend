@@ -6,16 +6,14 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateSpecialization
 {
-    public class UpdateSpecializationService : IRequestHandler<UpdateSpecializationRequest,  UpdateSpecializationResponse>
+    internal class UpdateSpecializationService : IRequestHandler<UpdateSpecializationRequest,  UpdateSpecializationResponse>
     {
         private readonly IBaseCommandRepository<Specialization> _repository;
-        private readonly IBaseQueryRepository<Specialization> _queryRepository;
         private readonly IValidator<UpdateSpecializationRequest> _validator;
 
-        public UpdateSpecializationService(IBaseCommandRepository<Specialization> repository, IBaseQueryRepository<Specialization> queryRepository, IValidator<UpdateSpecializationRequest> validator)
+        public UpdateSpecializationService(IBaseCommandRepository<Specialization> repository, IValidator<UpdateSpecializationRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -32,7 +30,7 @@ namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.Upd
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Specialization? specialization = await _queryRepository.GetAsync(request.Id);
+            Specialization? specialization = await _repository.FindAsync(request.Id);
             if (specialization == null)
             {
                 throw new KeyNotFoundException($"Specialization with Id {request.Id} not found.");

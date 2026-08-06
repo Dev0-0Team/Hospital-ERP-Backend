@@ -5,15 +5,19 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.CreateEmergencyContact
 {
-    public class CreateEmergencyContactService : IRequestHandler<CreateEmergencyContactRequest, CreateEmergencyContactResponse>
+    internal class CreateEmergencyContactService : IRequestHandler<CreateEmergencyContactRequest, CreateEmergencyContactResponse>
     {
 
         private readonly IBaseCommandRepository<EmergencyContact> _emergencyContactCommandRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
         private readonly IValidator<CreateEmergencyContactRequest> _validator;
 
-        public CreateEmergencyContactService(IBaseCommandRepository<EmergencyContact> emergencyContactCommandRepository, IValidator<CreateEmergencyContactRequest> validator)
+        public CreateEmergencyContactService(IBaseCommandRepository<EmergencyContact> emergencyContactCommandRepository, 
+        IValidator<CreateEmergencyContactRequest> validator,
+         IBaseCommandRepository<Patient> patientRepository)
         {
             _emergencyContactCommandRepository = emergencyContactCommandRepository;
+            _patientRepository = patientRepository;
             _validator = validator;
         }
         public async Task<CreateEmergencyContactResponse> Handle(CreateEmergencyContactRequest request, CancellationToken cancellationToken)
@@ -36,6 +40,12 @@ namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Commands.C
                 Phone = request.Phone,
                 Relationship = request.Relationship
             };
+
+            bool isPatientExist = await _patientRepository.IsExistAsync(request.PatientId);
+            if (!isPatientExist)
+            {
+                throw new KeyNotFoundException($"Patient with Id {request.PatientId} not found.");
+            }
 
             EmergencyContact? result = await _emergencyContactCommandRepository.CreateAsync(emergencyContact);
 

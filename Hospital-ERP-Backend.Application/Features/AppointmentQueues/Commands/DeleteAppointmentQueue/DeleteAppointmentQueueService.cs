@@ -5,17 +5,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.DeleteAppointmentQueue
 {
-    public class DeleteAppointmentQueueService : IRequestHandler<DeleteAppointmentQueueRequest, bool>
+    internal class DeleteAppointmentQueueService : IRequestHandler<DeleteAppointmentQueueRequest, bool>
     {
         private readonly IValidator<DeleteAppointmentQueueRequest> _validator;
         private readonly IBaseCommandRepository<AppointmentQueue> _iAppointmentQueue;
-        private readonly IBaseQueryRepository<AppointmentQueue> _iAppointmentQueueQuery;
 
-        public DeleteAppointmentQueueService(IValidator<DeleteAppointmentQueueRequest> validator, IBaseCommandRepository<AppointmentQueue> iAppointmentQueue, IBaseQueryRepository<AppointmentQueue> iAppointmentQueueQuery)
+        public DeleteAppointmentQueueService(IValidator<DeleteAppointmentQueueRequest> validator, IBaseCommandRepository<AppointmentQueue> iAppointmentQueue)
         {
             _validator = validator;
             _iAppointmentQueue = iAppointmentQueue;
-            _iAppointmentQueueQuery = iAppointmentQueueQuery;
         }
 
         public async Task<bool> Handle(DeleteAppointmentQueueRequest request, CancellationToken cancellationToken)
@@ -31,15 +29,15 @@ namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.D
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var appointmentQueue = await _iAppointmentQueueQuery.GetAsync(request.Id);
-            if (appointmentQueue == null)
+            bool appointmentQueue = await _iAppointmentQueue.IsExistAsync(request.Id);
+            if (!appointmentQueue)
             {
                 throw new KeyNotFoundException($"Appointment queue with Id {request.Id} not found.");
             }
 
             // Soft delete: BaseCommandRepository.DeleteAsync flags IsDeleted/DeletedAt
             // instead of physically removing the row from the table.
-            var isDeleted = await _iAppointmentQueue.DeleteAsync(appointmentQueue.Id);
+            var isDeleted = await _iAppointmentQueue.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete appointment queue with Id {request.Id}.");

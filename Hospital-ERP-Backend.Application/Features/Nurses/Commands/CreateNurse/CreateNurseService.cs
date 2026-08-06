@@ -1,25 +1,19 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Features.Doctors.Commands.CreateDoctor;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
 {
-    public class CreateNurseService : IRequestHandler<CreateNurseRequest, CreateNurseResponse>
+    internal class CreateNurseService : IRequestHandler<CreateNurseRequest, CreateNurseResponse>
     {
-        private readonly IBaseQueryRepository<Person> _personRepository;
-        private readonly IBaseQueryRepository<Department> _departmentRepository;
+        private readonly IBaseCommandRepository<Person> _personRepository;
+        private readonly IBaseCommandRepository<Department> _departmentRepository;
         private readonly IBaseCommandRepository<Nurse> _repository;
         private readonly IValidator<CreateNurseRequest> _validator;
 
-        public CreateNurseService(IBaseQueryRepository<Person> personRepository,
-            IBaseQueryRepository<Department> departmentRepository,
+        public CreateNurseService(IBaseCommandRepository<Person> personRepository,
+            IBaseCommandRepository<Department> departmentRepository,
             IBaseCommandRepository<Nurse> repository, IValidator<CreateNurseRequest> validator)
         {
             _personRepository = personRepository;
@@ -42,16 +36,16 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
                 throw new ArgumentException( string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Person? person =await _personRepository.GetAsync(request.PersonId);
+            bool person =await _personRepository.IsExistAsync(request.PersonId);
 
-            if (person == null)
+            if (!person)
             {
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
-            Department? department = await _departmentRepository.GetAsync(request.DepartmentId);
+            bool department = await _departmentRepository.IsExistAsync(request.DepartmentId);
 
-            if (department == null)
+            if (!department)
             {
                 throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
             }
@@ -60,8 +54,7 @@ namespace Hospital_ERP_Backend.Application.Features.Nurses.Commands.CreateNurse
             Nurse nurse = new()
             {
                 PersonId = request.PersonId,
-                DepartmentId = request.DepartmentId,
-                CreatedAt = DateTime.UtcNow
+                DepartmentId = request.DepartmentId
             };
 
             Nurse? result =await _repository.CreateAsync(nurse);

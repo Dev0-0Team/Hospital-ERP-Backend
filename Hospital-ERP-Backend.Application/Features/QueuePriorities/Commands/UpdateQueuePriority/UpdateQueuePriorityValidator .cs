@@ -3,7 +3,7 @@
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority
 {
    
-    public class UpdateQueuePriorityValidator : AbstractValidator<UpdateQueuePriorityRequest>
+    internal class UpdateQueuePriorityValidator : AbstractValidator<UpdateQueuePriorityRequest>
     {
         public UpdateQueuePriorityValidator()
         {
@@ -12,7 +12,7 @@ namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.Upd
 
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required.")
-                .MaximumLength(100).WithMessage("Name must not exceed 100 characters.");
+                .MaximumLength(50).WithMessage("Name must not exceed 50 characters.");
 
             RuleFor(x => x.Level)
                 .GreaterThan(0).WithMessage("Queue priority level must be greater than 0.");

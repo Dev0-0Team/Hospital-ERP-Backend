@@ -6,17 +6,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateDepartment
 {
-    public class UpdateDepartmentService : IRequestHandler<UpdateDepartmentRequest, UpdateDepartmentResponse>
+    internal class UpdateDepartmentService : IRequestHandler<UpdateDepartmentRequest, UpdateDepartmentResponse>
     {
         private readonly IBaseCommandRepository<Department> _repository;
         private readonly IValidator<UpdateDepartmentRequest> _validator;
-        private readonly IBaseQueryRepository<Department> _queryRepository;
 
-        public UpdateDepartmentService(IBaseCommandRepository<Department> repository, IValidator<UpdateDepartmentRequest> validator, IBaseQueryRepository<Department> queryRepository)
+        public UpdateDepartmentService(IBaseCommandRepository<Department> repository, IValidator<UpdateDepartmentRequest> validator)
         {
             _repository = repository;
             _validator = validator;
-            _queryRepository = queryRepository;
         }
 
         public async Task<UpdateDepartmentResponse> Handle(UpdateDepartmentRequest request, CancellationToken cancellationToken)
@@ -33,7 +31,7 @@ namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateD
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Department? department = await _queryRepository.GetAsync(request.Id);
+            Department? department = await _repository.FindAsync(request.Id);
 
             if (department == null)
             {

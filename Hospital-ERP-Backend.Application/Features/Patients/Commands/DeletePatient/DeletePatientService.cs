@@ -6,16 +6,14 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePatient
 {
-    public class DeletePatientService : IRequestHandler<DeletePatientRequest, bool>
+    internal class DeletePatientService : IRequestHandler<DeletePatientRequest, bool>
     {
         private readonly IBaseCommandRepository<Patient> _repository;
-        private readonly IBaseQueryRepository<Patient> _queryRepository;
         private readonly IValidator<DeletePatientRequest> _validator;
 
-        public DeletePatientService(IBaseCommandRepository<Patient> repository, IBaseQueryRepository<Patient> queryRepository, IValidator<DeletePatientRequest> validator)
+        public DeletePatientService(IBaseCommandRepository<Patient> repository, IValidator<DeletePatientRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -33,9 +31,9 @@ namespace Hospital_ERP_Backend.Application.Features.Patients.Commands.DeletePati
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            Patient? patient = await _queryRepository.GetAsync(request.Id);
+            bool patient = await _repository.IsExistAsync(request.Id);
 
-            if (patient == null)
+            if (!patient)
             {
                 throw new KeyNotFoundException($"Patient with Id {request.Id} not found.");
             }

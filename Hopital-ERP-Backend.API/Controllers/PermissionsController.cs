@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermissio
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Permissions")]
     [ApiController]
@@ -50,7 +49,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetPermissionByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetPermissionByID", new { ID = success!.Id },
+                new ApiResponse<CreatePermissionResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Permission Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdatePermissionAsync")]

@@ -5,15 +5,17 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue
 {
-    public class CreateAppointmentQueueService : IRequestHandler<CreateAppointmentQueueRequest, CreateAppointmentQueueResponse>
+    internal class CreateAppointmentQueueService : IRequestHandler<CreateAppointmentQueueRequest, CreateAppointmentQueueResponse>
     {
         private readonly IValidator<CreateAppointmentQueueRequest> _validator;
         private readonly IBaseCommandRepository<AppointmentQueue> _iAppointmentQueue;
+        private readonly IBaseCommandRepository<Appointment> _iAppointment;
 
-        public CreateAppointmentQueueService(IValidator<CreateAppointmentQueueRequest> validator, IBaseCommandRepository<AppointmentQueue> iAppointmentQueue)
+        public CreateAppointmentQueueService(IValidator<CreateAppointmentQueueRequest> validator, IBaseCommandRepository<AppointmentQueue> iAppointmentQueue, IBaseCommandRepository<Appointment> iAppointment)
         {
             _validator = validator;
             _iAppointmentQueue = iAppointmentQueue;
+            _iAppointment = iAppointment;
         }
 
         public async Task<CreateAppointmentQueueResponse> Handle(CreateAppointmentQueueRequest request, CancellationToken cancellationToken)
@@ -29,12 +31,18 @@ namespace Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.C
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
+            bool isAppointmentExist = await _iAppointment.IsExistAsync(request.AppointmentId);
+            if (!isAppointmentExist)
+            {
+                throw new KeyNotFoundException($"Appointment with Id {request.AppointmentId} not found.");
+            }
+
             AppointmentQueue appointmentQueue = new AppointmentQueue
             {
                 AppointmentId = request.AppointmentId,
                 QueueNumber = request.QueueNumber,
                 EstimatedTime = request.EstimatedTime,
-                Status = request.Status
+                Status = request.Status.ToString()
             };
 
             AppointmentQueue? result = await _iAppointmentQueue.CreateAsync(appointmentQueue);

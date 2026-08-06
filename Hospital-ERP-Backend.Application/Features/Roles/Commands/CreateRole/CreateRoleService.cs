@@ -2,15 +2,11 @@
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole
 {
-    public class CreateRoleService : IRequestHandler<CreateRoleRequest, CreateRoleResponse>
+    internal class CreateRoleService : IRequestHandler<CreateRoleRequest, CreateRoleResponse>
     {
         private readonly IValidator<CreateRoleRequest> _validator;
         private readonly IBaseCommandRepository<Role> _iRole;
@@ -37,6 +33,7 @@ namespace Hospital_ERP_Backend.Application.Features.Roles.Commands.CreateRole
             Role role = new Role
             {
                 Name = request.Name,
+                CreatedAt = DateTime.UtcNow
             };
 
             Role? result = await _iRole.CreateAsync(role);

@@ -7,22 +7,22 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.CreateRolePermission
 {
-    public class CreateRolePermissionService : IRequestHandler<CreateRolePermissionRequest, CreateRolePermissionResponse>
+    internal class CreateRolePermissionService : IRequestHandler<CreateRolePermissionRequest, CreateRolePermissionResponse>
     {
         private readonly IBaseCommandRepository<RolePermission> _iRolePermission;
-        private readonly IBaseQueryRepository<Role> _iRoleQuery;
-        private readonly IBaseQueryRepository<Permission> _iPermissionQuery;
+        private readonly IBaseCommandRepository<Role> _iRoleCommand;
+        private readonly IBaseCommandRepository<Permission> _iPermissionCommand;
         private readonly IValidator<CreateRolePermissionRequest> _iValidator;
 
         public CreateRolePermissionService(
             IBaseCommandRepository<RolePermission> iRolePermission,
-            IBaseQueryRepository<Role> iRoleQuery,
-            IBaseQueryRepository<Permission> iPermissionQuery,
+            IBaseCommandRepository<Role> iRoleQuery,
+            IBaseCommandRepository<Permission> iPermissionQuery,
             IValidator<CreateRolePermissionRequest> iValidator)
         {
             _iRolePermission = iRolePermission;
-            _iRoleQuery = iRoleQuery;
-            _iPermissionQuery = iPermissionQuery;
+            _iRoleCommand = iRoleQuery;
+            _iPermissionCommand = iPermissionQuery;
             _iValidator = iValidator;
         }
 
@@ -39,14 +39,14 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Crea
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Role? isRoleFound = await _iRoleQuery.GetAsync(request.RoleId);
-            if (isRoleFound == null)
+            bool isRoleFound = await _iRoleCommand.IsExistAsync(request.RoleId);
+            if (!isRoleFound)
             {
                 throw new KeyNotFoundException($"Role with Id {request.RoleId} not found.");
             }
 
-            Permission? isPermissionFound = await _iPermissionQuery.GetAsync(request.PermissionId);
-            if (isPermissionFound == null)
+            bool isPermissionFound = await _iPermissionCommand.IsExistAsync(request.PermissionId);
+            if (!isPermissionFound)
             {
                 throw new KeyNotFoundException($"Permission with Id {request.PermissionId} not found.");
             }
@@ -54,7 +54,8 @@ namespace Hospital_ERP_Backend.Application.Features.RolePermissions.Command.Crea
             RolePermission createRolePermission = new RolePermission()
             {
                 RoleId = request.RoleId,
-                PermissionId = request.PermissionId
+                PermissionId = request.PermissionId,
+                UpdatedAt = DateTime.UtcNow
             };
 
             RolePermission? result = await _iRolePermission.CreateAsync(createRolePermission);

@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed;
+﻿using Hospital_ERP_Backend.Application.Features.Beds.Commands.CreateBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetAllBeds;
@@ -8,7 +6,7 @@ using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetBed;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Beds")]
     [ApiController]
@@ -48,7 +46,14 @@ namespace Hopital_ERP_Backend.API.Controllers
         public async Task<ActionResult<ApiResponse<CreateBedResponse>>> CreateAsync([FromBody] CreateBedRequest request)
         {
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetBedByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetBedByID",
+                new { ID = success!.Id },
+                new ApiResponse<CreateBedResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Bed Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdateBedAsync")]

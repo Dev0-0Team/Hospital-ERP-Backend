@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿
 using Hospital_ERP_Backend.Application.Features.Departments.Commands.CreateDepartment;
 using Hospital_ERP_Backend.Application.Features.Departments.Commands.DeleteDepartment;
 using Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateDepartment;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.Departments.Queries.GetDepartmen
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Departments")]
     [ApiController]
@@ -64,7 +63,12 @@ namespace Hopital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateDepartmentResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Department Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateDepartmentAsync")]

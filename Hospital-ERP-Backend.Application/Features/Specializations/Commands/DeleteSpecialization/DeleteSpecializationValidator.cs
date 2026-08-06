@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Specializations.Commands.DeleteSpecialization
 {
-    public class DeleteSpecializationValidator : AbstractValidator<DeleteSpecializationRequest>
+    internal class DeleteSpecializationValidator : AbstractValidator<DeleteSpecializationRequest>
     {
         public DeleteSpecializationValidator()
         {

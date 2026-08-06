@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 namespace Hospital_ERP_Backend.Application.Features.EmergencyContacts.Queries.GetAllEmergencyContacts
 {
-    public class GetAllEmergencyContactsValidator : AbstractValidator<GetAllEmergencyContactsRequest>
+    internal class GetAllEmergencyContactsValidator : AbstractValidator<GetAllEmergencyContactsRequest>
     {
         public GetAllEmergencyContactsValidator()
         {

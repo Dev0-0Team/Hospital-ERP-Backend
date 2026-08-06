@@ -4,7 +4,7 @@ using Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Base;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands
 {
-    public class LabTestCommandRepository : BaseCommandRepository<LabTest>
+    internal class LabTestCommandRepository : BaseCommandRepository<LabTest>
     {
         public LabTestCommandRepository(HospitalDbContext dbContext) : base(dbContext) { }
     }

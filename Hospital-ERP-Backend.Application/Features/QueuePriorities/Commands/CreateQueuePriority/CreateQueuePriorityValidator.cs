@@ -2,14 +2,13 @@
 
 namespace Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority
 {
-    
-    public class CreateQueuePriorityValidator : AbstractValidator<CreateQueuePriorityRequest>
+    internal class CreateQueuePriorityValidator : AbstractValidator<CreateQueuePriorityRequest>
     {
         public CreateQueuePriorityValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Queue priority name is required.")
-                .MaximumLength(100).WithMessage("Queue priority name must not exceed 100 characters.");
+                .MaximumLength(50).WithMessage("Queue priority name must not exceed 50 characters.");
 
             RuleFor(x => x.Level)
                 .GreaterThan(0).WithMessage("Queue priority level must be greater than 0.");

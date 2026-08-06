@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetAllPermissions
 {
-    public class GetAllPermissionsService : IRequestHandler<GetAllPermissionsRequest, IEnumerable<GetAllPermissionsResponse>>
+    internal class GetAllPermissionsService : IRequestHandler<GetAllPermissionsRequest, IEnumerable<GetAllPermissionsResponse>>
     {
         private readonly IValidator<GetAllPermissionsRequest> _validator;
         private readonly IBaseQueryRepository<Permission> _iPermission;

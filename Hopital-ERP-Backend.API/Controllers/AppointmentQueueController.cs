@@ -1,6 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
-using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue;
+﻿using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.CreateAppointmentQueue;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.DeleteAppointmentQueue;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Queries.GetAllAppointmentQueues;
@@ -64,7 +62,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreateAppointmentQueueResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Appointment Queue Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdateAppointmentQueueAsync")]

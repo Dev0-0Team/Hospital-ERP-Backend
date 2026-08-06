@@ -5,17 +5,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed
 {
-    public class DeleteBedService : IRequestHandler<DeleteBedRequest, bool>
+    internal class DeleteBedService : IRequestHandler<DeleteBedRequest, bool>
     {
         private readonly IValidator<DeleteBedRequest> _validator;
         private readonly IBaseCommandRepository<Bed> _iBed;
-        private readonly IBaseQueryRepository<Bed> _iBedQuery;
 
-        public DeleteBedService(IValidator<DeleteBedRequest> validator, IBaseCommandRepository<Bed> iBed, IBaseQueryRepository<Bed> iBedQuery)
+        public DeleteBedService(IValidator<DeleteBedRequest> validator, IBaseCommandRepository<Bed> iBed)
         {
             _validator = validator;
             _iBed = iBed;
-            _iBedQuery = iBedQuery;
         }
 
         private async Task<bool> DeleteBedAsync(DeleteBedRequest request)
@@ -26,15 +24,15 @@ namespace Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var bed = await _iBedQuery.GetAsync(request.Id);
-            if (bed == null)
+            bool bed = await _iBed.IsExistAsync(request.Id);
+            if (!bed)
             {
                 throw new KeyNotFoundException($"Bed with Id {request.Id} not found.");
             }
 
             // Soft delete: sets IsDeleted = true and DeletedAt, record stays in the database
             // and is excluded from query results.
-            var isDeleted = await _iBed.DeleteAsync(bed.Id);
+            var isDeleted = await _iBed.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete bed with Id {request.Id}.");

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Beds.Queries.GetBed
 {
-    public class GetBedService : IRequestHandler<GetBedRequest, GetBedResponse>
+    internal class GetBedService : IRequestHandler<GetBedRequest, GetBedResponse>
     {
         private readonly IValidator<GetBedRequest> _validator;
         private readonly IBaseQueryRepository<Bed> _iBed;

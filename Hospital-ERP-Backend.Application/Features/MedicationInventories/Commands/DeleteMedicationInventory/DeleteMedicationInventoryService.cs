@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Commands.DeleteMedicationInventory
 {
-    public class DeleteMedicationInventoryService : IRequestHandler<DeleteMedicationInventoryRequest, bool>
+    internal class DeleteMedicationInventoryService : IRequestHandler<DeleteMedicationInventoryRequest, bool>
     {
         private readonly IValidator<DeleteMedicationInventoryRequest> _validator;
 

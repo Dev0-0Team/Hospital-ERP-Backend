@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.CreateDepartment
 {
-    public class CreateDepartmentService : IRequestHandler<CreateDepartmentRequest, CreateDepartmentResponse>
+    internal class CreateDepartmentService : IRequestHandler<CreateDepartmentRequest, CreateDepartmentResponse>
     {
         private readonly IBaseCommandRepository<Department> _repository;
         private readonly IValidator<CreateDepartmentRequest> _validator;
@@ -36,6 +36,7 @@ namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.CreateD
             {
                 Name = request.Name,
                 Description = request.Description,
+                CreatedAt = DateTime.UtcNow
             };
 
             Department? result = await _repository.CreateAsync(department);

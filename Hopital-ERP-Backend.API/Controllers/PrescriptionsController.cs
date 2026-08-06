@@ -62,7 +62,12 @@ namespace Hospital_ERP_Backend.API.Controllers
                 {
                     ID = response.Id
                 },
-                response);
+                new ApiResponse<CreatePrescriptionResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Prescription Created Successfully!",
+                    Data = response
+                });
         }
 
         [HttpPut(Name = "UpdatePrescriptionAsync")]

@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.CreateDoctorSchedule;
+﻿using Azure;
+using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.CreateDoctorSchedule;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.DeleteDoctorSchedule;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Commands.UpdateDoctorSchedule;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Queries.GetAllDoctorSchedules;
@@ -63,7 +64,12 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreatedAtRoute(
                 "GetDoctorScheduleByIdAsync",
                 new { ID = result.Id },
-                result);
+                new ApiResponse<CreateDoctorScheduleResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Doctor Schedule Created Successfully!",
+                    Data = result
+                });
         }
 
         [HttpPut(Name = "UpdateDoctorScheduleAsync")]

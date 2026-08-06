@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUserRoles
 {
-    public class GetAllUserRolesService : IRequestHandler<GetAllUserRolesRequest, IEnumerable<GetAllUserRolesResponse>>
+    internal class GetAllUserRolesService : IRequestHandler<GetAllUserRolesRequest, IEnumerable<GetAllUserRolesResponse>>
     {
         private readonly IValidator<GetAllUserRolesRequest> _validator;
         private readonly IBaseQueryRepository<UserRole> _iUserRole;

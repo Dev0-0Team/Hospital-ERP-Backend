@@ -2,7 +2,7 @@
 
 namespace Hospital_ERP_Backend.Application.Features.Departments.Commands.DeleteDepartment
 {
-    public class DeleteDepartmentValidator : AbstractValidator<DeleteDepartmentRequest>
+    internal class DeleteDepartmentValidator : AbstractValidator<DeleteDepartmentRequest>
     {
         public DeleteDepartmentValidator()
         {

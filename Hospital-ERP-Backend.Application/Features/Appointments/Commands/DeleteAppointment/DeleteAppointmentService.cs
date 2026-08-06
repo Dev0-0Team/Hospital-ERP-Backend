@@ -5,17 +5,15 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.DeleteAppointment
 {
-    public class DeleteAppointmentService : IRequestHandler<DeleteAppointmentRequest, bool>
+    internal class DeleteAppointmentService : IRequestHandler<DeleteAppointmentRequest, bool>
     {
         private readonly IValidator<DeleteAppointmentRequest> _validator;
         private readonly IBaseCommandRepository<Appointment> _iAppointment;
-        private readonly IBaseQueryRepository<Appointment> _iAppointmentQuery;
 
-        public DeleteAppointmentService(IValidator<DeleteAppointmentRequest> validator, IBaseCommandRepository<Appointment> iAppointment, IBaseQueryRepository<Appointment> iAppointmentQuery)
+        public DeleteAppointmentService(IValidator<DeleteAppointmentRequest> validator, IBaseCommandRepository<Appointment> iAppointment)
         {
             _validator = validator;
             _iAppointment = iAppointment;
-            _iAppointmentQuery = iAppointmentQuery;
         }
 
         public async Task<bool> Handle(DeleteAppointmentRequest request, CancellationToken cancellationToken)
@@ -31,15 +29,15 @@ namespace Hospital_ERP_Backend.Application.Features.Appointments.Commands.Delete
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            var appointment = await _iAppointmentQuery.GetAsync(request.Id);
-            if (appointment == null)
+            bool appointment = await _iAppointment.IsExistAsync(request.Id);
+            if (!appointment)
             {
                 throw new KeyNotFoundException($"Appointment with Id {request.Id} not found.");
             }
 
             // Soft delete: BaseCommandRepository.DeleteAsync flags IsDeleted/DeletedAt
             // instead of physically removing the row from the table.
-            var isDeleted = await _iAppointment.DeleteAsync(appointment.Id);
+            var isDeleted = await _iAppointment.DeleteAsync(request.Id);
             if (!isDeleted)
             {
                 throw new InvalidOperationException($"Failed to delete appointment with Id {request.Id}.");

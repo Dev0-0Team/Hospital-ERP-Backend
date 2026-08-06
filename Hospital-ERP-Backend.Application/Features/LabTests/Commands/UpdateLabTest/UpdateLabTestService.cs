@@ -5,19 +5,16 @@ using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabTest
 {
-    public class UpdateLabTestService
+    internal class UpdateLabTestService
         : IRequestHandler<UpdateLabTestRequest, UpdateLabTestResponse>
     {
         private readonly IValidator<UpdateLabTestRequest> _validator;
         private readonly IBaseCommandRepository<LabTest> _labTestRepository;
-        private readonly IBaseQueryRepository<LabTest> _labTestQueryRepository;
 
-        public UpdateLabTestService(IValidator<UpdateLabTestRequest> validator, IBaseCommandRepository<LabTest> labTestRepository,
-            IBaseQueryRepository<LabTest> labTestQueryRepository)
+        public UpdateLabTestService(IValidator<UpdateLabTestRequest> validator, IBaseCommandRepository<LabTest> labTestRepository)
         {
             _validator = validator;
             _labTestRepository = labTestRepository;
-            _labTestQueryRepository = labTestQueryRepository;
         }
 
         public async Task<UpdateLabTestResponse> Handle(UpdateLabTestRequest request, CancellationToken cancellationToken)
@@ -34,7 +31,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabT
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            LabTest? labTest = await _labTestQueryRepository.GetAsync(request.Id);
+            LabTest? labTest = await _labTestRepository.FindAsync(request.Id);
 
             if (labTest == null)
             {
@@ -43,7 +40,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabTests.Commands.UpdateLabT
 
             labTest.Name = request.Name;
             labTest.NormalRange = request.NormalRange;
-            labTest.UpdatedAt = DateTime.Now;
+            labTest.UpdatedAt = DateTime.UtcNow;
 
             var result = await _labTestRepository.UpdateAsync(labTest);
 

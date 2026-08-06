@@ -1,5 +1,4 @@
-﻿using Hospital_ERP_Backend.API;
-using Hospital_ERP_Backend.API.Controllers;
+﻿using Azure;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.CreatePaymentMethod;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.DeletePaymentMethod;
 using Hospital_ERP_Backend.Application.Features.PaymentMethods.Commands.UpdatePaymentMethod;
@@ -8,7 +7,7 @@ using Hospital_ERP_Backend.Application.Features.PaymentMethods.Queries.GetPaymen
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Controllers
+namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/PaymentMethods")]
     [ApiController]
@@ -50,7 +49,13 @@ namespace Hopital_ERP_Backend.API.Controllers
         {
 
             var success = await _sender.Send(request);
-            return CreatedAtRoute("GetPaymentMethodByID", new { ID = success!.Id }, success);
+            return CreatedAtRoute("GetPaymentMethodByID", new { ID = success!.Id },
+                new ApiResponse<CreatePaymentMethodResponse>
+                {
+                    statusCode = StatusCodes.Status201Created,
+                    Message = "Payment Method Created Successfully!",
+                    Data = success
+                });
         }
 
         [HttpPut(Name = "UpdatePaymentMethodAsync")]
