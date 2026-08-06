@@ -13,9 +13,8 @@ namespace Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLab
 
         public UpdateLabOrderService(
             IValidator<UpdateLabOrderRequest> validator,
-            IBaseCommandRepository<LabOrder> repository,
-            IBaseQueryRepository<LabOrder> queryRepository)
-        {
+            IBaseCommandRepository<LabOrder> repository
+)        {
             _validator = validator;
             _repository = repository;
         }
