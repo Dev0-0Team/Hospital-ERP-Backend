@@ -9,13 +9,11 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoo
     {
         private readonly IValidator<UpdateRoomTypeRequest> _validator;
         private readonly IBaseCommandRepository<RoomType> _iRoomType;
-        private readonly IBaseQueryRepository<RoomType> _iQueryRoomType;
 
-        public UpdateRoomTypeService(IValidator<UpdateRoomTypeRequest> validator, IBaseCommandRepository<RoomType> iRoomType, IBaseQueryRepository<RoomType> iQueryRoomType)
+        public UpdateRoomTypeService(IValidator<UpdateRoomTypeRequest> validator, IBaseCommandRepository<RoomType> iRoomType)
         {
             _validator = validator;
             _iRoomType = iRoomType;
-            _iQueryRoomType = iQueryRoomType;
         }
 
         public async Task<UpdateRoomTypeResponse> Handle(UpdateRoomTypeRequest request, CancellationToken cancellationToken)
@@ -31,7 +29,7 @@ namespace Hospital_ERP_Backend.Application.Features.RoomTypes.Commands.UpdateRoo
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            RoomType? existingRoomType = await _iQueryRoomType.GetAsync(request.Id);
+            RoomType? existingRoomType = await _iRoomType.FindAsync(request.Id);
             if (existingRoomType == null)
             {
                 throw new KeyNotFoundException($"Room type with Id {request.Id} not found.");
