@@ -37,6 +37,7 @@ using Hospital_ERP_Backend.Application.Features.RoomAssignments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
 using Hospital_ERP_Backend.Application.Features.Specializations.Extensions;
+using Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -88,6 +89,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddInvoiceServicesExtension();
             services.AddAdministrativeStaffServicesExtension();
             services.AddAllergyServicesExtension();
+            services.AddSurgeriesHistoryServicesExtension();
             return services;
         }
     }
