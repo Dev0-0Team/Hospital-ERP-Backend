@@ -17,7 +17,7 @@ namespace Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Commands.
                 .WithMessage("Surgery Name must not exceed 150 characters");
 
             RuleFor(x => x.SurgeryDate)
-                .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today))
+                .LessThanOrEqualTo(DateTime.Today)
                 .WithMessage("Surgery date cannot be in the future.");
         }
     }

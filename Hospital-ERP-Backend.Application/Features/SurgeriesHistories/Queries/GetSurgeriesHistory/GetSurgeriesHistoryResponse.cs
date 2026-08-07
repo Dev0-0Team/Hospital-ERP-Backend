@@ -6,6 +6,6 @@ namespace Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Queries.G
         public int Id {get; set;}
         public int PatientId { get; set; }
         public string SurgeryName { get; set; } = null!;
-        public DateOnly? SurgeryDate { get; set; }
+        public DateTime? SurgeryDate { get; set; }
     }
 }

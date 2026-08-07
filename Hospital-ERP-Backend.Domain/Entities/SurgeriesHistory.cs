@@ -6,7 +6,7 @@ public partial class SurgeriesHistory : BaseEntity
 
     public string SurgeryName { get; set; } = null!;
 
-    public DateOnly? SurgeryDate { get; set; }
+    public DateTime? SurgeryDate { get; set; }
 
     public Patient Patient { get; set; } = null!;
 }
