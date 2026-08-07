@@ -48,7 +48,7 @@ namespace Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Commands.
             SurgeriesHistory? result = await _repository.CreateAsync(surgeriesHistory);
             if (result == null)
             {
-                throw new InvalidOperationException("Failed to create User.");
+                throw new InvalidOperationException("Failed to create Surgeries History.");
             }
 
             return new CreateSurgeriesHistoryResponse
