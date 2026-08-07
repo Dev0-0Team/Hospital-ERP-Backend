@@ -50,6 +50,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Extensions
             services.AddScoped<IBaseCommandRepository<Invoice>, InvoiceCommandRepository>();
             services.AddScoped<IBaseCommandRepository<AdministrativeStaff>, AdministrativeStaffCommandRepository>();
             services.AddScoped<IBaseCommandRepository<Allergy>, AllergyCommandRepository>();
+            services.AddScoped<IBaseCommandRepository<SurgeriesHistory>, SurgeriesHistoryCommandRepository>();
             return services;
         }
     }
