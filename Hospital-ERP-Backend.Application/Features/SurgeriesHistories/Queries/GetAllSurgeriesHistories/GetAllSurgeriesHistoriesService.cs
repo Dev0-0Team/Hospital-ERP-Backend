@@ -19,10 +19,10 @@ namespace Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Queries.G
 
         public async Task<IEnumerable<GetAllSurgeriesHistoriesResponse>> Handle(GetAllSurgeriesHistoriesRequest request, CancellationToken cancellationToken)
         {
-            return await GetAllSpecializationsAsync(request);
+            return await GetAllSurgeriesHistoriessAsync(request);
         }
 
-        private async Task<IEnumerable<GetAllSurgeriesHistoriesResponse>> GetAllSpecializationsAsync(GetAllSurgeriesHistoriesRequest request)
+        private async Task<IEnumerable<GetAllSurgeriesHistoriesResponse>> GetAllSurgeriesHistoriessAsync(GetAllSurgeriesHistoriesRequest request)
         {
             ValidationResult validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
