@@ -9,6 +9,7 @@ builder.Services.AddSettingConfiguration(builder.Configuration);
 builder.Services.AddMediatorConfigurationExtension();
 
 builder.Services.AddCorsConfigurationExtension(builder.Configuration);
+builder.Services.AddJwtAuthenticationExtension(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddApiBehaviorConfigurationExtension();
