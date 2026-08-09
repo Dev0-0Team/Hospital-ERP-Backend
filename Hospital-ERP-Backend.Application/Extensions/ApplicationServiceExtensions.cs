@@ -38,6 +38,8 @@ using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
 using Hospital_ERP_Backend.Application.Features.Specializations.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
+using Hospital_ERP_Backend.Application.Security;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital_ERP_Backend.Application.Extensions
@@ -86,6 +88,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddInvoiceServicesExtension();
             services.AddAdministrativeStaffServicesExtension();
             services.AddAllergyServicesExtension();
+            services.AddJwtTokenServicesExtension(services.BuildServiceProvider().GetRequiredService<IConfiguration>());
             return services;
         }
     }
