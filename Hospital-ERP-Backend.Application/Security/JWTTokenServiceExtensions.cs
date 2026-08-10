@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hospital_ERP_Backend.Infrastructure.Setting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital_ERP_Backend.Application.Security
 {
-    internal class SecurityExtensions
+    public static class JWTTokenServiceExtensions
     {
+        public static IServiceCollection AddJwtTokenServicesExtension(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            services.AddSingleton<JwtTokenService>();
+            services.AddScoped<JwtTokenService>();
+            return services;
+        }
     }
 }
