@@ -2,6 +2,7 @@ using Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Extensions;
 using Hospital_ERP_Backend.Application.Features.Allergies.Extensions;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
 using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
+using Hospital_ERP_Backend.Application.Features.Authentication.Commands;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.ChronicDiseases.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
@@ -89,6 +90,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddAdministrativeStaffServicesExtension();
             services.AddAllergyServicesExtension();
             services.AddJwtTokenServicesExtension(services.BuildServiceProvider().GetRequiredService<IConfiguration>());
+            services.AddAuthServiceExtension();
             return services;
         }
     }
