@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Hopital_ERP_Backend.API.Extensions
+namespace Hospital_ERP_Backend.API.Extensions
 {
     public static class AuthenticationExtension
     {
