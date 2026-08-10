@@ -1,4 +1,4 @@
-﻿using Hospital_ERP_Backend.API.Extensions.Configuration;
+﻿using Hospital_ERP_Backend.Infrastructure.Setting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,7 +19,6 @@ public sealed class JwtTokenService
     public JwtTokenResponse GenerateToken(
         int userId,
         int personId,
-        string email,
 
         ulong securityPermissions,
         ulong patientPermissions,
@@ -37,9 +36,7 @@ public sealed class JwtTokenService
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            new("userId", userId.ToString()),
             new("personId", personId.ToString()),
-            new(JwtRegisteredClaimNames.Email, email),
 
             new("security_permissions", securityPermissions.ToString()),
             new("patient_permissions", patientPermissions.ToString()),
@@ -55,17 +52,11 @@ public sealed class JwtTokenService
             new("notification_permissions", notificationPermissions.ToString())
         };
 
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_jwtSettings.Key));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
-        var credentials =
-            new SigningCredentials(
-                key,
-                SecurityAlgorithms.HmacSha256);
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var expires =
-            DateTime.UtcNow.AddMinutes(
-                _jwtSettings.DurationInMinutes);
+        var expires = DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes);
 
         var token =
             new JwtSecurityToken(
