@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Infrastructure.Setting;
 using Microsoft.Data.SqlClient;
@@ -21,6 +20,9 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Base
 
         protected abstract string GetAllSpName { get; }
         protected abstract string GetByIdSpName { get; }
+        protected abstract string GetUserByEmailSpName { get; }
+
+        protected abstract string IsEmailExistsSpName { get; }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync(int page)
         {
@@ -48,10 +50,37 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Base
                 commandType: CommandType.StoredProcedure
             );
         }
+        public Task<T?> GetUserByEmailAsync(string email)
+        {
+            var parameters = new
+            {
+                email = email
+            };
+
+            return _connection.QueryFirstOrDefaultAsync<T>(
+                GetUserByEmailSpName,
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+        }
+        public Task<bool> IsEmailExists(string email)
+        {
+            var parameters = new
+            {
+                email = email
+            };
+
+            return _connection.QueryFirstOrDefaultAsync<bool>(
+                IsEmailExistsSpName,
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+        }
 
         public void Dispose()
         {
             _connection?.Dispose();
         }
+
     }
 }
