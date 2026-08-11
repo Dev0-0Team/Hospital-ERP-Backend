@@ -37,6 +37,7 @@ public sealed class JwtTokenService
         {
             new(JwtRegisteredClaimNames.Sub, userId.ToString()),
             new("personId", personId.ToString()),
+            new("userId", userId.ToString()),
 
             new("security_permissions", securityPermissions.ToString()),
             new("patient_permissions", patientPermissions.ToString()),
