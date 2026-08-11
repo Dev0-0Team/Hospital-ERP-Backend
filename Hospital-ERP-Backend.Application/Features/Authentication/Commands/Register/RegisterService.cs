@@ -1,16 +1,17 @@
 ﻿using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Infrastructure.Data;
+using Hospital_ERP_Backend.Infrastructure.Repositories.Queries;
 using Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Base;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 
-public sealed class RegisterService : IRequestHandler<RegisterRequest, RegisterResponse>
+public  class RegisterService : IRequestHandler<RegisterRequest, RegisterResponse>
 {
     private readonly HospitalDbContext _context;
-    private readonly BaseQueryRepository<User> _user;
-    public RegisterService(HospitalDbContext context, BaseQueryRepository<User> user)
+    private readonly UserQueryRepository _user;
+    public RegisterService(HospitalDbContext context, UserQueryRepository user)
     {
         _context = context;
         _user = user;
@@ -23,7 +24,7 @@ public sealed class RegisterService : IRequestHandler<RegisterRequest, RegisterR
 
     public async Task<RegisterResponse> ExecuteAsync(RegisterRequest request)
     {
-        var emailExists = await _user.IsEmailExists(request.Email);
+        var emailExists = await _user.IsEmailExistsAsync(request.Email);
 
         if (emailExists)
         {
