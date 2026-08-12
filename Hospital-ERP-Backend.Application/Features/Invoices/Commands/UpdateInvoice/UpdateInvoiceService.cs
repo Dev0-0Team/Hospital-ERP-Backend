@@ -7,19 +7,16 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.UpdateInvo
 {
     internal class UpdateInvoiceService : IRequestHandler<UpdateInvoiceRequest, UpdateInvoiceResponse>
     {
-        private readonly IBaseCommandRepository<Invoice> _repository;
-        private readonly IBaseQueryRepository<Invoice> _queryRepository;
-        private readonly IBaseQueryRepository<Patient> _patientRepository;
+        private readonly IBaseCommandRepository<Invoice> _invoiceRepository;
+        private readonly IBaseCommandRepository<Patient> _patientRepository;
         private readonly IValidator<UpdateInvoiceRequest> _validator;
 
         public UpdateInvoiceService(
-            IBaseCommandRepository<Invoice> repository,
-            IBaseQueryRepository<Invoice> queryRepository,
-            IBaseQueryRepository<Patient> patientRepository,
+            IBaseCommandRepository<Invoice> invoiceRepository,
+            IBaseCommandRepository<Patient> patientRepository,
             IValidator<UpdateInvoiceRequest> validator)
         {
-            _repository = repository;
-            _queryRepository = queryRepository;
+            _invoiceRepository = invoiceRepository;
             _patientRepository = patientRepository;
             _validator = validator;
         }
@@ -37,13 +34,13 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.UpdateInvo
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            Invoice? invoice = await _queryRepository.GetAsync(request.Id);
+            Invoice? invoice = await _invoiceRepository.FindAsync(request.Id);
             if (invoice == null)
             {
                 throw new KeyNotFoundException($"Invoice with Id {request.Id} not found.");
             }
 
-            Patient? patient = await _patientRepository.GetAsync(request.PatientId);
+            Patient? patient = await _patientRepository.FindAsync(request.PatientId);
             if (patient == null)
             {
                 throw new KeyNotFoundException($"Patient with Id {request.PatientId} not found.");
@@ -54,7 +51,7 @@ namespace Hospital_ERP_Backend.Application.Features.Invoices.Commands.UpdateInvo
             invoice.Status = request.Status.ToString();
             invoice.UpdatedAt = DateTime.UtcNow;
 
-            Invoice? result = await _repository.UpdateAsync(invoice);
+            Invoice? result = await _invoiceRepository.UpdateAsync(invoice);
             if (result == null)
             {
                 throw new InvalidOperationException("Failed to update Invoice.");

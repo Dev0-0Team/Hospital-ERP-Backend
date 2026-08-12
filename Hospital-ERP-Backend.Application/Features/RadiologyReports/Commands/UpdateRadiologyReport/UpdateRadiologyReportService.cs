@@ -9,17 +9,13 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.Up
     {
         private readonly IBaseCommandRepository<RadiologyReport> _repository;
 
-        private readonly IBaseQueryRepository<RadiologyReport> _queryRepository;
-
         private readonly IValidator<UpdateRadiologyReportRequest> _validator;
 
         public UpdateRadiologyReportService(
             IBaseCommandRepository<RadiologyReport> repository,
-            IBaseQueryRepository<RadiologyReport> queryRepository,
             IValidator<UpdateRadiologyReportRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -38,7 +34,7 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.Up
                     string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            RadiologyReport? report = await _queryRepository.GetAsync(request.Id);
+            RadiologyReport? report = await _repository.FindAsync(request.Id);
 
             if (report == null)
             {

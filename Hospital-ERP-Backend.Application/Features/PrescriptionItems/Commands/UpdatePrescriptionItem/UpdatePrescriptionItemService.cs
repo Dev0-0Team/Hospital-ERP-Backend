@@ -11,16 +11,13 @@ namespace Hospital_ERP_Backend.Application.Features.PrescriptionItems.Commands.U
 
         private readonly IBaseCommandRepository<PrescriptionItem> _repository;
 
-        private readonly IBaseQueryRepository<PrescriptionItem> _queryRepository;
-
         public UpdatePrescriptionItemService(
             IValidator<UpdatePrescriptionItemRequest> validator,
-            IBaseCommandRepository<PrescriptionItem> repository,
-            IBaseQueryRepository<PrescriptionItem> queryRepository)
+            IBaseCommandRepository<PrescriptionItem> repository
+            )
         {
             _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
         }
 
         public async Task<UpdatePrescriptionItemResponse> Handle(
@@ -43,7 +40,7 @@ namespace Hospital_ERP_Backend.Application.Features.PrescriptionItems.Commands.U
             }
 
             PrescriptionItem? item =
-                await _queryRepository.GetAsync(request.Id);
+                await _repository.FindAsync(request.Id);
 
             if (item == null)
             {

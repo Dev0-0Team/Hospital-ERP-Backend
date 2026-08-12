@@ -9,14 +9,12 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.Upd
     internal class UpdateRadiologyOrderService : IRequestHandler<UpdateRadiologyOrderRequest, UpdateRadiologyOrderResponse>
     {
         private readonly IBaseCommandRepository<RadiologyOrder> _repository;
-        private readonly IBaseQueryRepository<RadiologyOrder> _queryRepository;
         private readonly IValidator<UpdateRadiologyOrderRequest> _validator;
 
-        public UpdateRadiologyOrderService(IValidator<UpdateRadiologyOrderRequest> validator, IBaseCommandRepository<RadiologyOrder> repository, IBaseQueryRepository<RadiologyOrder> queryRepository)
+        public UpdateRadiologyOrderService(IValidator<UpdateRadiologyOrderRequest> validator, IBaseCommandRepository<RadiologyOrder> repository)
         {
             _validator = validator;
             _repository = repository;
-            _queryRepository = queryRepository;
         }
 
         public async Task<UpdateRadiologyOrderResponse> Handle(UpdateRadiologyOrderRequest request, CancellationToken cancellationToken)
@@ -33,7 +31,7 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.Upd
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            RadiologyOrder? order = await _queryRepository.GetAsync(request.Id);
+            RadiologyOrder? order = await _repository.FindAsync(request.Id);
             if (order == null)
             {
                 throw new KeyNotFoundException($"Radiology order with Id {request.Id} not found.");

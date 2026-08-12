@@ -11,15 +11,11 @@ namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Comman
 
         private readonly IBaseCommandRepository<MedicationInventory> _medicationInventoryRepository;
 
-        private readonly IBaseQueryRepository<MedicationInventory> _medicationInventoryQueryRepository;
-
         public UpdateMedicationInventoryService(IValidator<UpdateMedicationInventoryRequest> validator,
-            IBaseCommandRepository<MedicationInventory> medicationInventoryRepository,
-            IBaseQueryRepository<MedicationInventory> medicationInventoryQueryRepository)
+            IBaseCommandRepository<MedicationInventory> medicationInventoryRepository)
         {
             _validator = validator;
             _medicationInventoryRepository = medicationInventoryRepository;
-            _medicationInventoryQueryRepository = medicationInventoryQueryRepository;
         }
 
         public async Task<UpdateMedicationInventoryResponse> Handle(UpdateMedicationInventoryRequest request, CancellationToken cancellationToken)
@@ -36,7 +32,7 @@ namespace Hospital_ERP_Backend.Application.Features.MedicationInventories.Comman
                 throw new ArgumentException($"Invalid request: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
             }
 
-            MedicationInventory? medicationInventory = await _medicationInventoryQueryRepository.GetAsync(request.Id);
+            MedicationInventory? medicationInventory = await _medicationInventoryRepository.FindAsync(request.Id);
 
             if (medicationInventory == null)
             {

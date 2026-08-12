@@ -10,17 +10,13 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.Upd
     {
         private readonly IBaseCommandRepository<RadiologyImage> _repository;
 
-        private readonly IBaseQueryRepository<RadiologyImage> _queryRepository;
-
         private readonly IValidator<UpdateRadiologyImageRequest> _validator;
 
         public UpdateRadiologyImageService(
             IBaseCommandRepository<RadiologyImage> repository,
-            IBaseQueryRepository<RadiologyImage> queryRepository,
             IValidator<UpdateRadiologyImageRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -45,7 +41,7 @@ namespace Hospital_ERP_Backend.Application.Features.RadiologyImages.Commands.Upd
             }
 
             RadiologyImage? image =
-                await _queryRepository.GetAsync(request.Id);
+                await _repository.FindAsync(request.Id);
 
             if (image == null)
             {
