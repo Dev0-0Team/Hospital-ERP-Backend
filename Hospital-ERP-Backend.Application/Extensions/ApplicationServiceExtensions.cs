@@ -2,6 +2,7 @@ using Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Extensions;
 using Hospital_ERP_Backend.Application.Features.Allergies.Extensions;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
 using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
+using Hospital_ERP_Backend.Application.Features.Authentication.Commands;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.ChronicDiseases.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
@@ -40,6 +41,8 @@ using Hospital_ERP_Backend.Application.Features.Specializations.Extensions;
 using Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
+using Hospital_ERP_Backend.Application.Security;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital_ERP_Backend.Application.Extensions
@@ -89,6 +92,8 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddInvoiceServicesExtension();
             services.AddAdministrativeStaffServicesExtension();
             services.AddAllergyServicesExtension();
+            services.AddJwtTokenServicesExtension(services.BuildServiceProvider().GetRequiredService<IConfiguration>());
+            services.AddAuthServiceExtension();
             services.AddSurgeriesHistoryServicesExtension();
             return services;
         }

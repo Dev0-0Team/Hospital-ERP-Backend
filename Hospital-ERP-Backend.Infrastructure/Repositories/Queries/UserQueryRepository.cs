@@ -10,8 +10,17 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries
     {
         protected override string GetAllSpName => "users.SP_GetAllUsers";
         protected override string GetByIdSpName => "users.SP_GetUserById";
+        protected override string GetUserByEmailSpName => "users.SP_GetUserByEmail";
+        protected override string IsEmailExistsSpName => "users.SP_IsEmailExists";
 
-        public UserQueryRepository(IOptions<MySetting> setting) : base(setting) { }
 
+        public UserQueryRepository(IOptions<MySetting> setting) : base(setting)
+        {
+
+
+        }
     }
 }
+
+
+
