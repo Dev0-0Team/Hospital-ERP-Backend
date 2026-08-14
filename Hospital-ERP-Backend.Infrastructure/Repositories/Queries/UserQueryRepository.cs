@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries;
 
-internal class UserQueryRepository : BaseQueryRepository<User>, IUserQuery<User>
+internal class UserQueryRepository : BaseQueryRepository<User>, IUserQuery
 {
     protected override string GetAllSpName => "users.SP_GetAllUsers";
 
