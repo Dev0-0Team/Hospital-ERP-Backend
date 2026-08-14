@@ -43,6 +43,10 @@
     <Folder Include="Features\Bed\Commands\CreateBed\" />
     <Folder Include="Features\Bed\Commands\DeleteBed\" />
     <Folder Include="Features\Bed\Commands\UpdateBed\" />
+    <Folder Include="Features\EmergencyCases\Commands\DeleteEmergencyCases\" />
+    <Folder Include="Features\EmergencyCases\Commands\UpdateEmergencyCases\" />
+    <Folder Include="Features\EmergencyCases\Extensions\" />
+    <Folder Include="Features\EmergencyCases\Queries\" />
     <Folder Include="Features\MedicationInventories\Extensions\" />
     <Folder Include="Features\Permissions\Commands\" />
     <Folder Include="Features\Permissions\Extensions\" />

@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.CreateDrugInteraction;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.DeleteDrugInteraction;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.UpdateDrugInteraction;

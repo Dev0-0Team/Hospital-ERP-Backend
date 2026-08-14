@@ -9,6 +9,7 @@ using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Doctors.Extensions;
 using Hospital_ERP_Backend.Application.Features.DoctorSchedules.Extensions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Extensions;
+using Hospital_ERP_Backend.Application.Features.EmergencyCases.Extensions;
 using Hospital_ERP_Backend.Application.Features.EmergencyContacts.Extensions;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Extensions;
 using Hospital_ERP_Backend.Application.Features.Invoices.Extensions;
@@ -37,6 +38,7 @@ using Hospital_ERP_Backend.Application.Features.RoomAssignments.Extensions;
 using Hospital_ERP_Backend.Application.Features.Rooms.Extensions;
 using Hospital_ERP_Backend.Application.Features.RoomTypes.Extensions;
 using Hospital_ERP_Backend.Application.Features.Specializations.Extensions;
+using Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Extensions;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Extensions;
 using Hospital_ERP_Backend.Application.Features.Users.Extensions;
 using Hospital_ERP_Backend.Application.Security;
@@ -81,6 +83,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddAppointmentQueueServicesExtension();
             services.AddDoctorScheduleServicesExtension();
             services.AddEmergencyContactsServicesExtension();
+            services.AddEmergencyCasesServicesExtension();
             services.AddChronicDiseaseServicesExtension();
             services.AddMedicalRecordServicesExtension();
             services.AddPaymentServicesExtension();
@@ -91,6 +94,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddAllergyServicesExtension();
             services.AddJwtTokenServicesExtension(services.BuildServiceProvider().GetRequiredService<IConfiguration>());
             services.AddAuthServiceExtension();
+            services.AddSurgeriesHistoryServicesExtension();
             return services;
         }
     }

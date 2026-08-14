@@ -9,16 +9,13 @@ namespace Hospital_ERP_Backend.Application.Features.LabTestResults.Commands.Upda
         : IRequestHandler<UpdateLabTestResultRequest, UpdateLabTestResultResponse>
     {
         private readonly IBaseCommandRepository<LabTestResult> _repository;
-        private readonly IBaseQueryRepository<LabTestResult> _queryRepository;
         private readonly IValidator<UpdateLabTestResultRequest> _validator;
 
         public UpdateLabTestResultService(
             IBaseCommandRepository<LabTestResult> repository,
-            IBaseQueryRepository<LabTestResult> queryRepository,
             IValidator<UpdateLabTestResultRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -40,7 +37,7 @@ namespace Hospital_ERP_Backend.Application.Features.LabTestResults.Commands.Upda
                     string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            var entity = await _queryRepository.GetAsync(request.Id);
+            var entity = await _repository.FindAsync(request.Id);
 
             if (entity == null)
             {

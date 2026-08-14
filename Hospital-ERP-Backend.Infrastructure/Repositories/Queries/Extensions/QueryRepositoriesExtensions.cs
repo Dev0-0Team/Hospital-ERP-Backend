@@ -40,6 +40,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<AppointmentQueue>, AppointmentQueueQueryRepository>();
             services.AddScoped<IBaseQueryRepository<DoctorSchedule>, DoctorScheduleQueryRepository>();
             services.AddScoped<IBaseQueryRepository<EmergencyContact>, EmergencyContactQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<EmergencyCase>, EmergencyCasesQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Patient>, PatientQueryRepository>();
             services.AddScoped<IBaseQueryRepository<ChronicDisease>, ChronicDiseaseQueryRepository>();
             services.AddScoped<IBaseQueryRepository<MedicalRecord>, MedicalRecordQueryRepository>();
@@ -49,6 +50,8 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Invoice>, InvoiceQueryRepository>();
             services.AddScoped<IBaseQueryRepository<AdministrativeStaff>, AdministrativeStaffQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Allergy>, AllergyQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<EmergencyCase>, EmergencyCasesQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<SurgeriesHistory>, SurgeriesHistoryQueryRepository>();
             return services;
         }
     }

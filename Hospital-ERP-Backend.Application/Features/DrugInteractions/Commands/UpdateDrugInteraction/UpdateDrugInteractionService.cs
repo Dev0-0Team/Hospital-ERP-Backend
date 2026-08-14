@@ -8,7 +8,6 @@ namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.Up
     internal class UpdateDrugInteractionService : IRequestHandler<UpdateDrugInteractionRequest, UpdateDrugInteractionResponse>
     {
         private readonly IBaseCommandRepository<DrugInteraction> _repository;
-        private readonly IBaseQueryRepository<DrugInteraction> _queryRepository;
         private readonly IValidator<UpdateDrugInteractionRequest> _validator;
 
         public UpdateDrugInteractionService(IBaseCommandRepository<DrugInteraction> repository,
@@ -16,7 +15,6 @@ namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.Up
             IValidator<UpdateDrugInteractionRequest> validator)
         {
             _repository = repository;
-            _queryRepository = queryRepository;
             _validator = validator;
         }
 
@@ -35,7 +33,7 @@ namespace Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.Up
                 throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
-            DrugInteraction? interaction = await _queryRepository.GetAsync(request.Id);
+            DrugInteraction? interaction = await _repository.FindAsync(request.Id);
 
             if (interaction == null)
             {
