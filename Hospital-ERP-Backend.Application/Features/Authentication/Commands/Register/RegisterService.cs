@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 
-public  class RegisterService : IRequestHandler<RegisterRequest, RegisterResponse>
+public class RegisterService : IRequestHandler<RegisterRequest, RegisterResponse>
 {
     private readonly HospitalDbContext _context;
     private readonly IUserQuery _user;
-    public RegisterService(HospitalDbContext context, IUserQuery user)
+    private readonly IUserCommand _userCommand;
+    public RegisterService(HospitalDbContext context, IUserQuery user, IUserCommand userCommand)
     {
         _context = context;
         _user = user;
+        _userCommand = userCommand;
     }
 
     public async Task<RegisterResponse> Handle(RegisterRequest request, CancellationToken cancellationToken)
@@ -56,9 +58,7 @@ public  class RegisterService : IRequestHandler<RegisterRequest, RegisterRespons
 
         user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
 
-        _context.Users.Add(user);
-
-        await _context.SaveChangesAsync();
+        await _userCommand.AddAsync(user);
 
         return new RegisterResponse
         {
