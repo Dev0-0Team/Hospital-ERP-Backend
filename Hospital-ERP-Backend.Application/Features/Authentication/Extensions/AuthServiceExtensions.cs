@@ -2,7 +2,7 @@
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands
+namespace Hospital_ERP_Backend.Application.Features.Authentication.Extensions
 {
     public static class AuthServiceExtensions
     {

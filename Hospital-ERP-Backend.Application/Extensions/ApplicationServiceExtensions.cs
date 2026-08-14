@@ -2,7 +2,7 @@ using Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Extensions;
 using Hospital_ERP_Backend.Application.Features.Allergies.Extensions;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Extensions;
 using Hospital_ERP_Backend.Application.Features.Appointments.Extensions;
-using Hospital_ERP_Backend.Application.Features.Authentication.Commands;
+using Hospital_ERP_Backend.Application.Features.Authentication.Extensions;
 using Hospital_ERP_Backend.Application.Features.Beds.Extensions;
 using Hospital_ERP_Backend.Application.Features.ChronicDiseases.Extensions;
 using Hospital_ERP_Backend.Application.Features.Departments.Extensions;
