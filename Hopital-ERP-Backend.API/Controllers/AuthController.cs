@@ -1,4 +1,5 @@
-﻿using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
+﻿using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login;
+using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,17 @@ namespace Hospital_ERP_Backend.API.Controllers
                 response,
                 StatusCodes.Status201Created,
                 "User Registered Successfully!");
+        }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<ApiResponse<LoginResponse>>> LoginAsync(LoginRequest request)
+        {
+            var response = await _sender.Send(request);
+
+            return CreateResponse<LoginResponse>(
+                response,
+                StatusCodes.Status200OK,
+                "Login Successfully");
         }
     }
 }
