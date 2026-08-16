@@ -1,5 +1,6 @@
 ﻿using Hospital_ERP_Backend.Application.Security;
 using Hospital_ERP_Backend.Domain.Entities;
+using Hospital_ERP_Backend.Domain.Interfaces.Permission;
 using Hospital_ERP_Backend.Domain.Interfaces.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -10,11 +11,13 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
 {
     private readonly IUserQueryRepository _userRepository;
     private readonly JwtTokenService _jwtTokenService;
+    private readonly IPermissionQueryRepository _permissionRepository;
 
-    public LoginService(IUserQueryRepository userRepository, JwtTokenService jwtTokenService)
+    public LoginService(IUserQueryRepository userRepository, JwtTokenService jwtTokenService, IPermissionQueryRepository permissionRepository)
     {
         _userRepository = userRepository;
         _jwtTokenService = jwtTokenService;
+        _permissionRepository = permissionRepository;
     }
 
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
@@ -41,7 +44,10 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
         if (result == PasswordVerificationResult.Failed)
         {
             throw new UnauthorizedAccessException("Invalid Email or Password");
+
         }
+
+        var permissions = await _permissionRepository.GetUserPermissionBitValuesAsync(user.Id);
 
         //Permission Masks 
         ulong securityPermissions = 0;
@@ -56,6 +62,50 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
         ulong billingPermissions = 0;
         ulong hospitalPermissions = 0;
         ulong notificationPermissions = 0;
+
+        foreach (var permission in permissions)
+        {
+            switch (permission.Group)
+            {
+                case "Security":
+                    securityPermissions |= permission.BitValue;
+                    break;
+                case "Patients":
+                    patientPermissions |= permission.BitValue;
+                    break;
+                case "Medical":
+                    medicalPermissions |= permission.BitValue;
+                    break;
+                case "Appointments":
+                    appointmentPermissions |= permission.BitValue;
+                    break;
+                case "Emergency":
+                    emergencyPermissions |= permission.BitValue;
+                    break;
+                case "Staff":
+                    staffPermissions |= permission.BitValue;
+                    break;
+                case "Laboratory":
+                    laboratoryPermissions |= permission.BitValue;
+                    break;
+                case "Radiology":
+                    radiologyPermissions |= permission.BitValue;
+                    break;
+                case "Pharmacy":
+                    pharmacyPermissions |= permission.BitValue;
+                    break;
+                case "Billing":
+                    billingPermissions |= permission.BitValue;
+                    break;
+                case "Facility":
+                    hospitalPermissions |= permission.BitValue;
+                    break;
+                case "Notification":
+                    notificationPermissions |= permission.BitValue;
+                    break;
+            }
+        }
+
 
         var token = _jwtTokenService.GenerateToken(
                 user.Id,
