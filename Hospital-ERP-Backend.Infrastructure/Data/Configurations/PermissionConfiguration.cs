@@ -1,11 +1,6 @@
 ﻿using Hospital_ERP_Backend.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
 {
@@ -23,6 +18,15 @@ namespace Hospital_ERP_Backend.Infrastructure.Data.Configurations
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
+
+            entity.Property(e => e.Group)
+             .HasColumnName("group")
+             .HasMaxLength(100)
+             .IsRequired();
+
+            entity.Property(e => e.BitValue)
+                  .HasColumnName("bit_value")
+                  .IsRequired();
 
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.CreatedAt)
