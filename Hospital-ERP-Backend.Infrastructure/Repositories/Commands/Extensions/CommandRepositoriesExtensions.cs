@@ -1,5 +1,6 @@
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
+using Hospital_ERP_Backend.Domain.Interfaces.User;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -13,6 +14,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Commands.Extensions
             services.AddScoped<IBaseCommandRepository<Role>, RoleCommandRepository>();
             services.AddScoped<IBaseCommandRepository<Permission>, PermissionCommandRepository>();
             services.AddScoped<IBaseCommandRepository<User>, UserCommandRepository>();
+            services.AddScoped<IUserCommandRepository, UserCommandRepository>();
             services.AddScoped<IBaseCommandRepository<UserRole>, UserRoleCommandRepository>();
             services.AddScoped<IBaseCommandRepository<RolePermission>, RolePermissionCommandRepository>();
             services.AddScoped<IBaseCommandRepository<Medication>, MedicationCommandRepository>();

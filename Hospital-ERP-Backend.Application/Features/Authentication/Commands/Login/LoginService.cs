@@ -1,6 +1,6 @@
 ﻿using Hospital_ERP_Backend.Application.Security;
 using Hospital_ERP_Backend.Domain.Entities;
-using Hospital_ERP_Backend.Domain.Interfaces;
+using Hospital_ERP_Backend.Domain.Interfaces.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -8,10 +8,10 @@ namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logi
 
 public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
 {
-    private readonly IUserQuery _userRepository;
+    private readonly IUserQueryRepository _userRepository;
     private readonly JwtTokenService _jwtTokenService;
 
-    public LoginService(IUserQuery userRepository, JwtTokenService jwtTokenService)
+    public LoginService(IUserQueryRepository userRepository, JwtTokenService jwtTokenService)
     {
         _userRepository = userRepository;
         _jwtTokenService = jwtTokenService;

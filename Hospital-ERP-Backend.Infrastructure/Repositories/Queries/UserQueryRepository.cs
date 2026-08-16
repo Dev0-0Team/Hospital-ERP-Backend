@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Hospital_ERP_Backend.Domain.Entities;
-using Hospital_ERP_Backend.Domain.Interfaces;
+using Hospital_ERP_Backend.Domain.Interfaces.User;
 using Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Base;
 using Hospital_ERP_Backend.Infrastructure.Setting;
 using Microsoft.Extensions.Options;
@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries;
 
-internal class UserQueryRepository : BaseQueryRepository<User>, IUserQuery
+internal class UserQueryRepository : BaseQueryRepository<User>, IUserQueryRepository
 {
     protected override string GetAllSpName => "users.SP_GetAllUsers";
 

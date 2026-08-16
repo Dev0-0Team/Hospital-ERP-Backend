@@ -1,6 +1,5 @@
 ﻿using Hospital_ERP_Backend.Domain.Entities;
-using Hospital_ERP_Backend.Domain.Interfaces;
-using Hospital_ERP_Backend.Infrastructure.Data;
+using Hospital_ERP_Backend.Domain.Interfaces.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -8,12 +7,10 @@ namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Regi
 
 public class RegisterService : IRequestHandler<RegisterRequest, RegisterResponse>
 {
-    private readonly HospitalDbContext _context;
-    private readonly IUserQuery _user;
-    private readonly IUserCommand _userCommand;
-    public RegisterService(HospitalDbContext context, IUserQuery user, IUserCommand userCommand)
+    private readonly IUserQueryRepository _user;
+    private readonly IUserCommandRepository _userCommand;
+    public RegisterService(IUserQueryRepository user, IUserCommandRepository userCommand)
     {
-        _context = context;
         _user = user;
         _userCommand = userCommand;
     }
@@ -58,7 +55,7 @@ public class RegisterService : IRequestHandler<RegisterRequest, RegisterResponse
 
         user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
 
-        await _userCommand.AddAsync(user);
+        await _userCommand.CreateAsync(user);
 
         return new RegisterResponse
         {
