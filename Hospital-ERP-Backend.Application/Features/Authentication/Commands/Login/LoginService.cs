@@ -127,7 +127,9 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
         return new LoginResponse
         {
             Token = token.Token,
-            ExpireAt = token.ExpireAt
+            ExpireAt = token.ExpireAt,
+            UserId = user.Id,
+            PersonId = user.PersonId,
         };
     }
 }
