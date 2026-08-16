@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login
+namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login;
+
+public sealed record LoginRequest : IRequest<LoginResponse>
 {
-    internal class LoginRequest
-    {
-    }
+    public string Email { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login;
 
-namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login
+public sealed record LoginResponse
 {
-    internal class LoginResponse
-    {
-    }
+    public string Token { get; set; } = null!;
+
+    public DateTime ExpireAt { get; set; }
 }
