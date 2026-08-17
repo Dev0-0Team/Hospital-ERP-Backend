@@ -1,8 +1,8 @@
-using Hopital_ERP_Backend.API.Extensions.Configuration;
-using Hopital_ERP_Backend.API.Filters;
+using Hospital_ERP_Backend.API.Filters;
 using Hospital_ERP_Backend.API.Extensions;
 using Hospital_ERP_Backend.API.Extensions.Configuration;
 using Hospital_ERP_Backend.API.Middleware;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSettingConfiguration(builder.Configuration);
@@ -11,6 +11,7 @@ builder.Services.AddMediatorConfigurationExtension();
 builder.Services.AddCorsConfigurationExtension(builder.Configuration);
 builder.Services.AddJwtAuthenticationExtension(builder.Configuration);
 
+builder.Services.AddAuthorizationConfigurationExtension();
 builder.Services.AddControllers();
 builder.Services.AddApiBehaviorConfigurationExtension();
 builder.Services.AddEndpointsApiExplorer();

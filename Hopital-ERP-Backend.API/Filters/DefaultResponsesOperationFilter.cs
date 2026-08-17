@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Hopital_ERP_Backend.API.Filters
+namespace Hospital_ERP_Backend.API.Filters
 {
     public class DefaultResponsesOperationFilter : IOperationFilter
     {
