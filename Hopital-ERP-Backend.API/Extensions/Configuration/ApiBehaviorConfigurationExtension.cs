@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Hopital_ERP_Backend.API.Extensions.Configuration
+namespace Hospital_ERP_Backend.API.Extensions.Configuration
 {
     public static class ApiBehaviorConfigurationExtension
     {

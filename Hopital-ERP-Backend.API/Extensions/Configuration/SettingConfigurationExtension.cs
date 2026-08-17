@@ -1,6 +1,6 @@
 ﻿using Hospital_ERP_Backend.Infrastructure.Setting;
 
-namespace Hopital_ERP_Backend.API.Extensions.Configuration
+namespace Hospital_ERP_Backend.API.Extensions.Configuration
 {
     public static class SettingConfigurationExtension
     {

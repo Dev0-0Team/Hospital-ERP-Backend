@@ -48,7 +48,6 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
         ulong patientPermissions = 0;
         ulong medicalPermissions = 0;
         ulong appointmentPermissions = 0;
-        ulong emergencyPermissions = 0;
         ulong staffPermissions = 0;
         ulong laboratoryPermissions = 0;
         ulong radiologyPermissions = 0;
@@ -65,7 +64,6 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
                 patientPermissions,
                 medicalPermissions,
                 appointmentPermissions,
-                emergencyPermissions,
                 staffPermissions,
                 laboratoryPermissions,
                 radiologyPermissions,
