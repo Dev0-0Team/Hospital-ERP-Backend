@@ -11,7 +11,7 @@ public partial class User : BaseEntity
     public string Status { get; set; } = null!;
 
     public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     public Person Person { get; set; } = null!;
     public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     public ICollection<Role> Roles { get; set; } = new List<Role>();
