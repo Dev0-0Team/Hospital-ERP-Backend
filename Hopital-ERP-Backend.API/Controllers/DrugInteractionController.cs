@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.Delete
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Commands.UpdateDrugInteraction;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Queries.GetAllDrugInteractions;
 using Hospital_ERP_Backend.Application.Features.DrugInteractions.Queries.GetDrugInteraction;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/DrugInteractions")]
     [ApiController]
+    [Authorize]
     public class DrugInteractionsController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.DrugInteractionsRead)]
         [HttpGet(Name = "GetAllDrugInteractionsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllDrugInteractionsResponse>?>>>
         GetAllAsync([FromQuery] int page = 1)
@@ -36,6 +41,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.DrugInteractionsRead)]
         [HttpGet("{ID:int}", Name = "GetDrugInteractionByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetDrugInteractionResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -52,6 +58,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Drug Interaction found successfully!");
         }
 
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.DrugInteractionsCreate)]
         [HttpPost(Name = "CreateDrugInteractionAsync")]
         public async Task<ActionResult<ApiResponse<CreateDrugInteractionResponse>>>
             CreateAsync([FromBody] CreateDrugInteractionRequest request)
@@ -72,6 +79,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.DrugInteractionsUpdate)]
         [HttpPut(Name = "UpdateDrugInteractionAsync")]
         public async Task<ActionResult<ApiResponse<UpdateDrugInteractionResponse>>>
             UpdateAsync([FromBody] UpdateDrugInteractionRequest request)
@@ -84,6 +92,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Drug Interaction updated successfully!");
         }
 
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.DrugInteractionsDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteDrugInteractionAsync")]
         public async Task<ActionResult<ApiResponse<bool>>>
             DeleteAsync([FromRoute] int ID)

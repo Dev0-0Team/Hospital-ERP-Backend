@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.Allergies.Commands.DeleteAllergy
 using Hospital_ERP_Backend.Application.Features.Allergies.Commands.UpdateAllergy;
 using Hospital_ERP_Backend.Application.Features.Allergies.Queries.GetAllAllergies;
 using Hospital_ERP_Backend.Application.Features.Allergies.Queries.GetAllergy;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Allergies")]
     [ApiController]
+    [Authorize]
     public class AllergiesController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,8 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.AllergiesRead)]
         [HttpGet(Name = "GetAllAllergiesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllAllergiesResponse>?>>> GetAllAsync(
             [FromQuery] int page = 1)
@@ -36,6 +42,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.AllergiesRead)]
         [HttpGet("{ID:int}", Name = "GetAllergyByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetAllergyResponse?>>>
             GetByIdAsync([FromRoute] int ID)
@@ -53,6 +61,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Allergy found successfully!");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.AllergiesCreate)]
         [HttpPost(Name = "CreateAllergyAsync")]
         public async Task<ActionResult<ApiResponse<CreateAllergyResponse>>>
             CreateAsync([FromBody] CreateAllergyRequest request)
@@ -74,6 +83,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.AllergiesUpdate)]
         [HttpPut(Name = "UpdateAllergyAsync")]
         public async Task<ActionResult<ApiResponse<UpdateAllergyResponse>>>
             UpdateAsync([FromBody] UpdateAllergyRequest request)
@@ -87,6 +97,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Allergy Updated Successfully!");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.AllergiesDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteAllergyAsync")]
         public async Task<ActionResult<ApiResponse<bool>>>
             DeleteAsync([FromRoute] int ID)

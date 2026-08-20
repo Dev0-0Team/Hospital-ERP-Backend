@@ -1,16 +1,20 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
+﻿using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.CreateRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.DeleteRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Commands.UpdateRoomAssignment;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetAllRoomAssignments;
 using Hospital_ERP_Backend.Application.Features.RoomAssignments.Queries.GetRoomAssignment;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RoomAssignments")]
     [ApiController]
+    [Authorize]
+
     public class RoomAssignmentsController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +24,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomAssignmentsRead)]
         [HttpGet(Name = "GetAllRoomAssignmentsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRoomAssignmentsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -32,6 +37,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<IEnumerable<GetAllRoomAssignmentsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomAssignmentsRead)]
         [HttpGet("{ID}", Name = "GetRoomAssignmentByID")]
         public async Task<ActionResult<ApiResponse<GetRoomAssignmentResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -43,6 +49,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetRoomAssignmentResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomAssignmentsCreate)]
         [HttpPost(Name = "CreateRoomAssignmentAsync")]
         public async Task<ActionResult<ApiResponse<CreateRoomAssignmentResponse>>> CreateAsync([FromBody] CreateRoomAssignmentRequest request)
         {
@@ -56,6 +63,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomAssignmentsUpdate)]
         [HttpPut(Name = "UpdateRoomAssignmentAsync")]
         public async Task<ActionResult<ApiResponse<UpdateRoomAssignmentResponse>>> UpdateAsync([FromBody] UpdateRoomAssignmentRequest request)
         {
@@ -63,6 +71,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateRoomAssignmentResponse>(response, StatusCodes.Status200OK, "Room Assignment Updated Successfully!");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomAssignmentsDelete)]
         [HttpDelete("{ID}", Name = "DeleteRoomAssignmentAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {
