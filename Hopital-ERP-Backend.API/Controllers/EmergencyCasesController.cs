@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.EmergencyCases.Commands.DeleteEm
 using Hospital_ERP_Backend.Application.Features.EmergencyCases.Commands.UpdateEmergencyCases;
 using Hospital_ERP_Backend.Application.Features.EmergencyCases.Queries.GetAllEmergencyCases;
 using Hospital_ERP_Backend.Application.Features.EmergencyCases.Queries.GetEmergencyCase;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/EmergencyCases")]
     [ApiController]
+    [Authorize]
     public class EmergencyCasesController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.EmergencyCasesCreate)]
         [HttpGet(Name = "GetAllEmergencyCasesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllEmergencyCasesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -35,6 +40,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.EmergencyCasesRead)]
         [HttpGet("{ID:int}", Name = "GetEmergencyCaseByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetEmergencyCaseResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -51,6 +57,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Emergency Case found successfully!");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.EmergencyCasesCreate)]
         [HttpPost(Name = "CreateEmergencyCasesAsync")]
         public async Task<ActionResult<ApiResponse<CreateEmergencyCasesResponse>>> CreateAsync([FromBody] CreateEmergencyCasesRequest request)
         {
@@ -69,6 +76,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 );
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.EmergencyCasesUpdate)]
         [HttpPut(Name = "UpdateEmergencyCasesAsync")]
         public async Task<ActionResult<ApiResponse<UpdateEmergencyCasesResponse>>> UpdateAsync([FromBody] UpdateEmergencyCasesRequest request)
         {
@@ -80,6 +88,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Emergency Case updated successfully!");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.EmergencyCasesDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteEmergencyCasesAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

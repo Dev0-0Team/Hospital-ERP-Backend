@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.Beds.Commands.DeleteBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Commands.UpdateBed;
 using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetAllBeds;
 using Hospital_ERP_Backend.Application.Features.Beds.Queries.GetBed;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Beds")]
     [ApiController]
+    [Authorize]
     public class BedController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.BedsRead)]
         [HttpGet(Name = "GetAllBedsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllBedsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -31,6 +36,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<IEnumerable<GetAllBedsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.BedsRead)]
         [HttpGet("{ID}", Name = "GetBedByID")]
         public async Task<ActionResult<ApiResponse<GetBedResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -42,6 +48,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetBedResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.BedsCreate)]
         [HttpPost(Name = "CreateBedAsync")]
         public async Task<ActionResult<ApiResponse<CreateBedResponse>>> CreateAsync([FromBody] CreateBedRequest request)
         {
@@ -56,6 +63,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.BedsUpdate)]
         [HttpPut(Name = "UpdateBedAsync")]
         public async Task<ActionResult<ApiResponse<UpdateBedResponse>>> UpdateAsync([FromBody] UpdateBedRequest request)
         {
@@ -63,6 +71,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateBedResponse>(response, StatusCodes.Status200OK, "Bed Updated Successfully!");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.BedsDelete)]
         [HttpDelete("{ID}", Name = "DeleteBedAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

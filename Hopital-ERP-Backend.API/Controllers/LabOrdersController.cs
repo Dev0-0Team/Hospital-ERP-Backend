@@ -1,16 +1,19 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.CreateLabOrder;
+﻿using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.CreateLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.DeleteLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Commands.UpdateLabOrder;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetAllLabOrders;
 using Hospital_ERP_Backend.Application.Features.LabOrders.Queries.GetLabOrder;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/LabOrders")]
     [ApiController]
+    [Authorize]
     public class LabOrdersController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<LaboratoryPermissions>(LaboratoryPermissions.LabOrdersRead)]
         [HttpGet(Name = "GetAllLabOrdersAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllLabOrdersResponse>?>>> GetAllAsync(
             [FromQuery] int page = 1)
@@ -37,6 +41,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {labOrders.Count()}");
         }
 
+        [HasPermission<LaboratoryPermissions>(LaboratoryPermissions.LabOrdersRead)]
         [HttpGet("{ID:int}", Name = "GetLabOrderByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetLabOrderResponse?>>> GetByIdAsync(
             [FromRoute] int ID)
@@ -54,6 +59,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Lab Order found successfully!");
         }
 
+        [HasPermission<LaboratoryPermissions>(LaboratoryPermissions.LabOrdersCreate)]
         [HttpPost(Name = "CreateLabOrderAsync")]
         public async Task<ActionResult<ApiResponse<CreateLabOrderResponse>>> CreateAsync(
             [FromBody] CreateLabOrderRequest request)
@@ -74,6 +80,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<LaboratoryPermissions>(LaboratoryPermissions.LabOrdersUpdate)]
         [HttpPut(Name = "UpdateLabOrderAsync")]
         public async Task<ActionResult<ApiResponse<UpdateLabOrderResponse>>> UpdateAsync(
             [FromBody] UpdateLabOrderRequest request)
@@ -86,6 +93,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Lab Order updated successfully!");
         }
 
+        [HasPermission<LaboratoryPermissions>(LaboratoryPermissions.LabOrdersDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteLabOrderAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync(
             [FromRoute] int ID)

@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.Delet
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Commands.UpdateAppointmentQueue;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Queries.GetAllAppointmentQueues;
 using Hospital_ERP_Backend.Application.Features.AppointmentQueues.Queries.GetAppointmentQueue;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/AppointmentQueues")]
     [ApiController]
+    [Authorize]
     public class AppointmentQueueController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesRead)]
         [HttpGet(Name = "GetAllAppointmentQueuesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllAppointmentQueuesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -35,6 +40,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesRead)]
         [HttpGet("{ID:int}", Name = "GetAppointmentQueueByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetAppointmentQueueResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -51,6 +57,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "AppointmentQueue found successfully!");
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesCreate)]
         [HttpPost(Name = "CreateAppointmentQueueAsync")]
         public async Task<ActionResult<ApiResponse<CreateAppointmentQueueResponse>>> CreateAsync([FromBody] CreateAppointmentQueueRequest request)
         {
@@ -70,6 +77,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesUpdate)]
         [HttpPut(Name = "UpdateAppointmentQueueAsync")]
         public async Task<ActionResult<ApiResponse<UpdateAppointmentQueueResponse>>> UpdateAsync([FromBody] UpdateAppointmentQueueRequest request)
         {
@@ -81,6 +89,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "AppointmentQueue updated successfully!");
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteAppointmentQueueAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

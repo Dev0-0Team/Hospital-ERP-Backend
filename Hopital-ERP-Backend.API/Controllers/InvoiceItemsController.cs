@@ -1,16 +1,19 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem;
+﻿using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.CreateInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.DeleteInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Commands.UpdateInvoiceItem;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetAllInvoiceItems;
 using Hospital_ERP_Backend.Application.Features.InvoiceItems.Queries.GetInvoiceItem;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/InvoiceItems")]
     [ApiController]
+    [Authorize]
     public class InvoiceItemsController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<BillingPermissions>(BillingPermissions.InvoiceItemsRead)]
         [HttpGet(Name = "GetAllInvoiceItemsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllInvoiceItemsResponse>?>>> GetAllAsync(
             [FromQuery] int page = 1)
@@ -37,6 +41,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<BillingPermissions>(BillingPermissions.InvoiceItemsRead)]
         [HttpGet("{ID:int}", Name = "GetInvoiceItemByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetInvoiceItemResponse?>>> GetByIdAsync(
             [FromRoute] int ID)
@@ -54,6 +59,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Invoice Item found successfully!");
         }
 
+        [HasPermission<BillingPermissions>(BillingPermissions.InvoiceItemsCreate)]
         [HttpPost(Name = "CreateInvoiceItemAsync")]
         public async Task<ActionResult<ApiResponse<CreateInvoiceItemResponse>>> CreateAsync(
             [FromBody] CreateInvoiceItemRequest request)
@@ -74,6 +80,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<BillingPermissions>(BillingPermissions.InvoiceItemsUpdate)]
         [HttpPut(Name = "UpdateInvoiceItemAsync")]
         public async Task<ActionResult<ApiResponse<UpdateInvoiceItemResponse>>> UpdateAsync(
             [FromBody] UpdateInvoiceItemRequest request)
@@ -86,6 +93,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Invoice Item updated successfully!");
         }
 
+        [HasPermission<BillingPermissions>(BillingPermissions.InvoiceItemsDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteInvoiceItemAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync(
             [FromRoute] int ID)

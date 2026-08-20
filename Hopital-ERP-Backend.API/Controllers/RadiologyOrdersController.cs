@@ -4,12 +4,16 @@ using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Commands.UpdateR
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Queries.GetAllRadiologyOrders;
 using Hospital_ERP_Backend.Application.Features.RadiologyOrders.Queries.GetRadiologyOrder;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RadiologyOrders")]
     [ApiController]
+    [Authorize]
     public class RadiologyOrdersController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyOrdersRead)]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] int page = 1)
         {
@@ -29,6 +34,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 }));
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyOrdersRead)]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -39,6 +45,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 }));
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyOrdersCreate)]
         [HttpPost]
         public async Task<IActionResult> Create(
             CreateRadiologyOrderRequest request)
@@ -51,6 +58,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 result);
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyOrdersUpdate)]
         [HttpPut]
         public async Task<IActionResult> Update(
             UpdateRadiologyOrderRequest request)
@@ -58,6 +66,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return Ok(await _sender.Send(request));
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyOrdersDelete)]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {

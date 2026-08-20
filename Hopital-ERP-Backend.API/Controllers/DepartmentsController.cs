@@ -4,13 +4,17 @@ using Hospital_ERP_Backend.Application.Features.Departments.Commands.DeleteDepar
 using Hospital_ERP_Backend.Application.Features.Departments.Commands.UpdateDepartment;
 using Hospital_ERP_Backend.Application.Features.Departments.Queries.GetAllDepartments;
 using Hospital_ERP_Backend.Application.Features.Departments.Queries.GetDepartment;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Departments")]
     [ApiController]
+    [Authorize]
     public class DepartmentsController : BaseController
     {
         private readonly ISender _sender;
@@ -20,8 +24,9 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.DepartmentsRead)]
         [HttpGet(Name = "GetAllDepartmentsAsync")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<GetAllDepartmentsResponse>?>>>GetAllAsync([FromQuery] int page = 1)
+        public async Task<ActionResult<ApiResponse<IEnumerable<GetAllDepartmentsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
             GetAllDepartmentsRequest request = new()
             {
@@ -36,6 +41,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.DepartmentsRead)]
         [HttpGet("{ID:int}", Name = "GetDepartmentByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetDepartmentResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -52,6 +58,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Department found successfully!");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.DepartmentsCreate)]
         [HttpPost(Name = "CreateDepartmentAsync")]
         public async Task<ActionResult<ApiResponse<CreateDepartmentResponse>>> CreateAsync([FromBody] CreateDepartmentRequest request)
         {
@@ -71,6 +78,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.DepartmentsUpdate)]
         [HttpPut(Name = "UpdateDepartmentAsync")]
         public async Task<ActionResult<ApiResponse<UpdateDepartmentResponse>>> UpdateAsync([FromBody] UpdateDepartmentRequest request)
         {
@@ -82,6 +90,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Department updated successfully!");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.DepartmentsDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteDepartmentAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

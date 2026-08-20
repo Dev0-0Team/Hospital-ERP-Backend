@@ -5,12 +5,16 @@ using Hospital_ERP_Backend.Application.Features.UserRoles.Commands.UpdateUserRol
 using Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetAllUserRoles;
 using Hospital_ERP_Backend.Application.Features.UserRoles.Queries.GetUserRoles;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/UserRoles")]
     [ApiController]
+    [Authorize]
     public class UserRolesController : BaseController
     {
         private readonly ISender _sender;
@@ -21,6 +25,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.UserRolesRead)]
         [HttpGet(Name = "GetAllUserRolesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllUserRolesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -34,6 +39,7 @@ namespace Hospital_ERP_Backend.API.Controllers
         }
 
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.UserRolesRead)]
         [HttpGet("{ID}", Name = "GetUserRoleByID")]
         public async Task<ActionResult<ApiResponse<GetUserRoleResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -45,6 +51,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetUserRoleResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.UserRolesCreate)]
         [HttpPost(Name = "CreateUserRoleAsync")]
         public async Task<ActionResult<ApiResponse<CreateUserRoleResponse>>> CreateAsync([FromBody] CreateUserRoleRequest request)
         {
@@ -59,6 +66,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.UserRolesUpdate)]
         [HttpPut(Name = "UpdateUserRoleAsync")]
         public async Task<ActionResult<ApiResponse<UpdateUserRoleResponse>>> UpdateAsync([FromBody] UpdateUserRoleRequest request)
         {
@@ -66,6 +74,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateUserRoleResponse>(response, StatusCodes.Status200OK, "User Role Updated Successfully!");
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.UserRolesDelete)]
         [HttpDelete("{ID}", Name = "DeleteUserRoleAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

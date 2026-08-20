@@ -4,12 +4,16 @@ using Hospital_ERP_Backend.Application.Features.Specializations.Commands.UpdateS
 using Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetAllSpecializations;
 using Hospital_ERP_Backend.Application.Features.Specializations.Queries.GetSpecialization;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Specializations")]
     [ApiController]
+    [Authorize]
     public class SpecializationsController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.SpecializationsRead)]
         [HttpGet(Name = "GetAllSpecializationsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllSpecializationsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -31,6 +36,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<IEnumerable<GetAllSpecializationsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.SpecializationsRead)]
         [HttpGet("{ID}", Name = "GetSpecializationByID")]
         public async Task<ActionResult<ApiResponse<GetSpecializationResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -42,6 +48,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetSpecializationResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.SpecializationsCreate)]
         [HttpPost(Name = "CreateSpecializationAsync")]
         public async Task<ActionResult<ApiResponse<CreateSpecializationResponse>>> CreateAsync([FromBody] CreateSpecializationRequest request)
         {
@@ -57,6 +64,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.SpecializationsUpdate)]
         [HttpPut(Name = "UpdateSpecializationAsync")]
         public async Task<ActionResult<ApiResponse<UpdateSpecializationResponse>>> UpdateAsync([FromBody] UpdateSpecializationRequest request)
         {
@@ -64,6 +72,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateSpecializationResponse>(response, StatusCodes.Status200OK, "Specialization Updated Successfully!");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.SpecializationsDelete)]
         [HttpDelete("{ID}", Name = "DeleteSpecializationAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

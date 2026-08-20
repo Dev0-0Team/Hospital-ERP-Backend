@@ -1,16 +1,19 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
+﻿using Hospital_ERP_Backend.Application.Features.Permissions.Commands.CreatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.DeletePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Commands.UpdatePermission;
 using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetAllPermissions;
 using Hospital_ERP_Backend.Application.Features.Permissions.Queries.GetPermission;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Permissions")]
     [ApiController]
+    [Authorize]
     public class PermissionsController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.PermissionsRead)]
         [HttpGet(Name = "GetAllPermissionsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllPermissionsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -32,7 +36,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<IEnumerable<GetAllPermissionsResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
-
+        [HasPermission<SecurityPermissions>(SecurityPermissions.PermissionsRead)]
         [HttpGet("{ID}", Name = "GetPermissionByID")]
         public async Task<ActionResult<ApiResponse<GetPermissionResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -44,6 +48,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetPermissionResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.PermissionsCreate)]
         [HttpPost(Name = "CreatePermissionAsync")]
         public async Task<ActionResult<ApiResponse<CreatePermissionResponse>>> CreateAsync([FromBody] CreatePermissionRequest request)
         {
@@ -58,6 +63,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.PermissionsUpdate)]
         [HttpPut(Name = "UpdatePermissionAsync")]
         public async Task<ActionResult<ApiResponse<UpdatePermissionResponse>>> UpdateAsync([FromBody] UpdatePermissionRequest request)
         {
@@ -65,6 +71,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdatePermissionResponse>(response, StatusCodes.Status200OK, "Permission Updated Successfully!");
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.PermissionsDelete)]
         [HttpDelete("{ID}", Name = "DeletePermissionAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

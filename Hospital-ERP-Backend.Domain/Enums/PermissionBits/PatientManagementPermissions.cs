@@ -48,6 +48,12 @@
 
         SurgeriesHistoryManage = SurgeriesHistoryCreate | SurgeriesHistoryRead | SurgeriesHistoryUpdate | SurgeriesHistoryDelete,
 
+        EmergencyCasesCreate = 1UL << 24,
+        EmergencyCasesRead = 1UL << 25,
+        EmergencyCasesUpdate = 1UL << 26,
+        EmergencyCasesDelete = 1UL << 27,
+
+        EmergencyCasesManage = EmergencyCasesCreate | EmergencyCasesRead | EmergencyCasesUpdate | EmergencyCasesDelete,
 
     }
 
