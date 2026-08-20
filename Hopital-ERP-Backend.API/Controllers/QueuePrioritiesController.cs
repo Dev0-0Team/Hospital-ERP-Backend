@@ -1,16 +1,19 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority;
+﻿using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.CreateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.DeleteQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Commands.UpdateQueuePriority;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetAllQueuePriorities;
 using Hospital_ERP_Backend.Application.Features.QueuePriorities.Queries.GetQueuePriority;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/QueuePriorities")]
     [ApiController]
+    [Authorize]
     public class QueuePrioritiesController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesRead)]
         [HttpGet(Name = "GetAllQueuePrioritiesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllQueuePrioritiesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -32,6 +36,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<IEnumerable<GetAllQueuePrioritiesResponse>?>(list, StatusCodes.Status200OK, $"Row: {list.Count()}");
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesRead)]
         [HttpGet("{ID}", Name = "GetQueuePriorityByID")]
         public async Task<ActionResult<ApiResponse<GetQueuePriorityResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -43,6 +48,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetQueuePriorityResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesCreate)]
         [HttpPost(Name = "CreateQueuePriorityAsync")]
         public async Task<ActionResult<ApiResponse<CreateQueuePriorityResponse>>> CreateAsync([FromBody] CreateQueuePriorityRequest request)
         {
@@ -56,6 +62,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesUpdate)]
         [HttpPut(Name = "UpdateQueuePriorityAsync")]
         public async Task<ActionResult<ApiResponse<UpdateQueuePriorityResponse>>> UpdateAsync([FromBody] UpdateQueuePriorityRequest request)
         {
@@ -63,6 +70,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateQueuePriorityResponse>(response, StatusCodes.Status200OK, "Queue Priority Updated Successfully!");
         }
 
+        [HasPermission<AppointmentAndQueuePermissions>(AppointmentAndQueuePermissions.QueuePrioritiesDelete)]
         [HttpDelete("{ID}", Name = "DeleteQueuePriorityAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

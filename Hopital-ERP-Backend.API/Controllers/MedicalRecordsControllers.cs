@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.DeleteMe
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Commands.UpdateMedicalRecord;
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Queries.GetAllMedicalRecords;
 using Hospital_ERP_Backend.Application.Features.MedicalRecords.Queries.GetMedicalRecord;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/MedicalRecords")]
     [ApiController]
+    [Authorize]
     public class MedicalRecordsController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<MedicalRecordsPermissions>(MedicalRecordsPermissions.MedicalRecordsRead)]
         [HttpGet(Name = "GetAllMedicalRecordsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllMedicalRecordsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -35,6 +40,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<MedicalRecordsPermissions>(MedicalRecordsPermissions.MedicalRecordsRead)]
         [HttpGet("{ID:int}", Name = "GetMedicalRecordByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetMedicalRecordResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -51,6 +57,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Medical record found successfully!");
         }
 
+        [HasPermission<MedicalRecordsPermissions>(MedicalRecordsPermissions.MedicalRecordsCreate)]
         [HttpPost(Name = "CreateMedicalRecordAsync")]
         public async Task<ActionResult<ApiResponse<CreateMedicalRecordResponse>>> CreateAsync([FromBody] CreateMedicalRecordRequest request)
         {
@@ -67,6 +74,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<MedicalRecordsPermissions>(MedicalRecordsPermissions.MedicalRecordsUpdate)]
         [HttpPut(Name = "UpdateMedicalRecordAsync")]
         public async Task<ActionResult<ApiResponse<UpdateMedicalRecordResponse>>> UpdateAsync([FromBody] UpdateMedicalRecordRequest request)
         {
@@ -78,6 +86,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Medical record updated successfully!");
         }
 
+        [HasPermission<MedicalRecordsPermissions>(MedicalRecordsPermissions.MedicalRecordsDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteMedicalRecordAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

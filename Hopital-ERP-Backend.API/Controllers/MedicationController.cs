@@ -1,16 +1,19 @@
-﻿using Azure;
-using Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication;
+﻿using Hospital_ERP_Backend.Application.Features.Medications.Commands.CreateMedication;
 using Hospital_ERP_Backend.Application.Features.Medications.Commands.DeleteMedication;
 using Hospital_ERP_Backend.Application.Features.Medications.Commands.UpdateMedication;
 using Hospital_ERP_Backend.Application.Features.Medications.Queries.GetAllMedications;
 using Hospital_ERP_Backend.Application.Features.Medications.Queries.GetMedicationById;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Medications")]
     [ApiController]
+    [Authorize]
     public class MedicationsController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +23,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.MedicationsRead)]
         [HttpGet(Name = "GetAllMedicationsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllMedicationsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -37,6 +41,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.MedicationsRead)]
         [HttpGet("{ID:int}", Name = "GetMedicationByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetMedicationResponse?>>> GetMedicationByIdAsync([FromRoute] int ID)
         {
@@ -49,6 +55,8 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetMedicationResponse?>(medication, StatusCodes.Status200OK, "Medication found Successfully!");
         }
 
+
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.MedicationsCreate)]
         [HttpPost(Name = "CreateMedicationAsync")]
         public async Task<ActionResult<ApiResponse<CreateMedicationResponse>>> CreateAsync([FromBody] CreateMedicationRequest request)
         {
@@ -67,6 +75,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.MedicationsUpdate)]
         [HttpPut(Name = "UpdateMedicationAsync")]
         public async Task<ActionResult<ApiResponse<UpdateMedicationResponse>>> UpdateAsync([FromBody] UpdateMedicationRequest request)
         {
@@ -78,6 +88,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Medication Updated Successfully!");
         }
 
+
+        [HasPermission<PharmacyPermissions>(PharmacyPermissions.MedicationsDelete)]
         [HttpDelete("{ID}", Name = "DeleteMedicationAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

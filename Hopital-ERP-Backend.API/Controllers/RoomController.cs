@@ -5,12 +5,16 @@ using Hospital_ERP_Backend.Application.Features.Rooms.Commands.UpdateRoom;
 using Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetAllRooms;
 using Hospital_ERP_Backend.Application.Features.Rooms.Queries.GetRoom;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Rooms")]
     [ApiController]
+    [Authorize]
     public class RoomsController : BaseController
     {
         private readonly ISender _sender;
@@ -21,6 +25,7 @@ namespace Hospital_ERP_Backend.API.Controllers
 
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomsRead)]
         [HttpGet(Name = "GetAllRoomsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRoomsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -34,6 +39,7 @@ namespace Hospital_ERP_Backend.API.Controllers
         }
 
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomsRead)]
         [HttpGet("{ID}", Name = "GetRoomByID")]
         public async Task<ActionResult<ApiResponse<GetRoomResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -45,6 +51,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetRoomResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomsCreate)]
         [HttpPost(Name = "CreateRoomAsync")]
         public async Task<ActionResult<ApiResponse<CreateRoomResponse>>> CreateAsync([FromBody] CreateRoomRequest request)
         {
@@ -59,6 +66,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomsUpdate)]
         [HttpPut(Name = "UpdateRoomAsync")]
         public async Task<ActionResult<ApiResponse<UpdateRoomResponse>>> UpdateAsync([FromBody] UpdateRoomRequest request)
         {
@@ -66,6 +74,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateRoomResponse>(response, StatusCodes.Status200OK, "Room Updated Successfully!");
         }
 
+        [HasPermission<HospitalFacilityPermissions>(HospitalFacilityPermissions.RoomsDelete)]
         [HttpDelete("{ID}", Name = "DeleteRoomAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

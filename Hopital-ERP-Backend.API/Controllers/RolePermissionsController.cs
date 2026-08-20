@@ -5,12 +5,16 @@ using Hospital_ERP_Backend.Application.Features.RolePermissions.Command.UpdateRo
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetAllRolePermissions;
 using Hospital_ERP_Backend.Application.Features.RolePermissions.Query.GetRolePermissions;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RolePermissions")]
     [ApiController]
+    [Authorize]
     public class RolePermissionsController : BaseController
     {
         private readonly ISender _sender;
@@ -22,6 +26,7 @@ namespace Hospital_ERP_Backend.API.Controllers
         }
 
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.RolePermissionsRead)]
         [HttpGet(Name = "GetAllRolePermissionsAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRolePermissionsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -35,6 +40,7 @@ namespace Hospital_ERP_Backend.API.Controllers
         }
 
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.RolePermissionsRead)]
         [HttpGet("{ID}", Name = "GetRolePermissionByID")]
         public async Task<ActionResult<ApiResponse<GetRolePermissionResponse?>>> GetByIDAsync([FromRoute] int ID)
         {
@@ -46,6 +52,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<GetRolePermissionResponse?>(response, StatusCodes.Status200OK, "Found Successfully!");
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.RolePermissionsCreate)]
         [HttpPost(Name = "CreateRolePermissionAsync")]
         public async Task<ActionResult<ApiResponse<CreateRolePermissionResponse>>> CreateAsync([FromBody] CreateRolePermissionRequest request)
         {
@@ -60,6 +67,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.RolePermissionsUpdate)]
         [HttpPut(Name = "UpdateRolePermissionAsync")]
         public async Task<ActionResult<ApiResponse<UpdateRolePermissionResponse>>> UpdateAsync([FromBody] UpdateRolePermissionRequest request)
         {
@@ -67,6 +75,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             return CreateResponse<UpdateRolePermissionResponse>(response, StatusCodes.Status200OK, "Role Permission Updated Successfully!");
         }
 
+        [HasPermission<SecurityPermissions>(SecurityPermissions.RolePermissionsDelete)]
         [HttpDelete("{ID}", Name = "DeleteRolePermissionAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

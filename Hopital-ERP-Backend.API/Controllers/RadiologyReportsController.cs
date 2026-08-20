@@ -5,12 +5,16 @@ using Hospital_ERP_Backend.Application.Features.RadiologyReports.Commands.Update
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Queries.GetAllRadiologyReports;
 using Hospital_ERP_Backend.Application.Features.RadiologyReports.Queries.GetRadiologyReport;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/RadiologyReports")]
     [ApiController]
+    [Authorize]
     public class RadiologyReportsController : BaseController
     {
         private readonly ISender _sender;
@@ -20,6 +24,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyReportsRead)]
         [HttpGet]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllRadiologyReportsResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -34,6 +39,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {reports.Count()}");
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyReportsRead)]
         [HttpGet("{ID:int}", Name = "GetRadiologyReportByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetRadiologyReportResponse?>>> GetByIdAsync(int ID)
         {
@@ -48,6 +54,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Radiology Report found successfully.");
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyReportsCreate)]
         [HttpPost]
         public async Task<ActionResult<ApiResponse<CreateRadiologyReportResponse>>> CreateAsync([FromBody] CreateRadiologyReportRequest request)
         {
@@ -64,6 +71,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyReportsUpdate)]
         [HttpPut]
         public async Task<ActionResult<ApiResponse<UpdateRadiologyReportResponse>>> UpdateAsync([FromBody] UpdateRadiologyReportRequest request)
         {
@@ -75,6 +83,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Radiology Report updated successfully.");
         }
 
+        [HasPermission<RadiologyPermissions>(RadiologyPermissions.RadiologyReportsDelete)]
         [HttpDelete("{ID:int}")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync(int ID)
         {

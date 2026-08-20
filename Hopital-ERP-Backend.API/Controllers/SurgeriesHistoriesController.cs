@@ -4,12 +4,16 @@ using Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Commands.Upda
 using Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Queries.GetAllSurgeriesHistories;
 using Hospital_ERP_Backend.Application.Features.SurgeriesHistories.Queries.GetSurgeriesHistory;
 using MediatR;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [ApiController]
     [Route("api/SurgeriesHistories")]
+    [Authorize]
     public class SurgeriesHistoriesController : BaseController
     {
         private readonly ISender _sender;
@@ -18,6 +22,7 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.SurgeriesHistoryRead)]
         [HttpGet(Name = "GetAllSurgeriesHistoriesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllSurgeriesHistoriesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -34,6 +39,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.SurgeriesHistoryRead)]
         [HttpGet("{ID:int}", Name = "GetSurgeriesHistoryByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetSurgeriesHistoryResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -50,6 +56,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Surgeries History found successfully!");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.SurgeriesHistoryCreate)]
         [HttpPost(Name = "CreateSurgeriesHistoryAsync")]
         public async Task<ActionResult<ApiResponse<CreateSurgeriesHistoryResponse>>> CreateAsync([FromBody] CreateSurgeriesHistoryRequest request)
         {
@@ -69,6 +76,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.SurgeriesHistoryUpdate)]
         [HttpPut(Name = "UpdateSurgeriesHistoryAsync")]
         public async Task<ActionResult<ApiResponse<UpdateSurgeriesHistoryResponse>>> UpdateAsync([FromBody] UpdateSurgeriesHistoryRequest request)
         {
@@ -80,6 +88,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Surgeries History updated successfully!");
         }
 
+        [HasPermission<PatientManagementPermissions>(PatientManagementPermissions.SurgeriesHistoryDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteSurgeriesHistoryAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {

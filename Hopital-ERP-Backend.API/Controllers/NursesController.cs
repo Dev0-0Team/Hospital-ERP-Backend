@@ -3,13 +3,17 @@ using Hospital_ERP_Backend.Application.Features.Nurses.Commands.DeleteNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Commands.UpdateNurse;
 using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetAllNurses;
 using Hospital_ERP_Backend.Application.Features.Nurses.Queries.GetNurse;
+using Hospital_ERP_Backend.Application.Security.Authorization;
+using Hospital_ERP_Backend.Domain.Enums.PermissionBits;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_ERP_Backend.API.Controllers
 {
     [Route("api/Nurses")]
     [ApiController]
+    [Authorize]
     public class NursesController : BaseController
     {
         private readonly ISender _sender;
@@ -19,6 +23,8 @@ namespace Hospital_ERP_Backend.API.Controllers
             _sender = sender;
         }
 
+
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.NursesRead)]
         [HttpGet(Name = "GetAllNursesAsync")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GetAllNursesResponse>?>>> GetAllAsync([FromQuery] int page = 1)
         {
@@ -35,6 +41,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 $"Rows: {list.Count()}");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.NursesRead)]
         [HttpGet("{ID:int}", Name = "GetNurseByIdAsync")]
         public async Task<ActionResult<ApiResponse<GetNurseResponse?>>> GetByIdAsync([FromRoute] int ID)
         {
@@ -51,6 +58,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Nurse found successfully!");
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.NursesCreate)]
         [HttpPost(Name = "CreateNurseAsync")]
         public async Task<ActionResult<ApiResponse<CreateNurseResponse>>> CreateAsync([FromBody] CreateNurseRequest request)
         {
@@ -70,6 +78,7 @@ namespace Hospital_ERP_Backend.API.Controllers
                 });
         }
 
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.NursesUpdate)]
         [HttpPut(Name = "UpdateNurseAsync")]
         public async Task<ActionResult<ApiResponse<UpdateNurseResponse>>> UpdateAsync([FromBody] UpdateNurseRequest request)
         {
@@ -81,6 +90,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 "Nurse updated successfully!");
         }
 
+
+        [HasPermission<StaffManagementPermissions>(StaffManagementPermissions.NursesDelete)]
         [HttpDelete("{ID:int}", Name = "DeleteNurseAsync")]
         public async Task<ActionResult<ApiResponse<bool>>> DeleteAsync([FromRoute] int ID)
         {
