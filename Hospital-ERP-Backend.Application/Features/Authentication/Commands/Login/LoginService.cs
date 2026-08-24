@@ -79,7 +79,7 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
                     appointmentPermissions |= permission.BitValue;
                     break;
                 case "Emergency":
-                    emergencyPermissions |= permission.BitValue;
+                 //   emergencyPermissions |= permission.BitValue;
                     break;
                 case "Staff":
                     staffPermissions |= permission.BitValue;

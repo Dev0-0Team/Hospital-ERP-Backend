@@ -76,7 +76,7 @@ namespace Hospital_ERP_Backend.Application.Extensions
             services.AddRadiologyOrdersServicesExtension();
             services.AddDoctorsServicesExtension();
             services.AddSpecializationServicesExtension();
-            services.AddNurseServiceExtensions();
+            services.AddNurseServiceExtensions();  
             services.AddPaymentMethodServicesExtension();
             services.AddPatientServiceExtensions();
             services.AddRoomAssignmentServicesExtension();
