@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Hospital_ERP_Backend.Application.Security;
@@ -16,6 +17,22 @@ public sealed class JwtTokenService
         _jwtSettings = jwtOptions.Value;
     }
 
+    public static string GenerateRefreshToken()
+    {
+        var bytes = RandomNumberGenerator.GetBytes(64);
+
+        return Convert.ToBase64String(bytes);
+    }
+
+    public static string ComputeHash(string value)
+    {
+        using var sha = SHA256.Create();
+
+        var bytes =
+            sha.ComputeHash(Encoding.UTF8.GetBytes(value));
+
+        return Convert.ToHexString(bytes);
+    }
     public JwtTokenResponse GenerateToken(
         int userId,
         int personId,
@@ -65,10 +82,15 @@ public sealed class JwtTokenService
                 expires: expires,
                 signingCredentials: credentials);
 
+
+
+
         return new JwtTokenResponse
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             ExpireAt = expires
         };
+
+
     }
 }
