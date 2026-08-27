@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logout
+namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logout;
+
+public sealed record LogoutRequest : IRequest<bool>
 {
-    internal class LogoutRequest
-    {
-    }
+    public string RefreshToken { get; set; } = null!;
 }
