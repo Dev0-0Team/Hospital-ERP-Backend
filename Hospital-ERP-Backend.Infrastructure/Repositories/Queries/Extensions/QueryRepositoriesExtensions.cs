@@ -16,7 +16,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Permission>, PermissionQueryRepository>();
             services.AddScoped<IPermissionQueryRepository, PermissionQueryRepository>();
             services.AddScoped<IBaseQueryRepository<User>, UserQueryRepository>();
-            services.AddScoped<IUserQueryRepository,UserQueryRepository>();
+            services.AddScoped<IUserQueryRepository, UserQueryRepository>();
             services.AddScoped<IBaseQueryRepository<UserRole>, UserRoleQueryRepository>();
             services.AddScoped<IBaseQueryRepository<RolePermission>, RolePermissionQueryRepository>();
             services.AddScoped<IBaseQueryRepository<Medication>, MedicationQueryRepository>();
@@ -56,6 +56,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<Allergy>, AllergyQueryRepository>();
             services.AddScoped<IBaseQueryRepository<EmergencyCase>, EmergencyCasesQueryRepository>();
             services.AddScoped<IBaseQueryRepository<SurgeriesHistory>, SurgeriesHistoryQueryRepository>();
+            services.AddScoped<IBaseQueryRepository<RefreshToken>, RefreshTokenQueryRepository>();
             return services;
         }
     }
