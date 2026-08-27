@@ -1,4 +1,5 @@
 ﻿using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login;
+using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logout;
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.RefreshTokens;
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 using MediatR;
@@ -50,6 +51,17 @@ namespace Hospital_ERP_Backend.API.Controllers
                 response,
                 StatusCodes.Status200OK,
                 "Token Refreshed Successfully!");
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult<ApiResponse<bool>>> LogoutAsync([FromBody] LogoutRequest request)
+        {
+            var result = await _sender.Send(request);
+
+            return CreateResponse(
+                result,
+                StatusCodes.Status200OK,
+                "Logout Successfully");
         }
     }
 }

@@ -38,7 +38,6 @@
     <Folder Include="Features\Appointments\Commands\CreateAppointment\" />
     <Folder Include="Features\Appointments\Commands\DeleteAppointment\" />
     <Folder Include="Features\Appointments\Commands\UpdateAppointment\" />
-    <Folder Include="Features\Authentication\Commands\Logout\" />
     <Folder Include="Features\Bed\Commands\CreateBed\" />
     <Folder Include="Features\Bed\Commands\DeleteBed\" />
     <Folder Include="Features\Bed\Commands\UpdateBed\" />
