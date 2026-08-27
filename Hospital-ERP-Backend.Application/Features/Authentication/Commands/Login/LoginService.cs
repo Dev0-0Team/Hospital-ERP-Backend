@@ -135,7 +135,7 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
 
         var refreshToken = JwtTokenService.GenerateRefreshToken();
 
-        var refreshTokenHash = JwtTokenService.ComputeHash(refreshToken);
+        var refreshTokenHash = BCrypt.Net.BCrypt.HashPassword(refreshToken);
 
         await _refreshTokenRepository.CreateAsync(new RefreshToken
         {

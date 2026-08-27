@@ -24,15 +24,15 @@ public sealed class JwtTokenService
         return Convert.ToBase64String(bytes);
     }
 
-    public static string ComputeHash(string value)
-    {
-        using var sha = SHA256.Create();
+    //public static string ComputeHash(string value)
+    //{
+    //    using var sha = SHA256.Create();
 
-        var bytes =
-            sha.ComputeHash(Encoding.UTF8.GetBytes(value));
+    //    var bytes =
+    //        sha.ComputeHash(Encoding.UTF8.GetBytes(value));
 
-        return Convert.ToHexString(bytes);
-    }
+    //    return Convert.ToHexString(bytes);
+    //}
     public JwtTokenResponse GenerateToken(
         int userId,
         int personId,

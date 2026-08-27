@@ -2,5 +2,5 @@
 
 public interface IRefreshTokenQueryRepository
 {
-    Task<RefreshToken?> GetByHashAsync(string hash);
+    Task<IEnumerable<RefreshToken>> GetActiveTokensByUserIdAsync(int userId);
 }
