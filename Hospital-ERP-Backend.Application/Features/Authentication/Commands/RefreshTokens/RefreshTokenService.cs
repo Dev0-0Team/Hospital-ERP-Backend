@@ -43,9 +43,9 @@ internal class RefreshTokenService
     {
         await _validator.ValidateAndThrowAsync(request);
 
-        var hash = JwtTokenService.ComputeHash(request.RefreshToken);
+        var tokens = await _refreshTokenQuery.GetActiveTokensByUserIdAsync(request.UserId);
 
-        var storedToken = await _refreshTokenQuery.GetByHashAsync(hash);
+        var storedToken = tokens.FirstOrDefault(x => BCrypt.Net.BCrypt.Verify(request.RefreshToken, x.TokenHash));
 
         if (storedToken is null)
         {
@@ -100,7 +100,7 @@ internal class RefreshTokenService
 
         var newRefreshToken = JwtTokenService.GenerateRefreshToken();
 
-        var newHash = JwtTokenService.ComputeHash(newRefreshToken);
+        var newHash = BCrypt.Net.BCrypt.HashPassword(newRefreshToken);
 
         storedToken.RevokedAt = DateTime.UtcNow;
 
