@@ -1,13 +1,11 @@
 ﻿using FluentValidation;
-using Hospital_ERP_Backend.Application.Security;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
 
 namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logout;
 
-internal sealed class LogoutService
-    : IRequestHandler<LogoutRequest, bool>
+internal sealed class LogoutService : IRequestHandler<LogoutRequest, bool>
 {
     private readonly IRefreshTokenQueryRepository _query;
 
@@ -22,22 +20,23 @@ internal sealed class LogoutService
         _validator = validator;
     }
 
+
     public async Task<bool> Handle(LogoutRequest request, CancellationToken cancellationToken)
     {
         await _validator.ValidateAndThrowAsync(request);
 
-        var hash = JwtTokenService.ComputeHash(request.RefreshToken);
+        var tokens = await _query.GetActiveTokensByUserIdAsync(request.UserId);
 
-        var token = await _query.GetByHashAsync(hash);
+        var storedToken = tokens.FirstOrDefault(x => BCrypt.Net.BCrypt.Verify(request.RefreshToken, x.TokenHash));
 
-        if (token is null)
+        if (storedToken is null)
         {
             throw new UnauthorizedAccessException("Invalid Refresh Token");
         }
 
-        token.RevokedAt = DateTime.UtcNow;
+        storedToken.RevokedAt = DateTime.UtcNow;
 
-        await _command.UpdateAsync(token);
+        await _command.UpdateAsync(storedToken);
 
         return true;
     }
