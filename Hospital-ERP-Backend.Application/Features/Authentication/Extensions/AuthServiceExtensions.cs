@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login;
+using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logout;
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.RefreshTokens;
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,10 +14,12 @@ namespace Hospital_ERP_Backend.Application.Features.Authentication.Extensions
             services.AddScoped<IValidator<RegisterRequest>, RegisterValidator>();
             services.AddScoped<IValidator<LoginRequest>, LoginValidator>();
             services.AddScoped<IValidator<RefreshTokenRequest>, RefreshTokenValidator>();
+            services.AddScoped<IValidator<LogoutRequest>, LogoutValidator>();
 
             services.AddScoped<RegisterService>();
             services.AddScoped<LoginService>();
             services.AddScoped<RefreshTokenService>();
+            services.AddScoped<LogoutService>();
 
             return services;
         }
