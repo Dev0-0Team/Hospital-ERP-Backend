@@ -1,4 +1,5 @@
 ﻿using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Login;
+using Hospital_ERP_Backend.Application.Features.Authentication.Commands.RefreshTokens;
 using Hospital_ERP_Backend.Application.Features.Authentication.Commands.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,19 @@ namespace Hospital_ERP_Backend.API.Controllers
                 response,
                 StatusCodes.Status200OK,
                 "Login Successfully");
+        }
+
+
+        [HttpPost("refresh-token", Name = "RefreshTokenAsync")]
+        public async Task<ActionResult<ApiResponse<RefreshTokenResponse>>>
+       RefreshTokenAsync([FromBody] RefreshTokenRequest request)
+        {
+            var response = await _sender.Send(request);
+
+            return CreateResponse(
+                response,
+                StatusCodes.Status200OK,
+                "Token Refreshed Successfully!");
         }
     }
 }
