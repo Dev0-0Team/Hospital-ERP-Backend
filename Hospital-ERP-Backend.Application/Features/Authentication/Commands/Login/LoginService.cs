@@ -1,5 +1,6 @@
 ﻿using Hospital_ERP_Backend.Application.Security;
 using Hospital_ERP_Backend.Domain.Entities;
+using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using Hospital_ERP_Backend.Domain.Interfaces.Permission;
 using Hospital_ERP_Backend.Domain.Interfaces.User;
 using MediatR;
@@ -10,14 +11,19 @@ namespace Hospital_ERP_Backend.Application.Features.Authentication.Commands.Logi
 public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
 {
     private readonly IUserQueryRepository _userRepository;
-    private readonly JwtTokenService _jwtTokenService;
+
     private readonly IPermissionQueryRepository _permissionRepository;
 
-    public LoginService(IUserQueryRepository userRepository, JwtTokenService jwtTokenService, IPermissionQueryRepository permissionRepository)
+    private readonly IBaseCommandRepository<RefreshToken> _refreshTokenRepository;
+
+    private readonly JwtTokenService _jwtTokenService;
+
+    public LoginService(IUserQueryRepository userRepository, IPermissionQueryRepository permissionRepository, IBaseCommandRepository<RefreshToken> refreshTokenRepository, JwtTokenService jwtTokenService)
     {
         _userRepository = userRepository;
-        _jwtTokenService = jwtTokenService;
         _permissionRepository = permissionRepository;
+        _refreshTokenRepository = refreshTokenRepository;
+        _jwtTokenService = jwtTokenService;
     }
 
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
@@ -36,7 +42,8 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
 
         var passwordHasher = new PasswordHasher<User>();
 
-        var result = passwordHasher.VerifyHashedPassword(
+        var result =
+            passwordHasher.VerifyHashedPassword(
                 user,
                 user.PasswordHash,
                 request.Password);
@@ -44,12 +51,10 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
         if (result == PasswordVerificationResult.Failed)
         {
             throw new UnauthorizedAccessException("Invalid Email or Password");
-
         }
 
         var permissions = await _permissionRepository.GetUserPermissionBitValuesAsync(user.Id);
 
-        //Permission Masks 
         ulong securityPermissions = 0;
         ulong patientPermissions = 0;
         ulong medicalPermissions = 0;
@@ -69,44 +74,50 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
                 case "Security":
                     securityPermissions |= permission.BitValue;
                     break;
+
                 case "Patients":
                     patientPermissions |= permission.BitValue;
                     break;
+
                 case "Medical":
                     medicalPermissions |= permission.BitValue;
                     break;
+
                 case "Appointments":
                     appointmentPermissions |= permission.BitValue;
                     break;
-                case "Emergency":
-                    emergencyPermissions |= permission.BitValue;
-                    break;
+
                 case "Staff":
                     staffPermissions |= permission.BitValue;
                     break;
+
                 case "Laboratory":
                     laboratoryPermissions |= permission.BitValue;
                     break;
+
                 case "Radiology":
                     radiologyPermissions |= permission.BitValue;
                     break;
+
                 case "Pharmacy":
                     pharmacyPermissions |= permission.BitValue;
                     break;
+
                 case "Billing":
                     billingPermissions |= permission.BitValue;
                     break;
+
                 case "Facility":
                     hospitalPermissions |= permission.BitValue;
                     break;
+
                 case "Notification":
                     notificationPermissions |= permission.BitValue;
                     break;
             }
         }
 
-
-        var token = _jwtTokenService.GenerateToken(
+        var accessToken = _jwtTokenService.GenerateToken(
                 user.Id,
                 user.PersonId,
 
@@ -122,12 +133,32 @@ public sealed class LoginService : IRequestHandler<LoginRequest, LoginResponse>
                 hospitalPermissions,
                 notificationPermissions);
 
+        var refreshToken = JwtTokenService.GenerateRefreshToken();
+
+        var refreshTokenHash = JwtTokenService.ComputeHash(refreshToken);
+
+        await _refreshTokenRepository.CreateAsync(new RefreshToken
+        {
+            UserId = user.Id,
+
+            TokenHash = refreshTokenHash,
+
+            ExpiresAt = DateTime.UtcNow.AddDays(30),
+
+            CreatedAt = DateTime.UtcNow
+        });
+
         return new LoginResponse
         {
-            Token = token.Token,
-            ExpireAt = token.ExpireAt,
+            Token = accessToken.Token,
+
+            RefreshToken = refreshToken,
+
+            ExpireAt = accessToken.ExpireAt,
+
             UserId = user.Id,
-            PersonId = user.PersonId,
+
+            PersonId = user.PersonId
         };
     }
 }
