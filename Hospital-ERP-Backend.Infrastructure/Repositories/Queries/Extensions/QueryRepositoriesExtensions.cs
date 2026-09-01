@@ -57,6 +57,7 @@ namespace Hospital_ERP_Backend.Infrastructure.Repositories.Queries.Extensions
             services.AddScoped<IBaseQueryRepository<EmergencyCase>, EmergencyCasesQueryRepository>();
             services.AddScoped<IBaseQueryRepository<SurgeriesHistory>, SurgeriesHistoryQueryRepository>();
             services.AddScoped<IBaseQueryRepository<RefreshToken>, RefreshTokenQueryRepository>();
+            services.AddScoped<IRefreshTokenQueryRepository, RefreshTokenQueryRepository>();
             return services;
         }
     }
