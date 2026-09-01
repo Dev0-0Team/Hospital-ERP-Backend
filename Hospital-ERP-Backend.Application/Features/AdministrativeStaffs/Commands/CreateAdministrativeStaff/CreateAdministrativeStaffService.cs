@@ -2,6 +2,7 @@ using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Commands.CreateAdministrativeStaff
 {
@@ -12,17 +13,20 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
         private readonly IBaseCommandRepository<Person> _personRepository;
         private readonly IBaseCommandRepository<Department> _departmentRepository;
         private readonly IValidator<CreateAdministrativeStaffRequest> _validator;
+        private readonly ILogger<CreateAdministrativeStaffService> _logger;
 
         public CreateAdministrativeStaffService(
             IBaseCommandRepository<AdministrativeStaff> doctorRepository,
             IBaseCommandRepository<Person> personRepository,
             IBaseCommandRepository<Department> departmentRepository,
-            IValidator<CreateAdministrativeStaffRequest> validator)
+            IValidator<CreateAdministrativeStaffRequest> validator,
+            ILogger<CreateAdministrativeStaffService> logger)
         {
             _repository = doctorRepository;
             _personRepository = personRepository;
             _departmentRepository = departmentRepository;
             _validator = validator;
+            _logger = logger;
         }
 
         public async Task<CreateAdministrativeStaffResponse> Handle(CreateAdministrativeStaffRequest request, CancellationToken cancellationToken)
@@ -36,6 +40,9 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (!validationResult.IsValid)
             {
+                _logger.LogWarning(
+                    $"Validation failed while creating administrative staff for Person {request.PersonId}");
+
                 throw new ArgumentException(
                     string.Join(", ",
                     validationResult.Errors.Select(x => x.ErrorMessage)));
@@ -45,6 +52,9 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (!person)
             {
+                _logger.LogWarning(
+                    $"Person {request.PersonId} not found while creating administrative staff");
+
                 throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
             }
 
@@ -52,6 +62,9 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (!department)
             {
+                _logger.LogWarning(
+                    $"Department {request.DepartmentId} not found while creating administrative staff");
+
                 throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
             }
 
@@ -66,8 +79,14 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (result == null)
             {
+                _logger.LogWarning(
+                    $"Failed to create Administrative Staff for Person {request.PersonId}");
+
                 throw new InvalidOperationException("Failed to create Administrative Staff.");
             }
+
+            _logger.LogInformation(
+                $"Administrative staff {result.Id} created successfully for Person {result.PersonId}");
 
             return new CreateAdministrativeStaffResponse
             {
