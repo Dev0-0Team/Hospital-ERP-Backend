@@ -78,8 +78,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateAllergyResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Allergy Created Successfully!",
-                    Data = response
+                    message = "Allergy Created Successfully!",
+                    data = response
                 });
         }
 

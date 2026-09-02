@@ -70,8 +70,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateAdministrativeStaffResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Administrative Staff Created Successfully!",
-                    Data = response
+                    message = "Administrative Staff Created Successfully!",
+                    data = response
                 });
         }
 

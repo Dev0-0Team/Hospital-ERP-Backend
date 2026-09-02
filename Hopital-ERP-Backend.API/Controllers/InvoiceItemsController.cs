@@ -75,8 +75,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateInvoiceItemResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Invoice Item Created Successfully!",
-                    Data = result
+                    message = "Invoice Item Created Successfully!",
+                    data = result
                 });
         }
 

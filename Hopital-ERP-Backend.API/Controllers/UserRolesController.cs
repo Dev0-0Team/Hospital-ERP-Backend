@@ -61,8 +61,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateUserRoleResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "User Role Created Successfully!",
-                    Data = success
+                    message = "User Role Created Successfully!",
+                    data = success
                 });
         }
 

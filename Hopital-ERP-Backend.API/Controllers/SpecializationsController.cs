@@ -59,8 +59,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateSpecializationResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Specialization Created Successfully!",
-                    Data = success
+                    message = "Specialization Created Successfully!",
+                    data = success
                 });
         }
 

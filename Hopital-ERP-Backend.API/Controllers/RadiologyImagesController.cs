@@ -75,8 +75,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateRadiologyImageResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Radiology Image Created Successfully!",
-                    Data = result
+                    message = "Radiology Image Created Successfully!",
+                    data = result
                 });
         }
 

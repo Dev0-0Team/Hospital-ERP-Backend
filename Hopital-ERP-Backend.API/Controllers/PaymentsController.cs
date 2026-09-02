@@ -59,8 +59,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreatePaymentResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Payment Created Successfully!",
-                    Data = success
+                    message = "Payment Created Successfully!",
+                    data = success
                 });
         }
 

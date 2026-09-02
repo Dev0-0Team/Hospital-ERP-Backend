@@ -66,8 +66,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateRadiologyReportResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Radiology Report Created Successfully!",
-                    Data = result
+                    message = "Radiology Report Created Successfully!",
+                    data = result
                 });
         }
 

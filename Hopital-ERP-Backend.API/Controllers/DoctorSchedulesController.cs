@@ -73,8 +73,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateDoctorScheduleResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Doctor Schedule Created Successfully!",
-                    Data = result
+                    message = "Doctor Schedule Created Successfully!",
+                    data = result
                 });
         }
 

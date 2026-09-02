@@ -61,8 +61,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateRoomResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Room Created Successfully!",
-                    Data = success
+                    message = "Room Created Successfully!",
+                    data = success
                 });
         }
 
