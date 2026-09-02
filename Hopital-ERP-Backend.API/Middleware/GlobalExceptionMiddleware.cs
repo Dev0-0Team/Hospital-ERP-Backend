@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Security.Authentication;
-using System.Text.Json;
+﻿using System.Security.Authentication;
 
 namespace Hospital_ERP_Backend.API.Middleware
 {
@@ -9,7 +7,9 @@ namespace Hospital_ERP_Backend.API.Middleware
         private readonly RequestDelegate _next;
         private readonly IWebHostEnvironment _env;
 
-        public GlobalExceptionMiddleware(RequestDelegate next, IWebHostEnvironment env)
+        public GlobalExceptionMiddleware(
+            RequestDelegate next,
+            IWebHostEnvironment env)
         {
             _next = next;
             _env = env;
@@ -27,70 +27,75 @@ namespace Hospital_ERP_Backend.API.Middleware
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(
+            HttpContext context,
+            Exception exception)
         {
             int statusCode;
             string message;
 
             switch (exception)
             {
-                case ArgumentOutOfRangeException argOutOfRange:
+                case ArgumentOutOfRangeException ex:
                     statusCode = StatusCodes.Status400BadRequest;
-                    message = argOutOfRange.Message;
+                    message = ex.Message;
                     break;
 
-                case ArgumentNullException argNullEx:
+                case ArgumentNullException ex:
                     statusCode = StatusCodes.Status400BadRequest;
-                    message = argNullEx.Message;
+                    message = ex.Message;
                     break;
 
-                case ArgumentException argEx:
+                case ArgumentException ex:
                     statusCode = StatusCodes.Status400BadRequest;
-                    message = argEx.Message;
+                    message = ex.Message;
                     break;
 
-                case KeyNotFoundException keyEx:
+                case KeyNotFoundException ex:
                     statusCode = StatusCodes.Status404NotFound;
-                    message = keyEx.Message;
+                    message = ex.Message;
                     break;
 
-                case InvalidOperationException invOpEx:
+                case InvalidOperationException ex:
                     statusCode = StatusCodes.Status409Conflict;
-                    message = invOpEx.Message;
-                    break;
-                case AuthenticationException authEx:
-                    statusCode = StatusCodes.Status401Unauthorized;
-                    message = authEx.Message;
-                    break;
-                case UnauthorizedAccessException unAuthEx:
-                    statusCode = StatusCodes.Status403Forbidden;
-                    message = unAuthEx.Message;
+                    message = ex.Message;
                     break;
 
-                case FormatException formatEx:
+                case AuthenticationException ex:
+                    statusCode = StatusCodes.Status401Unauthorized;
+                    message = ex.Message;
+                    break;
+
+                case UnauthorizedAccessException ex:
+                    statusCode = StatusCodes.Status403Forbidden;
+                    message = ex.Message;
+                    break;
+
+                case FormatException ex:
                     statusCode = StatusCodes.Status400BadRequest;
-                    message = formatEx.Message;
+                    message = ex.Message;
                     break;
 
                 default:
                     statusCode = StatusCodes.Status500InternalServerError;
-                    message = exception.Message;
+
+                    message = _env.IsDevelopment()
+                        ? exception.Message
+                        : "An unexpected error occurred.";
+
                     break;
             }
 
-            context.Response.ContentType = "application/json";
             context.Response.StatusCode = statusCode;
 
-            var responseType = typeof(object);
             var response = new
             {
-                statusCode = statusCode,
-                message = message,
+                statusCode,
+                message,
                 data = (object?)null
             };
 
-            var json = JsonSerializer.Serialize(response);
-            return context.Response.WriteAsync(json);
+            await context.Response.WriteAsJsonAsync(response);
         }
     }
 }
