@@ -3,7 +3,7 @@
     public class ApiResponse<T>
     {
         public int statusCode { get; set; }
-        public string Message { get; set; } = string.Empty;
-        public T? Data { get; set; }
+        public string message { get; set; } = string.Empty;
+        public T? data { get; set; }
     }
 }
