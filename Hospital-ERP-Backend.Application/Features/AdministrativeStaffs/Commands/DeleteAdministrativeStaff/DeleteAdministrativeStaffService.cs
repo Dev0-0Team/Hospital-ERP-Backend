@@ -11,16 +11,13 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
     {
         private readonly IBaseCommandRepository<AdministrativeStaff> _repository;
         private readonly IValidator<DeleteAdministrativeStaffRequest> _validator;
-        private readonly ILogger<DeleteAdministrativeStaffService> _logger;
 
         public DeleteAdministrativeStaffService(
             IBaseCommandRepository<AdministrativeStaff> repository,
-            IValidator<DeleteAdministrativeStaffRequest> validator,
-            ILogger<DeleteAdministrativeStaffService> logger)
+            IValidator<DeleteAdministrativeStaffRequest> validator)
         {
             _repository = repository;
             _validator = validator;
-            _logger = logger;
         }
 
         public async Task<bool> Handle(
@@ -37,10 +34,6 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning(
-                    "Validation failed while deleting Administrative Staff {AdministrativeStaffId}",
-                    request.Id);
-
                 throw new ArgumentException(
                     $"Invalid request: {string.Join(", ",
                         validationResult.Errors.Select(e => e.ErrorMessage))}");
@@ -51,10 +44,6 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (!administrativeStaff)
             {
-                _logger.LogWarning(
-                    "Administrative Staff {AdministrativeStaffId} not found while deleting",
-                    request.Id);
-
                 throw new KeyNotFoundException(
                     $"Administrative Staff with Id {request.Id} not found.");
             }
@@ -63,18 +52,9 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
 
             if (!isDeleted)
             {
-                _logger.LogWarning(
-                    "Failed to delete Administrative Staff {AdministrativeStaffId}",
-                    request.Id);
-
                 throw new InvalidOperationException(
                     $"Failed to delete Administrative Staff with Id {request.Id}.");
             }
-
-            _logger.LogInformation(
-                "Administrative Staff {AdministrativeStaffId} deleted successfully",
-                request.Id);
-
             return isDeleted;
         }
     }

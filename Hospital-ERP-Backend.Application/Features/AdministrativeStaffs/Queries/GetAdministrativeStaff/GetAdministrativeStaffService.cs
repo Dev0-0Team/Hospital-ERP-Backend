@@ -11,16 +11,13 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Queries
     {
         private readonly IBaseQueryRepository<AdministrativeStaff> _repository;
         private readonly IValidator<GetAdministrativeStaffRequest> _validator;
-        private readonly ILogger<GetAdministrativeStaffService> _logger;
 
         public GetAdministrativeStaffService(
             IBaseQueryRepository<AdministrativeStaff> repository,
-            IValidator<GetAdministrativeStaffRequest> validator,
-            ILogger<GetAdministrativeStaffService> logger)
+            IValidator<GetAdministrativeStaffRequest> validator)
         {
             _repository = repository;
             _validator = validator;
-            _logger = logger;
         }
 
         public async Task<GetAdministrativeStaffResponse> Handle(
@@ -37,10 +34,6 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Queries
 
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning(
-                    "Validation failed while getting Administrative Staff {AdministrativeStaffId}",
-                    request.Id);
-
                 throw new ArgumentException(
                     $"Invalid request: {string.Join(", ",
                         validationResult.Errors.Select(e => e.ErrorMessage))}");
@@ -50,10 +43,6 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Queries
 
             if (administrativeStaff == null)
             {
-                _logger.LogWarning(
-                    "Administrative Staff {AdministrativeStaffId} not found",
-                    request.Id);
-
                 throw new KeyNotFoundException(
                     $"Administrative Staff with Id {request.Id} not found.");
             }
