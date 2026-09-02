@@ -11,8 +11,8 @@ namespace Hospital_ERP_Backend.API.Controllers
             return StatusCode(code, new ApiResponse<T>
             {
                 statusCode = code,
-                Message = message ?? (code == 200 ? "Success" : "Error"),
-                Data = data
+                message = message ?? (code == 200 ? "Success" : "Error"),
+                data = data
             });
         }
     }

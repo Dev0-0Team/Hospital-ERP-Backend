@@ -69,8 +69,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateMedicalRecordResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Medical Record Created Successfully!",
-                    Data = response
+                    message = "Medical Record Created Successfully!",
+                    data = response
                 });
         }
 

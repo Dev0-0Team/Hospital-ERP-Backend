@@ -2,10 +2,12 @@ using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Commands.UpdateAdministrativeStaff
 {
-    internal class UpdateAdministrativeStaffService : IRequestHandler<UpdateAdministrativeStaffRequest, UpdateAdministrativeStaffResponse>
+    internal class UpdateAdministrativeStaffService :
+        IRequestHandler<UpdateAdministrativeStaffRequest, UpdateAdministrativeStaffResponse>
     {
         private readonly IBaseCommandRepository<AdministrativeStaff> _repository;
         private readonly IBaseCommandRepository<Person> _personRepository;
@@ -24,12 +26,14 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
             _validator = validator;
         }
 
-        public async Task<UpdateAdministrativeStaffResponse> Handle(UpdateAdministrativeStaffRequest request, CancellationToken cancellationToken)
+        public async Task<UpdateAdministrativeStaffResponse> Handle(UpdateAdministrativeStaffRequest request,
+            CancellationToken cancellationToken)
         {
             return await UpdateAdministrativeStaffAsync(request);
         }
 
-        private async Task<UpdateAdministrativeStaffResponse> UpdateAdministrativeStaffAsync(UpdateAdministrativeStaffRequest request)
+        private async Task<UpdateAdministrativeStaffResponse> UpdateAdministrativeStaffAsync(
+            UpdateAdministrativeStaffRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request);
 
@@ -37,39 +41,46 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
             {
                 throw new ArgumentException(
                     string.Join(", ",
-                    validationResult.Errors.Select(x => x.ErrorMessage)));
+                        validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
             bool person = await _personRepository.IsExistAsync(request.PersonId);
 
             if (!person)
             {
-                throw new KeyNotFoundException($"Person with Id {request.PersonId} not found.");
+                throw new KeyNotFoundException(
+                    $"Person with Id {request.PersonId} not found.");
             }
 
             bool department = await _departmentRepository.IsExistAsync(request.DepartmentId);
 
             if (!department)
             {
-                throw new KeyNotFoundException($"Department with Id {request.DepartmentId} not found.");
+                throw new KeyNotFoundException(
+                    $"Department with Id {request.DepartmentId} not found.");
             }
 
-            AdministrativeStaff? administrativeStaff = await _repository.FindAsync(request.Id);
+            AdministrativeStaff? administrativeStaff =
+                await _repository.FindAsync(request.Id);
 
             if (administrativeStaff == null)
             {
-                throw new KeyNotFoundException($"administrative staff with Id {request.Id} not found.");
+                throw new KeyNotFoundException(
+                    $"Administrative Staff with Id {request.Id} not found.");
             }
+
             administrativeStaff.PersonId = request.PersonId;
             administrativeStaff.DepartmentId = request.DepartmentId;
             administrativeStaff.JobTitle = request.JobTitle;
             administrativeStaff.UpdatedAt = DateTime.UtcNow;
 
-            AdministrativeStaff? result = await _repository.UpdateAsync(administrativeStaff);
+            AdministrativeStaff? result =
+                await _repository.UpdateAsync(administrativeStaff);
 
             if (result == null)
             {
-                throw new InvalidOperationException("Failed to create Doctor.");
+                throw new InvalidOperationException(
+                    $"Failed to update Administrative Staff with Id {request.Id}.");
             }
 
             return new UpdateAdministrativeStaffResponse

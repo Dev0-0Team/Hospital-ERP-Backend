@@ -75,8 +75,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateMedicationInventoryResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Medication Inventroy Created Successfully!",
-                    Data = response
+                    message = "Medication Inventroy Created Successfully!",
+                    data = response
                 });
         }
 

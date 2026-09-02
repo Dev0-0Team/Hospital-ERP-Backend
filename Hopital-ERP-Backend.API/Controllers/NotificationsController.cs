@@ -76,8 +76,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateNotificationResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "bed Created Successfully!",
-                    Data = result
+                    message = "bed Created Successfully!",
+                    data = result
                 });
         }
 

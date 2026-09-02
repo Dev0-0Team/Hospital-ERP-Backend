@@ -74,8 +74,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateChronicDiseaseResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Chronic Disease Created Successfully!",
-                    Data = result
+                    message = "Chronic Disease Created Successfully!",
+                    data = result
                 });
         }
 

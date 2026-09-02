@@ -71,8 +71,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateSurgeriesHistoryResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Surgeries History Created Successfully!",
-                    Data = response
+                    message = "Surgeries History Created Successfully!",
+                    data = response
                 });
         }
 

@@ -74,8 +74,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateDrugInteractionResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Drug Interaction Created Successfully!",
-                    Data = response
+                    message = "Drug Interaction Created Successfully!",
+                    data = response
                 });
         }
 

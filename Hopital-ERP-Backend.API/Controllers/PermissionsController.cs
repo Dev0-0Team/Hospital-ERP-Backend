@@ -58,8 +58,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreatePermissionResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Permission Created Successfully!",
-                    Data = success
+                    message = "Permission Created Successfully!",
+                    data = success
                 });
         }
 

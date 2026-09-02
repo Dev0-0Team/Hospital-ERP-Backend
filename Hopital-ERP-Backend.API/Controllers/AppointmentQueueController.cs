@@ -72,8 +72,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateAppointmentQueueResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Appointment Queue Created Successfully!",
-                    Data = response
+                    message = "Appointment Queue Created Successfully!",
+                    data = response
                 });
         }
 

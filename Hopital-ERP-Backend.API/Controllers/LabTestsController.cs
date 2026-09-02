@@ -74,8 +74,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateLabTestResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Lab Test Created Successfully!",
-                    Data = success
+                    message = "Lab Test Created Successfully!",
+                    data = success
                 });
         }
 

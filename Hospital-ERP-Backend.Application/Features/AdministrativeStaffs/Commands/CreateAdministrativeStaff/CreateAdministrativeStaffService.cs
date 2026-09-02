@@ -2,6 +2,7 @@ using FluentValidation;
 using Hospital_ERP_Backend.Domain.Entities;
 using Hospital_ERP_Backend.Domain.Interfaces.Base;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Commands.CreateAdministrativeStaff
 {
@@ -69,6 +70,7 @@ namespace Hospital_ERP_Backend.Application.Features.AdministrativeStaffs.Command
                 throw new InvalidOperationException("Failed to create Administrative Staff.");
             }
 
+        
             return new CreateAdministrativeStaffResponse
             {
                 Id = result.Id,

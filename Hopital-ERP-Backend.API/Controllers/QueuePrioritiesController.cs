@@ -57,8 +57,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateQueuePriorityResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "bed Created Successfully!",
-                    Data = success
+                    message = "bed Created Successfully!",
+                    data = success
                 });
         }
 

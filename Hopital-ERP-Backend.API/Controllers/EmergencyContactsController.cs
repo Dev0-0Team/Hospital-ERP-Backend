@@ -74,8 +74,8 @@ namespace Hospital_ERP_Backend.API.Controllers
                 new ApiResponse<CreateEmergencyContactResponse>
                 {
                     statusCode = StatusCodes.Status201Created,
-                    Message = "Emergency Contact Created Successfully!",
-                    Data = success
+                    message = "Emergency Contact Created Successfully!",
+                    data = success
                 });
         }
 

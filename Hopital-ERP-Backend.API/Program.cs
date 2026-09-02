@@ -20,8 +20,8 @@ builder.Services.AddAPIServiceExtension(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseMiddleware<LoggingMiddleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
