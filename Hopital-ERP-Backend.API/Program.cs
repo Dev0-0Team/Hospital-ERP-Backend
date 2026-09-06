@@ -9,6 +9,7 @@ builder.Services.AddMediatorConfigurationExtension();
 
 builder.Services.AddCorsConfigurationExtension(builder.Configuration);
 builder.Services.AddJwtAuthenticationExtension(builder.Configuration);
+builder.Services.AddRateLimitingExtension();
 
 builder.Services.AddAuthorizationConfigurationExtension();
 builder.Services.AddControllers();
@@ -19,11 +20,9 @@ builder.Services.AddSwaggerGenExtension();
 builder.Services.AddAPIServiceExtension(builder.Configuration);
 
 var app = builder.Build();
-
 app.UseMiddleware<LoggingMiddleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -31,6 +30,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthentication();
+
+app.UseRateLimitingExtension();
 
 app.UseAuthorization();
 
