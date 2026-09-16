@@ -1,4 +1,5 @@
 ﻿using System.Security.Authentication;
+using Hospital_ERP_Backend.API.Exceptions;
 
 namespace Hospital_ERP_Backend.API.Middleware
 {
@@ -73,6 +74,11 @@ namespace Hospital_ERP_Backend.API.Middleware
 
                 case FormatException ex:
                     statusCode = StatusCodes.Status400BadRequest;
+                    message = ex.Message;
+                    break;
+
+                case TooManyRequestsException ex:
+                    statusCode = StatusCodes.Status429TooManyRequests;
                     message = ex.Message;
                     break;
 
