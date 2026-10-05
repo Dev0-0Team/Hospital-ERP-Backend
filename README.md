@@ -15,7 +15,7 @@
 [![Compiler-A](https://img.shields.io/badge/GitHub-Compiler--A-181717?logo=github)](https://github.com/Compiler-A)
 [![Abdel-RahmanOwais](https://img.shields.io/badge/GitHub-Abdel--RahmanOwais-181717?logo=github)](https://github.com/Abdel-RahmanOwais)
 [![ahmedayman25606](https://img.shields.io/badge/GitHub-ahmedayman25606-181717?logo=github)](https://github.com/ahmedayman25606)
-[![med-khelifi](https://img.shields.io/badge/GitHub-ahmedayman25606-181717?logo=github)](https://github.com/med-khelifi)
+[![med-khelifi](https://img.shields.io/badge/GitHub-med-khelifi-181717?logo=github)](https://github.com/med-khelifi)
 
 ---
 
